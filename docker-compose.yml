@@ -1,5 +1,4 @@
 #Taken straight from chat
-version: '3.8'
 
 services:
   backend:
@@ -7,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - "8080:8080"
     networks:
       - app-network
 
