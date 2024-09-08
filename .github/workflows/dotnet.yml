@@ -9,47 +9,79 @@ on:
   pull_request:
     branches: [ "main", "dev" ]
 
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:20.10.7
-        options: --privileged  # Required to run Docker in Docker
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Docker
+    - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Set up .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.x
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Set up Docker and Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
 
-    - name: Build the project
-      run: dotnet build --no-restore --configuration Release
+    - name: Build and Start Containers
+      run: |
+        docker-compose -f docker-compose.yml up -d --build
 
     - name: Wait for Database to be Ready
       run: |
-        docker-compose -f docker-compose.yml exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
+        docker-compose exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
 
-    - name: Run Tests
-      run: docker-compose -f docker-compose.yml exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+    - name: Run Backend Tests
+      run: |
+        docker-compose exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
+    - name: Stop and Remove Containers
+      run: |
+        docker-compose down
 
 
-    - name: Shut down Docker Compose services
-      run: docker-compose -f docker-compose.yml down
 
-    # - name: Run backend tests
-    #   run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+# jobs:
+#   build:
 
-    #- name: Run frontend tests
-     # run: npm run test --prefix ./Frontend
+#     runs-on: ubuntu-latest
+
+#     services:
+#       docker:
+#         image: docker:20.10.7
+#         options: --privileged  # Required to run Docker in Docker
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v3
+
+#     - name: Set up Docker
+#       uses: docker/setup-buildx-action@v2
+
+#     - name: Set up .NET Core
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 8.0.x
+
+#     - name: Restore dependencies
+#       run: dotnet restore
+
+#     - name: Build the project
+#       run: dotnet build --no-restore --configuration Release
+
+#     - name: Wait for Database to be Ready
+#       run: |
+#         docker-compose -f docker-compose.yml exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
+
+#     - name: Run Tests
+#       run: docker-compose -f docker-compose.yml exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
+
+#     - name: Shut down Docker Compose services
+#       run: docker-compose -f docker-compose.yml down
