@@ -38,19 +38,25 @@
 # Use the official .NET SDK to build and test the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+
+# Copy the main project files
+COPY Backend/Backend.csproj ./Backend/
+COPY Backend.Tests/Backend.Tests.csproj ./Backend.Tests/
+
+# Copy the rest of the project files
 COPY . .
 
 # Restore dependencies
-RUN dotnet restore "Backend.csproj"
+RUN dotnet restore "Backend/Backend.csproj"
 
 # Build the main project
-RUN dotnet build "Backend.csproj" -c Release -o /app/build
+RUN dotnet build "Backend/Backend.csproj" -c Release -o /app/build
 
 # Build the test project
 RUN dotnet build "Backend.Tests/Backend.Tests.csproj" -c Release -o /app/test-build
 
 # Publish the main project
-RUN dotnet publish "Backend.csproj" -c Release -o /app/publish
+RUN dotnet publish "Backend/Backend.csproj" -c Release -o /app/publish
 
 # Use the official .NET runtime as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
