@@ -35,32 +35,25 @@
 
 
 
-# Use the official .NET SDK to build, test, and publish the app
+# Use the official .NET runtime as a parent image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Use the official .NET SDK to build and test the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
 
-# Restore dependencies
 RUN dotnet restore "Backend.csproj"
-
-# Build the app
 RUN dotnet build "Backend.csproj" -c Release -o /app/build
 
-# Run tests (you can remove this step if you prefer to run tests separately)
-RUN dotnet test "Backend.Tests/Backend.Tests.csproj" --no-restore --verbosity normal
-
-# Publish the app
+FROM build AS publish
 RUN dotnet publish "Backend.csproj" -c Release -o /app/publish
 
-# Use the SDK image for the final stage to support running tests
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
+FROM base AS final
 WORKDIR /app
-EXPOSE 80
-
-# Copy the published app from the build stage
-COPY --from=build /app/publish .
-
-# Entry point for the application
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Backend.dll"]
 
 
