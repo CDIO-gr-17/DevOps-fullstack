@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: .NET CI with tests
 
 on:
   push:
@@ -14,18 +14,41 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged  # Required to run Docker in Docker
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: '8.0.x'
+
+    - name: Build Docker Compose services
+      run: docker-compose -f docker-compose.yml up -d --build
+
+    - name: Wait for services to be ready
+      run: |
+        docker-compose -f docker-compose.yml exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
+
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+
+    - name: Build the project
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
+    - name: Shut down Docker Compose services
+      run: docker-compose -f docker-compose.yml down
 
     # - name: Run backend tests
     #   run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
