@@ -31,13 +31,11 @@ jobs:
 
       - name: Run backend tests
         run: |
-          docker-compose exec -T Backend dotnet test --logger trx
-        env:
-          CONNECTION_STRING: "Host=postgres;Port=5432;Username=postgres;Password=postgres;Database=mydatabase"
+          docker-compose exec -T backend dotnet test
 
       - name: Run frontend tests
         run: |
-          docker-compose exec -T Frontend npm test
+          docker-compose exec -T frontend npm test
 
       - name: Shut down Docker Compose
         run: docker-compose down
