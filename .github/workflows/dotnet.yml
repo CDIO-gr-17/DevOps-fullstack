@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
 
 jobs:
   build:
@@ -26,8 +26,9 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      
-    - name: Run backend tests
-      run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
+    # - name: Run backend tests
+    #   run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
     #- name: Run frontend tests
      # run: npm run test --prefix ./Frontend
