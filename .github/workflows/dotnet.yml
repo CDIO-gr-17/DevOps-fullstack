@@ -15,37 +15,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Build and run Docker Compose
+        run: |
+          docker-compose up -d
+          docker-compose build
 
-    - name: Set up Docker and Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-        docker-compose --version
+      - name: Run backend tests
+        run: |
+          docker-compose exec -T Backend dotnet test --logger trx
+        env:
+          CONNECTION_STRING: "Host=postgres;Port=5432;Username=postgres;Password=postgres;Database=mydatabase"
 
-    - name: Build and Start Containers
-      run: |
-        docker-compose -f docker-compose.yml up -d --build
-        docker-compose ps
+      - name: Run frontend tests
+        run: |
+          docker-compose exec -T Frontend npm test
 
-    - name: Wait for Database to be Ready
-      run: |
-        docker-compose exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
-
-    - name: Run Backend Tests
-      run: |
-        docker-compose exec -T backend dotnet test /app/Backend.Tests/Backend.Tests.csproj --no-restore --verbosity detailed --blame --logger "trx;LogFileName=test_results.trx" --filter "TestCategory!=Integration" --timeout 300
-
-    - name: Stop and Remove Containers
-      run: |
-        docker-compose down
+      - name: Shut down Docker Compose
+        run: docker-compose down
 
 
 # jobs:
