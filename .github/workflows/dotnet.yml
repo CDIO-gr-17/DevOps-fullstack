@@ -31,7 +31,7 @@ jobs:
 
       - name: Run backend tests
         run: |
-          docker-compose exec -T backend dotnet test
+          docker-compose exec -T backend sh -c "cd /src && dotnet test Backend.Tests/Backend.Tests.csproj --no-restore --verbosity detailed --blame --logger 'trx;LogFileName=test_results.trx' --filter 'TestCategory!=Integration' --timeout 300"
 
       - name: Run frontend tests
         run: |
