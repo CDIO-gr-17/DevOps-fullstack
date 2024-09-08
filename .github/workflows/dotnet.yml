@@ -14,7 +14,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
+
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged  # Required to run Docker in Docker
+
+  steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -28,10 +34,12 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y docker-compose
+        docker-compose --version
 
     - name: Build and Start Containers
       run: |
         docker-compose -f docker-compose.yml up -d --build
+        docker-compose ps
 
     - name: Wait for Database to be Ready
       run: |
@@ -39,7 +47,7 @@ jobs:
 
     - name: Run Backend Tests
       run: |
-        docker-compose exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+        docker-compose exec backend dotnet test /app/Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
 
     - name: Stop and Remove Containers
       run: |
