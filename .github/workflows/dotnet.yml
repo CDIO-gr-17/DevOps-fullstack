@@ -20,7 +20,7 @@ jobs:
         image: docker:20.10.7
         options: --privileged  # Required to run Docker in Docker
 
-  steps:
+steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
