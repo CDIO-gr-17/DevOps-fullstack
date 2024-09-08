@@ -30,14 +30,20 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
+
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build the project
       run: dotnet build --no-restore --configuration Release
 
-    - name: Run tests
-      run: dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+    - name: Wait for Database to be Ready
+      run: |
+        docker-compose -f docker-compose.yml exec -T postgres sh -c 'until pg_isready -U $POSTGRES_USER; do sleep 1; done'
+
+    - name: Run Tests
+      run: docker-compose -f docker-compose.yml exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
 
     - name: Shut down Docker Compose services
       run: docker-compose -f docker-compose.yml down
