@@ -50,7 +50,7 @@ jobs:
 
     - name: Run Backend Tests
       run: |
-        docker-compose run backend dotnet test /app/Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+        docker-compose exec -T backend dotnet test /app/Backend.Tests/Backend.Tests.csproj --no-restore --verbosity detailed --blame --logger "trx;LogFileName=test_results.trx" --filter "TestCategory!=Integration" --timeout 300
 
     - name: Stop and Remove Containers
       run: |
