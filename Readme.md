@@ -9,9 +9,9 @@
 
 ## Running fullstack app using:
 `docker-compose up --build`
-Or to abort if one image fails:
+### Or to abort if one image fails:
 `docker-compose up --build --abort-on-container-exit`
 
 
-## Manually run test for backend whith
+## Manually run test for backend with
 `dotnet test`
