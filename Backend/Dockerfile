@@ -1,9 +1,46 @@
+# # Base image
+# FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+# # Set working directory
+# WORKDIR /app
+
+# # Copy the project files
+# COPY Backend/Backend.csproj Backend/
+# COPY Backend.Tests/Backend.Tests.csproj Backend.Tests/
+
+# # Restore dependencies
+# RUN dotnet restore Backend/Backend.csproj
+# RUN dotnet restore Backend.Tests/Backend.Tests.csproj
+
+# # Copy the source files
+# COPY . .
+
+# # Build the application
+# RUN dotnet build Backend/Backend.csproj --no-restore
+
+# # Run tests
+# RUN dotnet test Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
+
+# # Build and publish the backend
+# RUN dotnet publish Backend/Backend.csproj -c Release -o /app/out
+
+# # Runtime image
+# FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+# WORKDIR /app
+# COPY --from=build /app/out .
+
+# ENTRYPOINT ["dotnet", "Backend.dll"]
+
+
+
+
+
 # Use the official .NET runtime as a parent image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-# Use the official .NET SDK to build the app
+# Use the official .NET SDK to build and test the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY . .
