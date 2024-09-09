@@ -24,8 +24,8 @@ jobs:
         uses: actions/checkout@v2
 
       # Ensure Docker is installed
-      # - name: Set up Docker
-      #   uses: docker/setup-buildx-action@v2
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
 
       # Install Docker Compose
       # - name: Install Docker Compose
