@@ -11,7 +11,7 @@ on:
 
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -63,3 +63,25 @@ jobs:
         run: |
           mkdir -p /tmp/.docker
           docker save $(docker-compose config | sed -n '/image:/ s/.* //p') -o /tmp/.docker/layers.tar
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy to Server
+        run: |
+          ssh -o StrictHostKeyChecking=no azureuser@${{ secrets.SERVER_IP }} << 'EOF'
+          cd /home/azureuser/myproject
+          chmod +x deploy.sh
+          ./deploy.sh
+          EOF
