@@ -57,13 +57,11 @@ jobs:
       - name: Test backend
         run: dotnet test -c Release --no-build
 
-      - name: Run frontend tests
+      - name: Test frontend
         run: |
-          docker-compose exec -T frontend sh -c "npm test"
-
-      # - name: Test frontend
-      #   working-directory: ./Frontend
-      #   run: npm test
+          ls
+          cd Frontend
+          npm test
 
   deploy:
     runs-on: ubuntu-latest
