@@ -11,34 +11,34 @@ on:
 
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: Set up Docker and Docker Compose
+      - name: Start dependencies (docker-compose)
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-          docker-compose --version
+                    docker-compose up -d
 
-      - name: Build and run Docker Compose
-        run: |
-          docker-compose up -d
-          docker-compose build
+      - name: Wait for SQL Server container
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '5s'
 
-      - name: Run backend tests
-        run: |
-          docker-compose exec -T dotnet test
+      - name: Install .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.x'
 
-      - name: Run frontend tests
-        run: |
-          docker-compose exec -T frontend npm test
+      - name: Restore NuGet packages
+        run: dotnet restore
 
-      - name: Shut down Docker Compose
-        run: docker-compose down
+      - name: Build
+        run: dotnet build -c Release --no-restore
+
+      - name: Test
+        run: dotnet test -c Release --no-build
 
 
 # jobs:

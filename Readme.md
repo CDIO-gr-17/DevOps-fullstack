@@ -11,6 +11,9 @@
 `docker-compose up --build`
 ### Or to abort if one image fails:
 `docker-compose up --build --abort-on-container-exit`
+### Ad -d flag if want to run in background
+`docker-compose up --build --abort-on-container-exit -d`
+
 
 
 ## Manually run test for backend with
