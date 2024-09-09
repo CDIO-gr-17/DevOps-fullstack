@@ -21,22 +21,34 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-
-
-      # Install Docker Compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      # Spin up services with Docker Compose
+      - name: Load Docker cache
+        id: docker-cache
+        run: |
+          mkdir -p /tmp/.docker
+          if [[ -f /tmp/.docker/layers.tar ]]; then
+            docker load -i /tmp/.docker/layers.tar || echo "No cached layers found"
+          fi
+
       - name: Start services
         run: docker-compose up -d
 
-      - name: Wait for SQL Server container
-        uses: jakejarvis/wait-action@master
+      - name: Cache .NET packages
+        uses: actions/cache@v3
         with:
-          time: '5s'
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            nuget-${{ runner.os }}-
+
+      # - name: Wait for SQL Server container
+      #   uses: jakejarvis/wait-action@master
+      #   with:
+      #     time: '5s'
 
       - name: Install .NET Core SDK
         uses: actions/setup-dotnet@v1
@@ -51,6 +63,12 @@ jobs:
 
       - name: Test
         run: dotnet test -c Release --no-build
+
+      - name: Save Docker cache
+        if: steps.docker-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p /tmp/.docker
+          docker save $(docker-compose config | sed -n '/image:/ s/.* //p') -o /tmp/.docker/layers.tar
 
       - name: Shut down Docker Compose services
         run: docker-compose -f docker-compose.yml down
