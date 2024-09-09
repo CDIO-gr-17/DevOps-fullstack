@@ -80,8 +80,8 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh -o StrictHostKeyChecking=no azureuser@${{ secrets.SERVER_IP }} << 'EOF'
-          cd /home/azureuser/myproject
+          ssh -o StrictHostKeyChecking=no ${{secrets.SERVER_USER}}@${{ secrets.SERVER_IP }} << 'EOF'
+          cd /home/azureuser/DevOps-fullstack
           chmod +x deploy.sh
           ./deploy.sh
           EOF
