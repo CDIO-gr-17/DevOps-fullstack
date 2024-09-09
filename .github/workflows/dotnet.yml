@@ -45,8 +45,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          # Assuming your tests are inside Docker or configured to run here
-          docker-compose exec -T <your_service> <your_test_command>
+          docker-compose exec -T backend dotnet test
 
       - name: Save Docker cache
         run: |
