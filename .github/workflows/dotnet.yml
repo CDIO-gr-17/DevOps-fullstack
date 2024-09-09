@@ -58,12 +58,6 @@ jobs:
       - name: Test
         run: dotnet test -c Release --no-build
 
-      - name: Save Docker cache
-        if: steps.docker-cache.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p /tmp/.docker
-          docker save $(docker-compose config | sed -n '/image:/ s/.* //p') -o /tmp/.docker/layers.tar
-
 
   deploy:
     runs-on: ubuntu-latest
