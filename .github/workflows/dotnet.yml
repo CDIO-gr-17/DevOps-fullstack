@@ -70,5 +70,5 @@ jobs:
           mkdir -p /tmp/.docker
           docker save $(docker-compose config | sed -n '/image:/ s/.* //p') -o /tmp/.docker/layers.tar
 
-      - name: Shut down Docker Compose services
-        run: docker-compose -f docker-compose.yml down
+      # - name: Shut down Docker Compose services
+      #   run: docker-compose -f docker-compose.yml down
