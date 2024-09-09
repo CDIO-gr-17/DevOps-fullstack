@@ -17,7 +17,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-            # Ensure Docker is installed
+      # Ensure Docker is installed
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
@@ -30,10 +30,6 @@ jobs:
       # Spin up services with Docker Compose
       - name: Start services
         run: docker-compose up -d
-
-      - name: Start dependencies (docker-compose)
-        run: |
-                    docker-compose up -d
 
       - name: Wait for SQL Server container
         uses: jakejarvis/wait-action@master
@@ -53,6 +49,9 @@ jobs:
 
       - name: Test
         run: dotnet test -c Release --no-build
+
+      - name: Shut down Docker Compose services
+        run: docker-compose -f docker-compose.yml down
 
 
 # jobs:
@@ -91,5 +90,3 @@ jobs:
 #       run: docker-compose -f docker-compose.yml exec backend dotnet test ./Backend.Tests/Backend.Tests.csproj --no-restore --verbosity normal
 
 
-#     - name: Shut down Docker Compose services
-#       run: docker-compose -f docker-compose.yml down
