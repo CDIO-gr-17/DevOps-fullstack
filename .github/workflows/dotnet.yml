@@ -5,10 +5,9 @@ name: .NET CI with tests
 
 on:
   push:
-    branches: [ "main", "dev" ]
+    branches: ["main", "dev"]
   pull_request:
-    branches: [ "main", "dev" ]
-
+    branches: ["main", "dev"]
 
 jobs:
   build-and-test:
@@ -31,7 +30,7 @@ jobs:
           path: /tmp/.docker
           key: ${{ runner.os }}-docker-${{ github.sha }}
           restore-keys: |
-              ${{ runner.os }}-docker-
+            ${{ runner.os }}-docker-
 
       - name: Start services
         run: docker-compose up -d
@@ -47,7 +46,7 @@ jobs:
       - name: Install .NET Core SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: "8.0.x"
 
       - name: Restore NuGet packages
         run: dotnet restore
@@ -55,9 +54,12 @@ jobs:
       - name: Build
         run: dotnet build -c Release --no-restore
 
-      - name: Test
+      - name: Test backend
         run: dotnet test -c Release --no-build
 
+      - name: Test frontend
+        working-directory: ./Frontend
+        run: npm test
 
   deploy:
     runs-on: ubuntu-latest
