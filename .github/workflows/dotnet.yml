@@ -59,8 +59,9 @@ jobs:
 
       - name: Test frontend
         run: |
-          docker-compose exec -T frontend npm install
-          docker-compose exec -T frontend npm test
+          cd Frontend
+          npm install
+          npm test
 
   deploy:
     runs-on: ubuntu-latest
