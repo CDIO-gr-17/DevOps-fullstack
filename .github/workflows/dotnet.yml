@@ -13,11 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:20.10.7
-        options: --privileged  # Required to run Docker in Docker
+    container:
+      image: docker:27.2.0  # Use a Docker image with Docker and Docker Compose pre-installed
+      options: --privileged  # Needed for Docker-in-Docker scenarios
 
     steps:
       - name: Check out code
