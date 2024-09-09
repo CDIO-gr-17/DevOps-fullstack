@@ -58,7 +58,7 @@ jobs:
         run: dotnet test -c Release --no-build
 
       - name: Test frontend
-        run: docker-compose exec -T frontend npm test
+        run: docker-compose exec -T frontend-test npm test
 
   deploy:
     runs-on: ubuntu-latest

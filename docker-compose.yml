@@ -24,6 +24,15 @@ services:
     networks:
       - app-network
 
+  frontend-test:
+    build:
+      context: ./Frontend
+      target: test  # Use the test stage for testing
+    command: npm test
+    volumes:
+      - ./Frontend:/app
+    working_dir: /app
+
   postgres:
     image: postgres:16
     environment:
@@ -43,5 +52,3 @@ networks:
 
 volumes:
   postgres-data:
-
-    #Sure
