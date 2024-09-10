@@ -16,5 +16,8 @@
 
 
 
-## Manually run test for backend with
+## Manually run tests for backend with
 `dotnet test`
+
+## Manually run tests for frontend with
+`npm test` or `npm vitest`
