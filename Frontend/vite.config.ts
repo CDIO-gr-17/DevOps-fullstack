@@ -14,4 +14,7 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["vitest.setup.ts"],
   },
+  css: {
+    postcss: "./postcss.config.js",
+  },
 });
