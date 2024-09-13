@@ -21,6 +21,6 @@ window.onload = function() {
       }else {
         document.title = attentionMessage;
       }
-    }, 100);
+    }, 500);
   }
 };
