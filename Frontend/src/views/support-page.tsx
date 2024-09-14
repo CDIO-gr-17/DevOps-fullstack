@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Contact } from "lucide-react";
 import { useRef, useEffect, useState } from "react";
 
 export default function SupportPage() {
@@ -67,15 +66,16 @@ export default function SupportPage() {
         <div className=" py-40">
           <h1>Contact Us</h1>
           <ContactUsComponent />
-          <div className=" flex w-screen">
+          <div className=" flex w-screen items-center justify-center space-x-20 space-y-5">
             <img
               src="costumer_rep1.png"
               alt="Costumer support Representative 1"
-              className="rounded-3xl"
+              className="w-1/4"
             />
             <img
               src="costumer_rep2.png"
               alt="Costumer support Representative 2"
+              className="w-1/4 scale-90"
             />
           </div>
         </div>
