@@ -21,7 +21,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Ensure that any missing files result in index.html being served
-        manualChunks(id) {
+        manualChunks() {
           return "index.html";
         },
       },
