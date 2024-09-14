@@ -5,30 +5,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useRef, useEffect, useState } from "react";
+import useScrollEffect from "@/lib/useScrollEffect";
+import { useRef, useState } from "react";
 
 export default function SupportPage() {
   const imageRef = useRef<HTMLImageElement>(null);
   const [opacity, setOpacity] = useState(0.6); // To control the opacity of the background image
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (imageRef.current) {
-        const scrollPosition = window.scrollY;
-        const maxScroll =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const scale = 1 + (scrollPosition / maxScroll) * 1; // Adjust the multiplier to control the zoom speed
-        setOpacity(0.6 - scrollPosition / maxScroll); // Adjust the opacity of the image
-        imageRef.current.style.transform = `scale(${scale})`;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  useScrollEffect(imageRef, setOpacity);
 
   return (
     <>
