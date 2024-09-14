@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 
 // Note: These imports assume you have these components from a UI library like shadcn/ui
@@ -34,7 +35,7 @@ const NavigationMenu = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
     if (currentScrollY < 0) {
@@ -51,14 +52,14 @@ const NavigationMenu = () => {
     }
 
     setLastScrollY(currentScrollY);
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY]);
+  }, [handleScroll]);
 
   return (
     <nav
@@ -67,18 +68,18 @@ const NavigationMenu = () => {
       }`}
     >
       <div className="flex h-16 items-center px-4">
-        <a href="/" className="mr-6 flex items-center space-x-2">
+        <Link to="/" className="mr-6 flex items-center space-x-2">
           <span className="text-2xl font-bold">AuctionSite</span>
-        </a>
+        </Link>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
             <div key={item.name} className="relative group">
-              <a
-                href={item.href}
+              <Link
+                to={item.href}
                 className="text-sm font-medium text-gray-700 hover:text-gray-900"
               >
                 {item.name}
-              </a>
+              </Link>
               {item.subItems && (
                 <div className="absolute -left-16 mt-0 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-out duration-200">
                   <div
@@ -88,14 +89,14 @@ const NavigationMenu = () => {
                     aria-labelledby="options-menu"
                   >
                     {item.subItems.map((subItem) => (
-                      <a
+                      <Link
                         key={subItem.name}
-                        href={subItem.href}
+                        to={subItem.href}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                       >
                         {subItem.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -128,19 +129,19 @@ const NavigationMenu = () => {
               <nav className="flex flex-col space-y-4">
                 {navItems.map((item) => (
                   <React.Fragment key={item.name}>
-                    <a href={item.href} className="text-lg font-medium">
+                    <Link to={item.href} className="text-lg font-medium">
                       {item.name}
-                    </a>
+                    </Link>
                     {item.subItems && (
                       <div className="ml-4 flex flex-col space-y-2">
                         {item.subItems.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.name}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="text-sm text-gray-600"
                           >
                             {subItem.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     )}
