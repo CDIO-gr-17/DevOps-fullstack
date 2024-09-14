@@ -1,5 +1,3 @@
-"use client";
-
 import { Mail, Phone } from "lucide-react";
 
 export function ContactUsComponent() {
