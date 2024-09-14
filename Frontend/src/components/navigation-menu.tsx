@@ -37,14 +37,22 @@ const NavigationMenu = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleScroll = () => {
-    if (window.scrollY > lastScrollY) {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY < 0) {
+      // Prevent negative scroll values
+      return;
+    }
+
+    if (currentScrollY > lastScrollY) {
       // Scrolling down
       setIsVisible(false);
-    } else {
+    } else if (currentScrollY < lastScrollY) {
       // Scrolling up
       setIsVisible(true);
     }
-    setLastScrollY(window.scrollY);
+
+    setLastScrollY(currentScrollY);
   };
 
   useEffect(() => {

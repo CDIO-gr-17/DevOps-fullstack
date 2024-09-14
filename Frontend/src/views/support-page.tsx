@@ -10,7 +10,7 @@ import { useRef, useEffect, useState } from "react";
 
 export default function SupportPage() {
   const imageRef = useRef(null);
-  const [opacity, setOpacity] = useState(0.5); // To control the opacity of the background image
+  const [opacity, setOpacity] = useState(0.6); // To control the opacity of the background image
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,7 +19,7 @@ export default function SupportPage() {
         const maxScroll =
           document.documentElement.scrollHeight - window.innerHeight;
         const scale = 1 + (scrollPosition / maxScroll) * 1; // Adjust the multiplier to control the zoom speed
-        setOpacity(1 - scrollPosition / maxScroll); // Adjust the opacity of the image
+        setOpacity(0.6 - scrollPosition / maxScroll); // Adjust the opacity of the image
         imageRef.current.style.transform = `scale(${scale})`;
       }
     };
