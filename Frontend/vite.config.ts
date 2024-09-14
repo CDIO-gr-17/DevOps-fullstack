@@ -17,4 +17,14 @@ export default defineConfig({
   css: {
     postcss: "./postcss.config.js",
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Ensure that any missing files result in index.html being served
+        manualChunks(id) {
+          return "index.html";
+        },
+      },
+    },
+  },
 });
