@@ -8,7 +8,7 @@ import {
 import { useRef, useEffect, useState } from "react";
 
 export default function SupportPage() {
-  const imageRef = useRef(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const [opacity, setOpacity] = useState(0.6); // To control the opacity of the background image
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function SupportPage() {
           <h1>Support Page</h1>
           <p>How can we help you?</p>
         </div>
-        <div className=" py-40">
+        <div className=" py-80">
           <h1>FAQ</h1>
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
@@ -63,7 +63,7 @@ export default function SupportPage() {
           </Accordion>
           <p>Here are some frequently asked questions.</p>
         </div>
-        <div className=" py-40">
+        <div className=" py-80">
           <h1>Contact Us</h1>
           <ContactUsComponent />
           <div className=" flex w-screen items-center justify-center space-x-20 space-y-5">
