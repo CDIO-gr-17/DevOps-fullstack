@@ -1,4 +1,3 @@
-import { ContactUsComponent } from "@/components/contact-us";
 import {
   Accordion,
   AccordionContent,
@@ -7,6 +6,8 @@ import {
 } from "@/components/ui/accordion";
 import useScrollEffect from "@/lib/useScrollEffect";
 import { useRef, useState } from "react";
+import { ContactUsComponent } from "./contact-us";
+import { SubmitTicketComponent } from "./submit-ticket";
 
 export default function SupportPage() {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -49,6 +50,7 @@ export default function SupportPage() {
         </div>
         <div className=" py-80">
           <h1>Contact Us</h1>
+          <SubmitTicketComponent />
           <ContactUsComponent />
           <div className=" flex w-screen items-center justify-center space-x-20 space-y-5">
             <img
