@@ -20,6 +20,15 @@ const navItems = [
     ],
   },
   {
+    name: "Product Catalogue",
+    href: "/products",
+    subItems: [
+      { name: "All Products", href: "/products/all" },
+      { name: "Categories", href: "/products/categories" },
+      { name: "New Arrivals", href: "/products/new" },
+    ],
+  },
+  {
     name: "Support",
     href: "/support",
     subItems: [
