@@ -61,7 +61,7 @@ export default function ProductCard({
               } hover:scale-110 active:scale-95`}
               aria-label={isAdded ? "Added to cart" : "Add to cart"}
             >
-              <div className={`transition-transform duration-300 ${isAdded ? 'rotate-180' : 'rotate-0'}`}>
+              <div className={`transition-transform duration-300 ${isAdded ? 'animate-rotate-sequence' : ''}`}>
                 {isAdded ? (
                   <Check className="h-6 w-6 animate-checkmark" />
                 ) : (
@@ -73,29 +73,35 @@ export default function ProductCard({
       </div>
     </div>
     <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes checkmark {
-          0% { transform: scale(0); }
-          50% { transform: scale(1.2); }
-          100% { transform: scale(1); }
-        }
-        .animate-fadeIn {
-          opacity: 0;
-          animation: fadeIn 0.5s ease-out forwards;
-        }
-        .animation-delay-200 {
-          animation-delay: 0.2s;
-        }
-        .animation-delay-400 {
-          animation-delay: 0.4s;
-        }
-        .animate-checkmark {
-          animation: checkmark 0.3s ease-out;
-        }
-      `}</style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  @keyframes rotateSequence {
+    100% { transform: rotate(360deg); }
+  }
+  .animate-fadeIn {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+  .animate-checkmark {
+    animation: checkmark 0.3s ease-out;
+  }
+  .animate-rotate-sequence {
+    animation: rotateSequence 0.4s ease-in-out;
+  }
+`}</style>
     </div>
   );
   
