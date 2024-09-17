@@ -1,62 +1,102 @@
-import { useState } from 'react';
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star } from "lucide-react";
+import { Check, ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface ProductCardProps {
   imageSrc?: string;
   productName?: string;
   description?: string;
-  price?: number;
-  rating?: number;
+  listing?: number;
   category?: string;
 }
 
-export default function ProductCard({ 
-  imageSrc = "/placeholder.svg?height=300&width=300",
-  productName = "Ultra HD Smart TV",
-  description = "Experience breathtaking clarity and vibrant colors with our latest 4K Ultra HD Smart TV. Featuring AI-enhanced picture quality and immersive sound.",
-  price,
-  rating,
-  category = "Electronics"
+export default function ProductCard({
+  imageSrc = "/placeholder.svg?height=300&width=400",
+  productName = "Minimalist Watch",
+  description = "Sleek design for everyday elegance",
+  listing = 129.99,
+  category = "Accessories"
 }: ProductCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
 
+  const [isAdded, setIsAdded] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
+  const handleAddToCart = () => {
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 2000)
+  }
+  
   return (
-    <Card className="w-80 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1">
-      <CardContent className="p-0">
-        <div 
-          className="relative overflow-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className={`transition-all duration-500 ease-in-out ${isHovered ? 'scale-110 blur-sm' : 'scale-100'}`}>
-            <img
-              src={imageSrc}
-              alt={productName}
-              className="w-full h-56 object-cover"
-            />
-          </div>
-          <div className={`absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center p-6 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-            <p className="text-sm text-gray-100 text-center">{description}</p>
-          </div>
-          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground">{category}</Badge>
+    <div className="flex items-center justify-center p-4">
+      <div 
+        className={`w-full max-w-sm bg-white rounded-lg overflow-hidden shadow hover:shadow-xl transition-all duration-300 ease-in-out ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}
+      >
+      <div className="relative aspect-[0] w-full overflow-hidden group">
+        <img
+          src={imageSrc}
+          alt={productName}
+          className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
+        />
         </div>
-        <div className="p-4">
-          <h3 className="font-bold text-lg mb-2 text-gray-100">{productName}</h3>
-          <div className="flex justify-between items-center mb-2">
-            {price !== undefined && (
-              <span className="text-2xl font-semibold text-primary">${price.toFixed(2)}</span>
-            )}
-            {rating !== undefined && (
-              <div className="flex items-center">
-                <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                <span className="ml-1 text-sm text-gray-300">{rating.toFixed(1)}</span>
+        {category && (
+          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground">
+            {category}
+          </Badge>
+        )}
+      <div className="p-6">
+        <h2 className="text-xl font-semibold text-gray-800 mb-2 text-left animate-fadeIn">{productName}</h2>
+        <p className="text-gray-600 mb-4 text-left animate-fadeIn animation-delay-200">{"test"}</p>
+        <div className="flex items-center justify-between">
+          <span className="text-2xl font-bold text-gray-900 animate-fadeIn animation-delay-400">${listing.toFixed(2)}</span>
+          <button
+              onClick={handleAddToCart}
+              className={`p-2 rounded-full transition-all duration-300 ease-in-out ${
+                isAdded ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-800'
+              } hover:scale-110 active:scale-95`}
+              aria-label={isAdded ? "Added to cart" : "Add to cart"}
+            >
+              <div className={`transition-transform duration-300 ${isAdded ? 'rotate-180' : 'rotate-0'}`}>
+                {isAdded ? (
+                  <Check className="h-6 w-6 animate-checkmark" />
+                ) : (
+                  <ShoppingCart className="h-6 w-6" />
+                )} 
               </div>
-            )}
-          </div>
+            </button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
+    <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes checkmark {
+          0% { transform: scale(0); }
+          50% { transform: scale(1.2); }
+          100% { transform: scale(1); }
+        }
+        .animate-fadeIn {
+          opacity: 0;
+          animation: fadeIn 0.5s ease-out forwards;
+        }
+        .animation-delay-200 {
+          animation-delay: 0.2s;
+        }
+        .animation-delay-400 {
+          animation-delay: 0.4s;
+        }
+        .animate-checkmark {
+          animation: checkmark 0.3s ease-out;
+        }
+      `}</style>
+    </div>
   );
+  
 }
