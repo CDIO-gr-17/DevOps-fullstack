@@ -32,7 +32,7 @@ function LionPainting() {
     { time: "21 Sep 2024 09:32", amount: "$254" },
     { time: "21 Sep 2024 12:54", amount: "$254" },
     { time: "21 Sep 2024 15:04", amount: "$254" },
-    { time: "21 Sep 2024 17:43", amount: "$254" },
+    { time: "21 Sep 2024 17:43", amount: "$750" },
   ];
 
   const toggleOverlay = () => {
@@ -95,17 +95,17 @@ function LionPainting() {
             <div className="price-status-bids">
               <p className="price-status">Price |</p>
               <button className="price-bids" onClick={toggleOverlay}>
-                3 bets
+                3 bids
               </button>
             </div>
             <p className="end-timer-tag"> Ends in</p>
           </div>
           <div className="price-end-timer-container">
-            <p className="product-price">$254</p>
+            <p className="product-price">$750</p>
             <p className="end-timer">3 days 22 hours</p>
           </div>
           <p className="buyer-protection">
-            $264 including buyer protection
+            $764 including buyer protection
             <FaShieldAlt className="shield-logo" />
           </p>
           <button className="bid-button">Place a bid</button>
