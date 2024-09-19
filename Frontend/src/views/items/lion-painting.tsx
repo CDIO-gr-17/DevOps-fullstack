@@ -6,6 +6,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import { CgProfile } from "react-icons/cg";
+import { MdFavorite } from "react-icons/md";
+import { MdFavoriteBorder } from "react-icons/md";
+import { CiMenuBurger } from "react-icons/ci";
+import { FaShieldAlt } from "react-icons/fa";
+import { VscVerified } from "react-icons/vsc";
+import { MdOutlineStarOutline } from "react-icons/md";
+import { GoShare } from "react-icons/go";
+import Carousel from "@/lib/carousel";
+
+const slides = ["lion-painting.png", "lion-painting2.jpg"];
+
 function LionPainting() {
   const Divider = () => {
     return <hr style={{ borderTop: "1px solid lightgrey" }}></hr>;
@@ -16,7 +28,12 @@ function LionPainting() {
       <div className="product-container">
         <div className="product-description-photo">
           <div className="product-photo-container">
-            <img src="lion-painting.png" />
+            {/*<img src="lion-painting.png" />*/}
+            <div className="relative">
+              <div className="max-w-lg">
+                <Carousel slides={slides} />
+              </div>
+            </div>
           </div>
           <div className="product-description-container">
             <h2 className="product-description-title">Description</h2>
@@ -24,7 +41,7 @@ function LionPainting() {
               This beautiful watercolor painting of a lion is a great addition
               to any room. The painting is framed in a wooden frame and is
               signed by the artist. The painting is in great condition and is
-              ready to be hung on the wall. The painting is 50x70 cm.
+              ready to be hung on the wall. The painting is 200x120 cm.
             </p>
             <Divider />
             <div className="small-info-container">
@@ -39,8 +56,12 @@ function LionPainting() {
           <div className="end-date-share-favorite">
             <p className="end-date">Sun 22 Sep 2024 12:54</p>
             <div className="share-fav-container">
-              <div className="share-button">share</div>
-              <div className="favorite-button">fave</div>
+              <button className="share-button">
+                <GoShare />
+              </button>
+              <button className="favorite-button">
+                <MdFavoriteBorder />
+              </button>
             </div>
           </div>
           <h1 className="product-title">Lion Magnifiqué</h1>
@@ -56,7 +77,10 @@ function LionPainting() {
             <p className="product-price">$254</p>
             <p className="end-timer">3 days 22 hours</p>
           </div>
-          <p className="buyer-protection">$264 including buyer protection </p>
+          <p className="buyer-protection">
+            $264 including buyer protection
+            <FaShieldAlt className="shield-logo" />
+          </p>
           <button className="bid-button">Place a bid</button>
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
@@ -79,15 +103,16 @@ function LionPainting() {
           <div className="seller-info-container">
             <div className="seller-name-pic">
               <p className="seller-name">Marius Picasso</p>
-              <img src="seller-profile-pic.png" />
+              <img src="Marius.jpg" className="seller-profile-pic" />
             </div>
             <p className="seller-address">Rødovre, Denmark</p>
             <div className="seller-verifications">
-              <img src="Verified-logo-png" />
+              <p className="seller-verifications-logo"></p>
+              <VscVerified />
               <p className="seller-verifications-text">Verified</p>
             </div>
             <div className="seller-reviews">
-              <img src="review-logo-png" />
+              <MdOutlineStarOutline />
               <p className="seller-reviews-text">44 reviews</p>
             </div>
             <div className="seller-profile-button-container">

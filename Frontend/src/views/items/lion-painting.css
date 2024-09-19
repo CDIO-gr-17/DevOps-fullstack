@@ -29,11 +29,18 @@
 
 .end-date-share-favorite,
 .product-price-status-bids-timer-tag-container,
-.price-end-timer-container,
-.buyer-protection {
+.price-end-timer-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.7rem;
+}
+
+.buyer-protection {
+  display: flex;
+}
+
+.shield-logo {
+  margin-left: 0.5rem;
 }
 .share-fav-container {
   display: flex;
@@ -41,6 +48,14 @@
 }
 .share-button {
   margin-right: 1rem;
+}
+
+.share-button,
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem; /* Adjust the size as needed */
 }
 
 .product-title {
@@ -153,6 +168,12 @@
   color: white;
 }
 
+.seller-contact-button:active,
+.seller-reviews-button:active,
+.seller-follow-button:active {
+  color: #a9a9a9;
+}
+
 .product-description-title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -177,4 +198,12 @@
   color: #6d6d6d;
   font-size: 0.8rem;
   margin-right: 2rem;
+}
+
+.seller-profile-pic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  border: black 1px solid;
 }
