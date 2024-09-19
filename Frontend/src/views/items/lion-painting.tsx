@@ -109,11 +109,12 @@ function LionPainting() {
             <FaShieldAlt className="shield-logo" />
           </p>
           <button className="bid-button">Place a bid</button>
-          <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible className="Accordion">
             <AccordionItem value="item-1">
               <AccordionTrigger>Shipping</AccordionTrigger>
               <AccordionContent>
-                Shipping price within Denmark DKK 36 DHL
+                <p>Shipping price within Denmark </p>
+                <p>DKK 36 DHL</p>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
