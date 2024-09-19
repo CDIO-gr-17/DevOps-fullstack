@@ -1,416 +1,180 @@
-.lion-painting {
-  background-color: #ffffff;
+.product-page {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  align-items: center;
+}
+
+.product-page .product-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-description-photo {
+  display: flex 0 0 40%;
+  justify-content: left;
+  justify-content: flex-start;
+  max-width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-info {
+  display: grid;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  margin-left: 2rem;
+}
+
+.end-date-share-favorite,
+.product-price-status-bids-timer-tag-container,
+.price-end-timer-container,
+.buyer-protection {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+.share-fav-container {
+  display: flex;
+  align-items: center;
+}
+.share-button {
+  margin-right: 1rem;
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  justify-self: left;
+}
+
+.product-subtitle {
+  margin-bottom: 0.5rem;
+  justify-self: left;
+}
+
+.price-status-bids {
+  display: flex;
+  align-items: center;
+}
+
+.price-bids {
+  margin-left: 0.3rem;
+  text-decoration: underline;
+}
+
+.price-status,
+.end-timer-tag,
+.buyer-protection {
+  color: #6d6d6d;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.bid-button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.bid-button:hover {
+  background-color: #8f94f6;
+}
+
+.bid-button:active {
+  background-color: #2428fd;
+}
+
+.seller-info-container {
+  display: grid;
+  margin-top: 1rem;
+}
+
+.seller-name-pic,
+.seller-verifications,
+.seller-reviews {
+  display: flex;
+  align-items: center;
+  margin-top: 0.7rem;
+}
+
+.seller-address {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+
+.seller-name {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: 2rem;
+}
+
+.seller-reviews-text,
+.seller-verifications-text {
+  margin-left: 0.5rem;
+}
+
+.seller-profile-button-container {
+  padding-left: 8.5rem;
+  padding-right: 8.5rem;
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.lion-painting .div {
+.seller-contact-button,
+.seller-reviews-button,
+.seller-follow-button {
   background-color: #ffffff;
-  height: 852px;
-  position: relative;
-  width: 393px;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-color: #6d6d6d;
+  border: 1px solid #6d6d6d;
+  cursor: pointer;
+  width: 30%;
 }
 
-.lion-painting .text-wrapper {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 17px;
-  font-weight: 700;
-  left: 22px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 526px;
+.seller-contact-button:hover,
+.seller-reviews-button:hover,
+.seller-follow-button:hover {
+  background-color: #6d6d6d;
+  color: white;
 }
 
-.lion-painting .overlap {
-  background-image: url(https://c.animaapp.com/1ooum0nI/img/image-1@2x.png);
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 389px;
-  left: 0;
-  position: absolute;
-  top: 92px;
-  width: 393px;
+.product-description-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  margin-top: 2rem;
 }
 
-.lion-painting .group {
-  height: 17px;
-  left: 3px;
-  position: absolute;
-  top: 360px;
-  width: 40px;
+.product-description {
+  font-size: 1rem;
+  margin-bottom: 4rem;
 }
 
-.lion-painting .overlap-group {
-  height: 17px;
-  position: relative;
-  width: 38px;
+.small-info-container {
+  display: flex;
+  margin-bottom: 1rem;
 }
 
-.lion-painting .ellipse {
-  background-color: #ffffff;
-  border-radius: 7.5px/8.5px;
-  height: 17px;
-  left: 23px;
-  position: absolute;
-  top: 0;
-  width: 15px;
-}
-
-.lion-painting .ellipse-2 {
-  background-color: #ffffff;
-  border-radius: 7.5px/8.5px;
-  height: 17px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 15px;
-}
-
-.lion-painting .rectangle {
-  background-color: #ffffff;
-  height: 17px;
-  left: 8px;
-  position: absolute;
-  top: 0;
-  width: 21px;
-}
-
-.lion-painting .text-wrapper-2 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 14px;
-  font-weight: 400;
-  left: 8px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 0;
-  width: 22px;
-}
-
-.lion-painting .group-wrapper {
-  background-color: #ffffff;
-  height: 39px;
-  left: 354px;
-  position: absolute;
-  top: 175px;
-  width: 39px;
-}
-
-.lion-painting .overlap-group-wrapper {
-  height: 27px;
-  left: 11px;
-  position: relative;
-  top: 6px;
-  width: 16px;
-}
-
-.lion-painting .overlap-group-2 {
-  height: 28px;
-  position: relative;
-  top: -1px;
-}
-
-.lion-painting .line {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 16px;
-}
-
-.lion-painting .img {
-  height: 15px;
-  left: 0;
-  position: absolute;
-  top: 13px;
-  width: 16px;
-}
-
-.lion-painting .p {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 14px;
-  font-weight: 400;
-  left: 22px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 554px;
-}
-
-.lion-painting .overlap-2 {
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #d4d4d4;
-  height: 46px;
-  left: 0;
-  position: absolute;
-  top: 46px;
-  width: 393px;
-}
-
-.lion-painting .menu-wrapper {
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #d5d5d5;
-  height: 46px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 46px;
-}
-
-.lion-painting .menu {
-  height: 33px !important;
-  left: 5px !important;
-  position: absolute !important;
-  top: 5px !important;
-  width: 33px !important;
-}
-
-.lion-painting .text-wrapper-3 {
-  color: #616161;
-  font-family: "Inter", Helvetica;
-  font-size: 15px;
-  font-weight: 400;
-  left: 54px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 12px;
-  white-space: nowrap;
-}
-
-.lion-painting .user-profile {
-  height: 33px !important;
-  left: 248px !important;
-  position: absolute !important;
-  top: 7px !important;
-  width: 33px !important;
-}
-
-.lion-painting .heart-2 {
-  height: 33px !important;
-  left: 299px !important;
-  position: absolute !important;
-  top: 7px !important;
-  width: 33px !important;
-}
-
-.lion-painting .bag {
-  height: 33px !important;
-  left: 350px !important;
-  position: absolute !important;
-  top: 7px !important;
-  width: 33px !important;
-}
-
-.lion-painting .text-wrapper-4 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 400;
-  left: 22px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 500px;
-}
-
-.lion-painting .heart-1 {
-  height: 25px !important;
-  left: 346px !important;
-  position: absolute !important;
-  top: 496px !important;
-  width: 25px !important;
-}
-
-.lion-painting .share {
-  height: 25px !important;
-  left: 305px !important;
-  position: absolute !important;
-  top: 496px !important;
-  width: 25px !important;
-}
-
-.lion-painting .text-wrapper-5 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 400;
-  left: 329px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 605px;
-}
-
-.lion-painting .text-wrapper-6 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 700;
-  left: 280px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 632px;
-}
-
-.lion-painting .text-wrapper-7 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 500;
-  left: 104px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-decoration: underline;
-  top: 603px;
-}
-
-.lion-painting .line-2 {
-  height: 13px;
-  left: 97px;
-  object-fit: cover;
-  position: absolute;
-  top: 605px;
-  width: 1px;
-}
-
-.lion-painting .text-wrapper-8 {
-  color: #6e6767;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 400;
-  left: 25px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 603px;
-}
-
-.lion-painting .group-2 {
-  height: 81px;
-  left: 22px;
-  position: absolute;
-  top: 688px;
-  width: 353px;
-}
-
-.lion-painting .div-wrapper {
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #9f9f9f;
-  border-radius: 7px;
-  height: 62px;
-  left: 0;
-  position: absolute;
-  top: 19px;
-  width: 349px;
-}
-
-.lion-painting .text-wrapper-9 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 10px;
-  font-weight: 400;
-  left: 10px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 10px;
-}
-
-.lion-painting .text-wrapper-10 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 12px;
-  font-weight: 500;
-  left: 3px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 0;
-}
-
-.lion-painting .group-3 {
-  height: 21px;
-  left: 22px;
-  position: absolute;
-  top: 574px;
-  width: 104px;
-}
-
-.lion-painting .text-wrapper-11 {
-  color: #404040;
-  font-family: "Inter", Helvetica;
-  font-size: 11px;
-  font-weight: 500;
-  left: 22px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-decoration: underline;
-  top: 3px;
-  white-space: nowrap;
-}
-
-.lion-painting .user-profile-03-3 {
-  height: 21px !important;
-  left: 0 !important;
-  position: absolute !important;
-  top: 0 !important;
-  width: 20px !important;
-}
-
-.lion-painting .overlap-3 {
-  height: 46px;
-  left: 36px;
-  position: absolute;
-  top: 785px;
-  width: 325px;
-}
-
-.lion-painting .rectangle-2 {
-  background-color: #237600;
-  border: 1px solid;
-  border-color: #a5a5a5;
-  border-radius: 6px;
-  height: 36px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 325px;
-}
-
-.lion-painting .text-wrapper-12 {
-  color: #ffffff;
-  font-family: "Inter", Helvetica;
-  font-size: 16px;
-  font-weight: 400;
-  left: 120px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 8px;
-}
-
-.lion-painting .text-wrapper-13 {
-  color: #000000;
-  font-family: "Inter", Helvetica;
-  font-size: 20px;
-  font-weight: 700;
-  left: 26px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  top: 628px;
-  white-space: nowrap;
+.product-views,
+.product-item-no,
+.product-published {
+  color: #6d6d6d;
+  font-size: 0.8rem;
+  margin-right: 2rem;
 }
