@@ -10,15 +10,39 @@ import { CgProfile } from "react-icons/cg";
 import { MdFavorite } from "react-icons/md";
 import { MdFavoriteBorder } from "react-icons/md";
 import { CiMenuBurger } from "react-icons/ci";
+import { IoMdClose } from "react-icons/io";
 import { FaShieldAlt } from "react-icons/fa";
 import { VscVerified } from "react-icons/vsc";
 import { MdOutlineStarOutline } from "react-icons/md";
 import { GoShare } from "react-icons/go";
 import Carousel from "@/lib/carousel";
+import { useState, useRef, useEffect } from "react";
 
 const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
 function LionPainting() {
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const bids = [
+    { time: "16 Sep 2024 15:04", amount: "$250" },
+    { time: "18 Sep 2024 17:43", amount: "$253" },
+    { time: "19 Sep 2024 08:19", amount: "$254" },
+    { time: "20 Sep 2024 12:54", amount: "$254" },
+    { time: "21 Sep 2024 09:32", amount: "$254" },
+    { time: "21 Sep 2024 12:54", amount: "$254" },
+    { time: "21 Sep 2024 15:04", amount: "$254" },
+    { time: "21 Sep 2024 17:43", amount: "$254" },
+  ];
+
+  const toggleOverlay = () => {
+    setIsOverlayOpen(!isOverlayOpen);
+  };
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
   const Divider = () => {
     return <hr style={{ borderTop: "1px solid lightgrey" }}></hr>;
   };
@@ -59,8 +83,9 @@ function LionPainting() {
               <button className="share-button">
                 <GoShare />
               </button>
-              <button className="favorite-button">
-                <MdFavoriteBorder />
+              <button className="favorite-button" onClick={toggleFavorite}>
+                {!isFavorite && <MdFavoriteBorder />}
+                {isFavorite && <MdFavorite />}
               </button>
             </div>
           </div>
@@ -69,7 +94,9 @@ function LionPainting() {
           <div className="product-price-status-bids-timer-tag-container">
             <div className="price-status-bids">
               <p className="price-status">Price |</p>
-              <p className="price-bids"> 3 bets </p>
+              <button className="price-bids" onClick={toggleOverlay}>
+                3 bets
+              </button>
             </div>
             <p className="end-timer-tag"> Ends in</p>
           </div>
@@ -123,6 +150,29 @@ function LionPainting() {
           </div>
         </div>
       </div>
+
+      {/* Conditional rendering of the overlay */}
+      {isOverlayOpen && (
+        <div className="overlay">
+          <div className="overlay-content">
+            <div className="close-icon" onClick={toggleOverlay}>
+              <button>
+                <IoMdClose />
+              </button>
+            </div>
+
+            <h2>Bids</h2>
+
+            <ul>
+              {bids.map((bid, index) => (
+                <li key={index}>
+                  <strong>{bid.time}</strong>: {bid.amount}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
