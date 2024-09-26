@@ -1,62 +1,79 @@
-import React, { useRef, useState } from "react";
-import useScrollEffect from "@/lib/useScrollEffect";
+import React, { useRef, useState, FormEvent } from "react";
+import useScrollEffect from "@/lib/useScrollEffect"; // Assuming you have a similar effect hook for opacity on scroll
 
-const HomePage = () => {
+const LoginPage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
-  const [opacity, setOpacity] = useState(0.7); 
+  const [opacity, setOpacity] = useState(0.7);
+  
+  // Apply scroll effect (similar to the HomePage)
   useScrollEffect(bannerRef, setOpacity);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Login with:", username, password);
+  };
 
   return (
     <>
       <img
         ref={bannerRef}
-        src="home_banner.jpg"
-        alt="Home Banner"
+        src="login_banner.jpg" // Background image for login page
+        alt="Login Banner"
         className="fixed inset-0 w-full h-dvh object-cover transition-transform duration-300"
         style={{ opacity }}
       />
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
-        <div className="text-center py-20">
-          <h1 className="text-4xl font-bold">Welcome to Our Art Auction</h1>
-          <p className="mt-4 text-xl">Discover and bid on exquisite artworks.</p>
-        </div>
-        <div className="container mx-auto px-10 py-20">  
-          <h2 className="text-3xl font-bold mb-6">Featured Artworks</h2>
-          <div className="grid grid-cols-3 gap-6" style={{ justifyContent: 'space-evenly' }}> 
-            {["artwork_1.jpg", "artwork_2.jpg", "artwork_3.jpg"].map((art, index) => (
-              <div key={index} className="shadow-lg rounded-lg overflow-hidden" style={{ height: '420px', width: '300px' }}>
-                <img src={art} alt={`Artwork ${index + 1}`} className="h-3/4 w-full object-cover"/>
-                <div className="p-4 bg-gray-800 h-1/4">
-                  <h3 className="font-bold truncate">{`Artwork ${index + 1}`}</h3>
-                  <p className="text-sm truncate">{`Artist ${index + 1}`}</p>
-                  <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="container mx-auto px-10 py-20">
-          <h2 className="text-3xl font-bold mb-6">Upcoming Auctions</h2>
-          <div className="grid grid-cols-3 gap-6" style={{ justifyContent: 'space-evenly' }}>
-            {["artwork_4.jpg", "artwork_5.jpg", "artwork_6.jpg"].map((auction, index) => (
-              <div key={index} className="shadow-lg rounded-lg overflow-hidden" style={{ height: '420px', width: '300px' }}>
-                <img src={auction} alt={`Auction ${index + 1}`} className="h-3/4 w-full object-cover"/>
-                <div className="p-4 bg-gray-800 h-1/4">
-                  <h3 className="font-bold truncate">{`Auction ${index + 1}`}</h3>
-                  <p className="text-sm truncate">{`Preview on ${new Date().toLocaleDateString()}`}</p>
-                  <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
-                    Auction Details
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="relative z-10 flex items-center justify-center min-h-screen">
+        <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl opacity-95">
+          <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            Login
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </>
   );
 };
 
-export default HomePage;
+export default LoginPage;
