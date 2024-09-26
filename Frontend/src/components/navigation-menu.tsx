@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 
-// Note: These imports assume you have these components from a UI library like shadcn/ui
-// If you don't, you'll need to create or import alternatives
+
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -37,13 +36,22 @@ const navItems = [
     ],
   },
   { name: "Winners", href: "/winners" },
+  
 ];
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const navigate = useNavigate();  
 
+  const handleLoginClick = () => {
+    setIsOpen(false); 
+    navigate('/login'); 
+  };
+
+
+ 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
@@ -78,7 +86,7 @@ const NavigationMenu = () => {
     >
       <div className="flex h-16 items-center px-4">
         <Link to="/" className="mr-6 flex items-center space-x-2">
-          <span className="text-2xl font-bold">AuctionSite</span>
+          <span className="text-2xl font-bold">KunstHavn</span>
         </Link>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
@@ -161,7 +169,7 @@ const NavigationMenu = () => {
                 ))}
                 <Button
                   variant="ghost"
-                  onClick={() => console.log("Login clicked")}
+                  onClick={handleLoginClick}
                 >
                   Log in
                 </Button>

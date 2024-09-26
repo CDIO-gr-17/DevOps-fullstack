@@ -1,0 +1,260 @@
+.product-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-page .product-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-description-photo {
+  display: flex 0 0 40%;
+  justify-content: left;
+  justify-content: flex-start;
+  max-width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-info {
+  display: grid;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  margin-left: 2rem;
+}
+
+.end-date-share-favorite,
+.product-price-status-bids-timer-tag-container,
+.price-end-timer-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+}
+
+.buyer-protection {
+  display: flex;
+}
+
+.shield-logo {
+  margin-left: 0.5rem;
+}
+.share-fav-container {
+  display: flex;
+  align-items: center;
+}
+.share-button {
+  margin-right: 1rem;
+}
+
+.share-button,
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem; /* Adjust the size as needed */
+}
+
+.product-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  justify-self: left;
+}
+
+.product-subtitle {
+  margin-bottom: 0.5rem;
+  justify-self: left;
+}
+
+.price-status-bids {
+  display: flex;
+  align-items: center;
+}
+
+.price-bids {
+  margin-left: 0.3rem;
+  text-decoration: underline;
+}
+
+.price-status,
+.end-timer-tag,
+.buyer-protection {
+  color: #6d6d6d;
+}
+
+.product-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.bid-button {
+  background-color: #646cff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.bid-button:hover {
+  background-color: #8f94f6;
+}
+
+.bid-button:active {
+  background-color: #2428fd;
+}
+
+.seller-info-container {
+  display: grid;
+  margin-top: 1rem;
+}
+
+.seller-name-pic,
+.seller-verifications,
+.seller-reviews {
+  display: flex;
+  align-items: center;
+  margin-top: 0.7rem;
+}
+
+.seller-address {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+
+.seller-name {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-right: 2rem;
+}
+
+.seller-reviews-text,
+.seller-verifications-text {
+  margin-left: 0.5rem;
+}
+
+.seller-profile-button-container {
+  padding-left: 8.5rem;
+  padding-right: 8.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.seller-contact-button,
+.seller-reviews-button,
+.seller-follow-button {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-color: #6d6d6d;
+  border: 1px solid #6d6d6d;
+  cursor: pointer;
+  width: 30%;
+}
+
+.seller-contact-button:hover,
+.seller-reviews-button:hover,
+.seller-follow-button:hover {
+  background-color: #6d6d6d;
+  color: white;
+}
+
+.seller-contact-button:active,
+.seller-reviews-button:active,
+.seller-follow-button:active {
+  color: #a9a9a9;
+}
+
+.product-description-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  margin-top: 2rem;
+}
+
+.product-description {
+  font-size: 1rem;
+  margin-bottom: 4rem;
+}
+
+.small-info-container {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.product-views,
+.product-item-no,
+.product-published {
+  color: #6d6d6d;
+  font-size: 0.8rem;
+  margin-right: 2rem;
+}
+
+.seller-profile-pic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  border: black 1px solid;
+}
+
+.overlay {
+  position: fixed;
+  top: 8.5rem;
+  left: 56rem;
+  right: 0;
+  bottom: 0;
+  border: 1px solid #ddd;
+  background-color: white;
+
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  width: 15rem;
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.overlay-content {
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.close-overlay {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #f00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.overlay-content li {
+  width: 100%;
+}
+
+.overlay-content ul {
+  margin-top: 0.5rem;
+}
+
+.close-icon {
+  position: fixed;
+  font-size: 1.5rem;
+  cursor: pointer;
+  height: 1rem;
+}
+
+.Accordion p {
+}
