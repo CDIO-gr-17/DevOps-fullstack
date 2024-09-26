@@ -155,7 +155,7 @@ function LionPainting() {
       {/* Conditional rendering of the overlay */}
       {isOverlayOpen && (
         <div className="overlay">
-          <div className="overlay-content">
+          <div className="overlay-content text-foreground bg-background">
             <div className="close-icon" onClick={toggleOverlay}>
               <button>
                 <IoMdClose />
