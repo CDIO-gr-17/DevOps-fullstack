@@ -1,10 +1,10 @@
-// import { render } from "@testing-library/react";
-// import { describe, it } from "vitest";
-// import App from "./App";
+import { render } from "@testing-library/react";
+import { describe, it } from "vitest";
+import Home from "./views/home/home";
 
-// describe(App.name, () => {
-//   it("should render", () => {
-//     render(<App />);
-//   });
-// });
+describe(Home.name, () => {
+  it("should render", () => {
+    render(<Home />);
+  });
+});
 //THIS IS KEPT AS EXAMPLE

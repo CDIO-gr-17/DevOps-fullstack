@@ -3,6 +3,7 @@ import SupportPage from "../views/support/support-page";
 import Home from "../views/home/home";
 import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
+import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
 
 export const routes: RouteObject[] = [
   {
@@ -12,6 +13,10 @@ export const routes: RouteObject[] = [
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/products",
+        element: <ProductCatalogPage />,
       },
       {
         path: "/support",
