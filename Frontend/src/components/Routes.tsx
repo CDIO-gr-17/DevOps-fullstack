@@ -3,6 +3,7 @@ import SupportPage from "../views/support/support-page";
 import Home from "../views/home/home";
 import SingleItem from "../views/items/lion-painting";
 import { Layout } from "./Layout";
+import LoginPage from "@/views/login/login";
 
 export const routes: RouteObject[] = [
   {
@@ -20,6 +21,11 @@ export const routes: RouteObject[] = [
       {
         path: "/1",
         element: <SingleItem />,
+      },
+
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },
