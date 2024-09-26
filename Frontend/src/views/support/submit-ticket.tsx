@@ -21,7 +21,7 @@ export function SubmitTicketComponent() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center space-y-4 w-8/12 mx-auto"
+      className="flex flex-col items-center space-y-4 w-8/12 mx-auto text-foreground"
     >
       <h2 className="text-2xl font-semibold">Submit a Ticket</h2>
       <Input

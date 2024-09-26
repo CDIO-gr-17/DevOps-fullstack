@@ -24,7 +24,7 @@ export default function SupportPage() {
         className="fixed inset-0 w-full h-dvh object-cover transition-transform duration-300"
         style={{ opacity }} // Bind the opacity state to the image
       />
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-foreground">
         <div className=" py-20">
           <h1>Support Page</h1>
           <p>How can we help you?</p>
