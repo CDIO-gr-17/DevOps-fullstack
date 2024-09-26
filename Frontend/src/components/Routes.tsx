@@ -3,6 +3,7 @@ import SupportPage from "../views/support/support-page";
 import Home from "../views/home/home";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
+import LoginPage from "@/views/login/login";
 
 export const routes: RouteObject[] = [
   {
@@ -20,6 +21,10 @@ export const routes: RouteObject[] = [
       {
         path: "/support",
         element: <SupportPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
       },
     ],
   },
