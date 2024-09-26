@@ -7,6 +7,7 @@ import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page
 import LionPainting from "@/views/items/lion-painting";
 import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
+import WinnerPage from "@/views/WinnerPage/WinnerPage";
 
 export const routes: RouteObject[] = [
   {
@@ -42,6 +43,7 @@ export const routes: RouteObject[] = [
         path: "/paymentpage",
         element: <PaymentPage totalAmount={0} itemTitle={""} />,
       },
+      { path: "/winners", element: <WinnerPage /> },
     ],
   },
 ];
