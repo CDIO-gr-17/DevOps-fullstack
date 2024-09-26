@@ -2,10 +2,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 
-
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Button } from "../components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -36,22 +35,19 @@ const navItems = [
     ],
   },
   { name: "Winners", href: "/winners" },
-  
 ];
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    setIsOpen(false); 
-    navigate('/login'); 
+    setIsOpen(false);
+    navigate("/login");
   };
 
-
- 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
@@ -167,10 +163,7 @@ const NavigationMenu = () => {
                     )}
                   </React.Fragment>
                 ))}
-                <Button
-                  variant="ghost"
-                  onClick={handleLoginClick}
-                >
+                <Button variant="ghost" onClick={handleLoginClick}>
                   Log in
                 </Button>
               </nav>

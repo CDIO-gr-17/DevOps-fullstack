@@ -42,8 +42,6 @@ export const routes: RouteObject[] = [
         path: "/paymentpage",
         element: <PaymentPage totalAmount={0} itemTitle={""} />,
       },
-      
-
     ],
   },
 ];
