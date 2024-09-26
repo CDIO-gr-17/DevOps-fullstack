@@ -52,7 +52,7 @@ function ProfileOverview() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Carousel>
+          <Carousel className="m-10">
             <CarouselContent>
               <CarouselItem className="md:basis-1/2 lg:basis-1/3">
                 <img
