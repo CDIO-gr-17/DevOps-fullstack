@@ -12,7 +12,7 @@ const HomePage = () => {
   const artworks = [
     {
       name: "Lion Magnifiqué",
-      artist: "Artist A",
+      artist: "Marius Picasso",
       imgSrc: "lion-painting.png",
       link: "/1",
     },

@@ -5,6 +5,7 @@ import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
 import LionPainting from "@/views/items/lion-painting";
+import LoginPage from "@/views/login/login";
 
 export const routes: RouteObject[] = [
   {
@@ -31,6 +32,13 @@ export const routes: RouteObject[] = [
         path: "/1",
         element: <LionPainting />,
       },
+
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      
+
     ],
   },
 ];
