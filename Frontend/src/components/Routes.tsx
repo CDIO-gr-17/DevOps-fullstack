@@ -1,8 +1,11 @@
 import { RouteObject } from "react-router-dom";
 import SupportPage from "../views/support/support-page";
 import Home from "../views/home/home";
+import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
+import LionPainting from "@/views/items/lion-painting";
+import LoginPage from "@/views/login/login";
 
 export const routes: RouteObject[] = [
   {
@@ -21,6 +24,21 @@ export const routes: RouteObject[] = [
         path: "/support",
         element: <SupportPage />,
       },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/1",
+        element: <LionPainting />,
+      },
+
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      
+
     ],
   },
 ];
