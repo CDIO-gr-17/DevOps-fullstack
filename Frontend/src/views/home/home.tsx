@@ -20,7 +20,7 @@ const HomePage = () => {
           <h1 className="text-4xl font-bold">Welcome to Our Art Auction</h1>
           <p className="mt-4 text-xl">Discover and bid on exquisite artworks.</p>
         </div>
-        <div className="container mx-auto px-10 py-20">  // Increased padding to center the grid more
+        <div className="container mx-auto px-10 py-20">  
           <h2 className="text-3xl font-bold mb-6">Featured Artworks</h2>
           <div className="grid grid-cols-3 gap-6" style={{ justifyContent: 'space-evenly' }}> 
             {["artwork_1.jpg", "artwork_2.jpg", "artwork_3.jpg"].map((art, index) => (
