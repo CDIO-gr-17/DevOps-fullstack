@@ -6,6 +6,9 @@ obj/
 *.suo
 *.vs
 *.vscode
+Migrations/
+
+
 
 # Node modules
 node_modules/
