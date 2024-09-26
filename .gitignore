@@ -31,3 +31,5 @@ Thumbs.db
 
 # Build output
 dist/
+Frontend/tsconfig.app.tsbuildinfo
+Frontend/tsconfig.node.tsbuildinfo
