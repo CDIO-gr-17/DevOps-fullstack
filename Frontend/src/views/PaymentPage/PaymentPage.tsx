@@ -61,12 +61,13 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ totalAmount, itemTitle }) => 
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 lg:p-8">
       <h1 className="text-3xl font-bold mb-6 text-black">Checkout</h1>
 
-      <div className="flex w-full max-w-6xl">
+      {/* Responsive layout with flex */}
+      <div className="flex flex-col lg:flex-row w-full max-w-6xl space-y-6 lg:space-y-0 lg:space-x-6">
         {/* Left: Delivery Section */}
-        <div className="w-2/3 bg-white p-6 rounded-lg shadow-md mb-6 mr-6">
+        <div className="w-full lg:w-2/3 bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold mb-4 text-black">Delivery Information</h3>
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name:</label>
@@ -147,13 +148,12 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ totalAmount, itemTitle }) => 
             />
           </div>
         </div>
-        
 
         {/* Right: Cart & Payment Section */}
-        <div className="w-1/3 bg-white p-6 rounded-lg shadow-md">
+        <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-semibold mb-4 text-black">Your Cart</h3>
           <div className="mb-5">
-            <p className="text-sm text-gray-600 ">Product: {itemTitle}</p>
+            <p className="text-sm text-gray-600">Product: {itemTitle}</p>
             <p className="text-sm text-gray-600">Total: ${totalAmount.toFixed(2)}</p>
           </div>
 
