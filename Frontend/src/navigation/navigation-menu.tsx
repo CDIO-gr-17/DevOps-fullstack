@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { Menu } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
@@ -71,14 +72,14 @@ const NavigationMenu = () => {
                     aria-labelledby="options-menu"
                   >
                     {item.subItems.map((subItem) => (
-                      <Link
+                      <HashLink
                         key={subItem.name}
                         to={subItem.href}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                       >
                         {subItem.name}
-                      </Link>
+                      </HashLink>
                     ))}
                   </div>
                 </div>
