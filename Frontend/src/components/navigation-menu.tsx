@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 
-// Note: These imports assume you have these components from a UI library like shadcn/ui
-// If you don't, you'll need to create or import alternatives
+
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -28,13 +27,22 @@ const navItems = [
     ],
   },
   { name: "Winners", href: "/winners" },
+  
 ];
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const navigate = useNavigate();  
 
+  const handleLoginClick = () => {
+    setIsOpen(false); // Close the menu if it's open
+    navigate('/login'); // Navigate to the login page
+  };
+
+
+ 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
@@ -149,7 +157,7 @@ const NavigationMenu = () => {
                 ))}
                 <Button
                   variant="ghost"
-                  onClick={() => console.log("Login clicked")}
+                  onClick={handleLoginClick}
                 >
                   Log in
                 </Button>
