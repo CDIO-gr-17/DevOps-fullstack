@@ -37,8 +37,8 @@ const NavigationMenu = () => {
   const navigate = useNavigate();  
 
   const handleLoginClick = () => {
-    setIsOpen(false); // Close the menu if it's open
-    navigate('/login'); // Navigate to the login page
+    setIsOpen(false); 
+    navigate('/login'); 
   };
 
 
@@ -77,7 +77,7 @@ const NavigationMenu = () => {
     >
       <div className="flex h-16 items-center px-4">
         <Link to="/" className="mr-6 flex items-center space-x-2">
-          <span className="text-2xl font-bold">AuctionSite</span>
+          <span className="text-2xl font-bold">KunstHavn</span>
         </Link>
         <div className="hidden md:flex space-x-4">
           {navItems.map((item) => (
