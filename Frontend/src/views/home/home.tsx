@@ -1,13 +1,11 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import useScrollEffect from "@/lib/useScrollEffect";
-
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
   const [opacity, setOpacity] = useState(0.7);
   useScrollEffect(bannerRef, setOpacity);
-
 
   const artworks = [
     {
@@ -63,14 +61,27 @@ const HomePage = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
         <div className="text-center py-20">
           <h1 className="text-4xl font-bold">Welcome to Our Art Auction</h1>
-          <p className="mt-4 text-xl">Discover and bid on exquisite artworks.</p>
+          <p className="mt-4 text-xl">
+            Discover and bid on exquisite artworks.
+          </p>
         </div>
         <div className="container mx-auto px-10 py-20">
           <h2 className="text-3xl font-bold mb-6">Featured Artworks</h2>
-          <div className="grid grid-cols-3 gap-6" style={{ justifyContent: 'space-evenly' }}>
+          <div
+            className="grid grid-cols-3 gap-6"
+            style={{ justifyContent: "space-evenly" }}
+          >
             {artworks.map((art, index) => (
-              <div key={index} className="shadow-lg rounded-lg overflow-hidden" style={{ height: '420px', width: '300px' }}>
-                <img src={art.imgSrc} alt={art.name} className="h-3/4 w-full object-cover"/>
+              <div
+                key={index}
+                className="shadow-lg rounded-lg overflow-hidden"
+                style={{ height: "420px", width: "300px" }}
+              >
+                <img
+                  src={art.imgSrc}
+                  alt={art.name}
+                  className="h-3/4 w-full object-cover"
+                />
                 <div className="p-4 bg-gray-800 h-1/4">
                   <h3 className="font-bold truncate">{art.name}</h3>
                   <p className="text-sm truncate">{art.artist}</p>
@@ -86,10 +97,21 @@ const HomePage = () => {
         </div>
         <div className="container mx-auto px-10 py-20">
           <h2 className="text-3xl font-bold mb-6">Upcoming Auctions</h2>
-          <div className="grid grid-cols-3 gap-6" style={{ justifyContent: 'space-evenly' }}>
+          <div
+            className="grid grid-cols-3 gap-6"
+            style={{ justifyContent: "space-evenly" }}
+          >
             {auctions.map((auction, index) => (
-              <div key={index} className="shadow-lg rounded-lg overflow-hidden" style={{ height: '420px', width: '300px' }}>
-                <img src={auction.imgSrc} alt={auction.name} className="h-3/4 w-full object-cover"/>
+              <div
+                key={index}
+                className="shadow-lg rounded-lg overflow-hidden"
+                style={{ height: "420px", width: "300px" }}
+              >
+                <img
+                  src={auction.imgSrc}
+                  alt={auction.name}
+                  className="h-3/4 w-full object-cover"
+                />
                 <div className="p-4 bg-gray-800 h-1/4">
                   <h3 className="font-bold truncate">{auction.name}</h3>
                   <p className="text-sm truncate">{auction.date}</p>
