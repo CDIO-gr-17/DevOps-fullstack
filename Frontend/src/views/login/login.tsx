@@ -1,4 +1,4 @@
-import React, { useRef, useState, FormEvent } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 const LoginPage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -14,13 +14,16 @@ const LoginPage = () => {
     <>
       <img
         ref={bannerRef}
-        src="login_banner.jpg" 
+        src="login_banner.jpg"
         alt="Login Banner"
         className="fixed inset-0 w-full h-dvh object-cover transition-transform duration-300"
-        style={{ opacity: 0.85 }} 
+        style={{ opacity: 0.85 }}
       />
       <div className="relative z-10 flex items-center justify-center min-h-screen">
-        <div className="w-full max-w-md p-10 bg-white rounded-lg shadow-lg border border-gray-200" style={{ fontFamily: 'Inter, sans-serif' }}>
+        <div
+          className="w-full max-w-md p-10 bg-white rounded-lg shadow-lg border border-gray-200"
+          style={{ fontFamily: "Inter, sans-serif" }}
+        >
           <h1 className="text-3xl font-extrabold text-center text-gray-900 mb-6">
             Sign in to your account
           </h1>

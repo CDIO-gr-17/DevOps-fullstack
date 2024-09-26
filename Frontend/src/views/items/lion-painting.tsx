@@ -1,22 +1,22 @@
-import "./lion-painting.css";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import "./lion-painting.css";
 
-import { CgProfile } from "react-icons/cg";
-import { MdFavorite } from "react-icons/md";
-import { MdFavoriteBorder } from "react-icons/md";
-import { CiMenuBurger } from "react-icons/ci";
-import { IoMdClose } from "react-icons/io";
-import { FaShieldAlt } from "react-icons/fa";
-import { VscVerified } from "react-icons/vsc";
-import { MdOutlineStarOutline } from "react-icons/md";
-import { GoShare } from "react-icons/go";
 import Carousel from "@/lib/carousel";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import { FaShieldAlt } from "react-icons/fa";
+import { GoShare } from "react-icons/go";
+import { IoMdClose } from "react-icons/io";
+import {
+  MdFavorite,
+  MdFavoriteBorder,
+  MdOutlineStarOutline,
+} from "react-icons/md";
+import { VscVerified } from "react-icons/vsc";
 
 const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
@@ -155,7 +155,7 @@ function LionPainting() {
       {/* Conditional rendering of the overlay */}
       {isOverlayOpen && (
         <div className="overlay">
-          <div className="overlay-content">
+          <div className="overlay-content text-foreground bg-background">
             <div className="close-icon" onClick={toggleOverlay}>
               <button>
                 <IoMdClose />
