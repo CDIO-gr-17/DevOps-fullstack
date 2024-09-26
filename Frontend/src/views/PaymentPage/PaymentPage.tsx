@@ -265,7 +265,7 @@ const PaymentPage: React.FC<PaymentPageProps> = ({ totalAmount, itemTitle }) => 
 
             <button
               type="submit"
-              className="w-full bg-[#535bf2] text-white py-2 rounded-md hover:bg-gray-800">
+              className="w-full bg-[#535bf2] text-white py-2 rounded-md hover:bg-gray-800 ">
               Confirm Payment
             </button>
           </form>
