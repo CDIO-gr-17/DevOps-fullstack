@@ -95,7 +95,11 @@ const NavigationMenu = () => {
               <span className="sr-only">Go to profile</span>
             </Link>
           </Avatar>
-          <Button variant="ghost" className="hidden md:inline-flex">
+          <Button
+            variant="ghost"
+            className="hidden md:inline-flex"
+            onClick={handleLoginClick}
+          >
             Log in
           </Button>
         </div>
