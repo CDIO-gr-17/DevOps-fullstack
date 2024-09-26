@@ -72,7 +72,7 @@ const NavigationMenu = () => {
 
   return (
     <nav
-      className={`sticky top-0 w-screen z-50 transition-transform duration-300 ${
+      className={`sticky top-0 w-screen z-50 transition-transform duration-300 gradient ${
         isVisible ? "transform translate-y-0" : "transform -translate-y-full"
       }`}
     >
@@ -85,12 +85,12 @@ const NavigationMenu = () => {
             <div key={item.name} className="relative group">
               <Link
                 to={item.href}
-                className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                className=" text-base text-gray-700 hover:text-gray-900"
               >
                 {item.name}
               </Link>
               {item.subItems && (
-                <div className="absolute -left-16 mt-0 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-out duration-200">
+                <div className="absolute -left-16 mt-0 w-48 rounded-md text-sm  shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition ease-out duration-200">
                   <div
                     className="py-1"
                     role="menu"
