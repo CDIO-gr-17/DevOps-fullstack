@@ -30,4 +30,12 @@ public class AuctionsController : ControllerBase
         }
         return Ok(auction);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAuctions()
+    {
+        var auctions = await _context.Auctions.ToListAsync();
+        return Ok(auctions);
+    }
+
 }
