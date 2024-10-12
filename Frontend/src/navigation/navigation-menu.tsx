@@ -1,57 +1,23 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import { Menu } from "lucide-react";
-
-
-import { Button } from "./ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-
-const navItems = [
-  { name: "Home", href: "/" },
-  {
-    name: "Auctions",
-    href: "/auctions",
-    subItems: [
-      { name: "Current Auctions", href: "/auctions/current" },
-      { name: "Upcoming Auctions", href: "/auctions/upcoming" },
-      { name: "Past Auctions", href: "/auctions/past" },
-    ],
-  },
-  {
-    name: "Product Catalogue",
-    href: "/products",
-    subItems: [
-      { name: "All Products", href: "/products/all" },
-      { name: "Categories", href: "/products/categories" },
-      { name: "New Arrivals", href: "/products/new" },
-    ],
-  },
-  {
-    name: "Support",
-    href: "/support",
-    subItems: [
-      { name: "FAQ", href: "/support/faq" },
-      { name: "Contact Us", href: "/support/contact" },
-    ],
-  },
-  { name: "Winners", href: "/winners" },
-  
-];
+import { Button } from "../components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
+import navItems from "./navItems";
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    setIsOpen(false); 
-    navigate('/login'); 
+    setIsOpen(false);
+    navigate("/login");
   };
 
-
- 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
 
@@ -80,7 +46,7 @@ const NavigationMenu = () => {
 
   return (
     <nav
-      className={`sticky top-0 w-screen z-50 transition-transform duration-300 gradient ${
+      className={`sticky top-0 w-screen z-50 transition-transform duration-300 ${
         isVisible ? "transform translate-y-0" : "transform -translate-y-full"
       }`}
     >
@@ -93,7 +59,7 @@ const NavigationMenu = () => {
             <div key={item.name} className="relative group">
               <Link
                 to={item.href}
-                className=" text-base text-gray-700 hover:text-gray-900"
+                className=" text-base text-popover-foreground hover:text-gray-900"
               >
                 {item.name}
               </Link>
@@ -106,14 +72,14 @@ const NavigationMenu = () => {
                     aria-labelledby="options-menu"
                   >
                     {item.subItems.map((subItem) => (
-                      <Link
+                      <HashLink
                         key={subItem.name}
                         to={subItem.href}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                       >
                         {subItem.name}
-                      </Link>
+                      </HashLink>
                     ))}
                   </div>
                 </div>
@@ -129,7 +95,11 @@ const NavigationMenu = () => {
               <span className="sr-only">Go to profile</span>
             </Link>
           </Avatar>
-          <Button variant="ghost" className="hidden md:inline-flex">
+          <Button
+            variant="ghost"
+            className="hidden md:inline-flex"
+            onClick={handleLoginClick}
+          >
             Log in
           </Button>
         </div>
@@ -167,10 +137,7 @@ const NavigationMenu = () => {
                     )}
                   </React.Fragment>
                 ))}
-                <Button
-                  variant="ghost"
-                  onClick={handleLoginClick}
-                >
+                <Button variant="ghost" onClick={handleLoginClick}>
                   Log in
                 </Button>
               </nav>

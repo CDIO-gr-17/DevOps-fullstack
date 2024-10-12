@@ -47,7 +47,7 @@ export default function SupportPage() {
             </AccordionItem>
           </Accordion>
         </div>
-        <div className=" py-80">
+        <div className=" py-80" id="contact">
           <h1>Contact Us</h1>
           <SubmitTicketComponent />
           <ContactUsComponent />
