@@ -34,7 +34,11 @@ public class AuctionsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAuctions()
     {
-        var auctions = await _context.Auctions.ToListAsync();
+        var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
+        var auctions = await _context.Auctions
+                                     .Where(a => a.EndDate > currentDateTime) // Filter out old auctions
+                                     .OrderBy(a => a.EndDate) // Order by EndDate in ascending order
+                                     .ToListAsync();
         return Ok(auctions);
     }
 
