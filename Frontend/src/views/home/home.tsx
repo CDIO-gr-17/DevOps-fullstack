@@ -1,6 +1,7 @@
 import useScrollEffect from "@/lib/useScrollEffect";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import CreateAuctionForm from "../createAuction";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -55,7 +56,7 @@ const HomePage = () => {
         ref={bannerRef}
         src="home_banner.jpg"
         alt="Home Banner"
-        className="fixed inset-0 w-full h-dvh object-cover transition-transform duration-300"
+        className="fixed inset-0 w-full h-dvh object-cover transition-transform duration-300 "
         style={{ opacity }}
       />
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
@@ -124,6 +125,10 @@ const HomePage = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div className="container mx-auto px-10 py-20">
+          <h2 className="text-3xl font-bold mb-6">Create a New Auction</h2>
+          <CreateAuctionForm />
         </div>
       </div>
     </>
