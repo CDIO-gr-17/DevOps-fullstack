@@ -20,7 +20,7 @@ jobs:
         id: build-docker-image
         run: |
           ls -la 
-          docker build Frontend -f Frontend/Dockerfile -t kunsthavn/frontend:latest
+          docker build Frontend -f Frontend/Dockerfile -t holmst33n/kunsthavn/frontend:latest
       - name: push the docker image
         id: push-docker-image
         run: docker push ${{secrets.HUB_USER}}/kunsthavn/frontend:latest
