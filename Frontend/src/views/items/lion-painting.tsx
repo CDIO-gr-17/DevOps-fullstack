@@ -154,13 +154,13 @@ function LionPainting() {
         <div className="fixed top-32 left-2/3 right-0 bottom-0 border border-gray-300 bg-white rounded-lg shadow-lg w-60 max-h-60 overflow-y-auto z-10">
           <div className="text-center p-4">
             <button
-              className="absolute top-4 right-4 text-xl"
+              className="absolute top-4 right-4 text-xl text-black"
               onClick={toggleOverlay}
             >
               <IoMdClose />
             </button>
-            <h2 className="mb-2">Bids</h2>
-            <ul>
+            <h2 className="mb-2 text-black">Bids</h2>
+            <ul className="text-black">
               {bids.map((bid, index) => (
                 <li key={index}>
                   <strong>{bid.time}</strong>: {bid.amount}
