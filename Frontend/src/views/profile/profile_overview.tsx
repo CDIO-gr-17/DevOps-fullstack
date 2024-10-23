@@ -32,13 +32,13 @@ function ProfileOverview() {
         </CardHeader>
         <CardContent>
           <Button className="m-2" type="submit">
-            Favorit auktioner
+            Favorited auctions
           </Button>
           <Button className="m-2" type="submit">
-            Mine auktioner
+            My items
           </Button>
           <Button className="m-2" type="submit">
-            Rediger profil
+            Profile settings
           </Button>
         </CardContent>
         <CardFooter></CardFooter>
@@ -46,9 +46,9 @@ function ProfileOverview() {
       <hr className="rounded"></hr>
       <Card>
         <CardHeader>
-          <CardTitle>Auktioner du har budt på</CardTitle>
+          <CardTitle>Current auctions you lead</CardTitle>
           <CardDescription>
-            Vi notificere dig, hvis dit bud bliver overgået
+            We will notify you if you are outbid
           </CardDescription>
         </CardHeader>
         <CardContent>
