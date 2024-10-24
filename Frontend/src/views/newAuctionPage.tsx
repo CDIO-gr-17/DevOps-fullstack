@@ -208,7 +208,7 @@ function NewAuctionPage() {
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="min-h-[2.625rem] w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the item description..."
                   required
                 />
@@ -236,7 +236,7 @@ function NewAuctionPage() {
           </div>
 
           {/* Image */}
-          <div className="flex-1">
+          <div className="flex-1 ml-4">
             <div className="flex flex-col items-center justify-center h-full">
               <label
                 className="block text-gray-700 font-light mb-2"
@@ -251,6 +251,7 @@ function NewAuctionPage() {
                 className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 multiple
                 required
+                accept="image/*"
               />
               {/* Image previews */}
               <div className="mt-4 grid grid-cols-3 gap-4">
@@ -259,7 +260,7 @@ function NewAuctionPage() {
                     key={index}
                     src={preview}
                     alt={`Preview ${index}`}
-                    className="max-h-32"
+                    className="max-h-2rem"
                   />
                 ))}
               </div>
