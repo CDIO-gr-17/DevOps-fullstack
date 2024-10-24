@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
@@ -11,6 +11,20 @@ function NewAuctionPage() {
   const [tag, setTag] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  const [minStartDate, setMinStartDate] = useState("");
+  const [minEndDate, setMinEndDate] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const formattedNow = now.toISOString().slice(0, 16);
+    setMinStartDate(formattedNow);
+  }, []);
+
+  useEffect(() => {
+    if (startDate) {
+      setMinEndDate(startDate); // Sets minEndDate equal to startDate when startDate is set
+    }
+  }, [startDate]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -152,9 +166,10 @@ function NewAuctionPage() {
                   Start date
                 </label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   id="startDate"
                   value={startDate}
+                  min={minStartDate}
                   onChange={(e) => setStartDate(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
@@ -170,9 +185,10 @@ function NewAuctionPage() {
                   End date
                 </label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   id="endDate"
                   value={endDate}
+                  min={minEndDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
