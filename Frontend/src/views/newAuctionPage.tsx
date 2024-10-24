@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
@@ -14,6 +15,8 @@ function NewAuctionPage() {
   const [minStartDate, setMinStartDate] = useState("");
   const [minEndDate, setMinEndDate] = useState("");
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the file input
+
   useEffect(() => {
     const now = new Date();
     const formattedNow = now.toISOString().slice(0, 16);
@@ -22,7 +25,7 @@ function NewAuctionPage() {
 
   useEffect(() => {
     if (startDate) {
-      setMinEndDate(startDate); // Sets minEndDate equal to startDate when startDate is set
+      setMinEndDate(startDate);
     }
   }, [startDate]);
 
@@ -48,6 +51,17 @@ function NewAuctionPage() {
     }
   };
 
+  const removeImage = (index: number) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setImagePreviews((prevPreviews) =>
+      prevPreviews.filter((_, i) => i !== index)
+    );
+    // Reset the file input field after removing an image
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Form håndterning yada yada her
@@ -68,7 +82,7 @@ function NewAuctionPage() {
     <div className="w-full mx-auto bg-white justify-center flex">
       <form
         onSubmit={handleSubmit}
-        className="border rounded-3xl w-3/4 m-40 p-8"
+        className="border rounded-3xl w-3/4 m-40 p-8 border-gray-400"
       >
         <h1 className="text-2xl font-bold mb-6 text-center text-black">
           Create new Auction
@@ -238,9 +252,9 @@ function NewAuctionPage() {
 
           {/* Image */}
           <div className="flex-1 ml-4">
-            <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex flex-col justify-top h-full">
               <label
-                className="block text-gray-700 font-light mb-2"
+                className="flex text-gray-700 font-light mb-2"
                 htmlFor="image"
               >
                 Upload Images
@@ -257,12 +271,23 @@ function NewAuctionPage() {
               {/* Image previews */}
               <div className="mt-4 grid grid-cols-3 gap-4">
                 {imagePreviews.map((preview, index) => (
-                  <img
-                    key={index}
-                    src={preview}
-                    alt={`Preview ${index}`}
-                    className="max-h-2rem"
-                  />
+                  <div key={index} className="relative group">
+                    {/* The Image Preview */}
+                    <img
+                      src={preview}
+                      alt={`Preview ${index}`}
+                      className="max-h-2rem rounded"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded"></div>
+
+                    {/* "Delete image?" text, appears on hover */}
+                    <div
+                      className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer "
+                      onClick={() => removeImage(index)}
+                    >
+                      <FaTrashAlt className="w-10 h-10" />
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

@@ -41,10 +41,6 @@ function LionPainting() {
     setIsFavorite(!isFavorite);
   };
 
-  const Divider = () => {
-    return <hr className="border-t border-gray-300"></hr>;
-  };
-
   return (
     <div className="flex justify-center items-center">
       <div className="w-4/5 flex justify-between">
