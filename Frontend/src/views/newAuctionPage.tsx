@@ -90,9 +90,10 @@ function NewAuctionPage() {
                   id="itemName"
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter item name..."
                   required
+                  autoFocus
                 />
               </div>
 
