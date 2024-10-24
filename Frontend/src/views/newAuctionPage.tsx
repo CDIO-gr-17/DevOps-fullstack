@@ -4,7 +4,8 @@ import { FaTrashAlt } from "react-icons/fa";
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [startPrice, setStartPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [itemCategory, setItemCategory] = useState("");
@@ -16,6 +17,21 @@ function NewAuctionPage() {
   const [minEndDate, setMinEndDate] = useState("");
 
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the file input
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const textarea = e.target;
+
+    // Reset the height to auto to calculate the new height correctly
+    textarea.style.height = "auto";
+
+    // Set the height according to the scroll height (content height)
+    textarea.style.height = `${textarea.scrollHeight}px`;
+
+    // Update the description state
+    setDescription(textarea.value);
+  };
 
   useEffect(() => {
     const now = new Date();
@@ -68,7 +84,8 @@ function NewAuctionPage() {
     console.log({
       itemName,
       description,
-      price,
+      startPrice,
+      minPrice,
       startDate,
       endDate,
       itemCategory,
@@ -119,8 +136,8 @@ function NewAuctionPage() {
                 >
                   Item Category
                 </label>
+
                 <input
-                  type="text"
                   id="itemCategory"
                   value={itemCategory}
                   onChange={(e) => setItemCategory(e.target.value)}
@@ -128,6 +145,21 @@ function NewAuctionPage() {
                   placeholder="Enter item category..."
                   required
                 />
+                {/*<select
+                  id="itemCategory"
+                  value={itemCategory}
+                  onChange={(e) => setItemCategory(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                >
+                  <option value="" disabled></option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Books">Books</option>
+                  <option value="Furniture">Furniture</option>
+                  <option value="Other">Other</option>
+                </select>
+              */}
               </div>
             </div>
 
@@ -211,42 +243,59 @@ function NewAuctionPage() {
               </div>
             </div>
             <div className="flex mb-4">
-              {/* Description */}
-              <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="description"
-                >
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="min-h-[2.625rem] w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter the item description..."
-                  required
-                />
-              </div>
-
-              {/* Price */}
+              {/* Starting Price */}
               <div className="flex-1 px-2 ">
                 <label
                   className="flex text-gray-700 font-light mb-2"
-                  htmlFor="price"
+                  htmlFor="start-price"
                 >
-                  Price
+                  Starting Price
                 </label>
                 <input
                   type="number"
-                  id="price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  id="start-price"
+                  value={startPrice}
+                  onChange={(e) => setStartPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the item price..."
                   required
                 />
               </div>
+              {/* Minimum Price */}
+              <div className="flex-1 px-2 ">
+                <label
+                  className="flex text-gray-700 font-light mb-2"
+                  htmlFor="min-price"
+                >
+                  Minimum Sell Price
+                </label>
+                <input
+                  type="number"
+                  id="min-price"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter the item price..."
+                  required
+                />
+              </div>
+            </div>
+            {/* Description */}
+            <div className="flex-1 px-2">
+              <label
+                className="flex text-gray-700 font-light mb-2"
+                htmlFor="description"
+              >
+                Description
+              </label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(e) => handleDescriptionChange(e)}
+                className="min-h-[2.625rem] w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter the item description..."
+                required
+              />
             </div>
           </div>
 
