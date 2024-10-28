@@ -257,7 +257,7 @@ function NewAuctionPage() {
                   value={startPrice}
                   onChange={(e) => setStartPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter the item price..."
+                  placeholder="Enter the starting price..."
                   required
                 />
               </div>
@@ -275,7 +275,7 @@ function NewAuctionPage() {
                   value={minPrice}
                   onChange={(e) => setMinPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter the item price..."
+                  placeholder="Enter the minimum sell price..."
                   required
                 />
               </div>
