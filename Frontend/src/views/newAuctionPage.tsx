@@ -82,7 +82,6 @@ function NewAuctionPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Form håndterning yada yada her
     const auction: Auction = {
       title: itemName,
       description,
@@ -91,7 +90,7 @@ function NewAuctionPage() {
       itemCategory,
       itemCondition,
       tag,
-      image: images.toString(),
+      image: images.toString(), // Skal med sikkerhed ændres så håndteringen af billeder er korrekt
       startDate: new Date(startDate),
       endDate: new Date(endDate),
     };
