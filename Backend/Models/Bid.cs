@@ -7,9 +7,9 @@ public class Bid
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BidId { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [ForeignKey("ItemId")]
-    public required string ItemId { get; set; }
+    public required string ItemId { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [ForeignKey("CustomerId")]

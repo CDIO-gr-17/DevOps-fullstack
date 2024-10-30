@@ -14,9 +14,9 @@ public class AuctionWare
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ItemId { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [MaxLength(50)]
-    public required string ItemName { get; set; }
+    public required string ItemName { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [MaxLength(200)]

@@ -7,9 +7,9 @@ public class Category
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int CategoryId { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [MaxLength(50)]
-    public required string CategoryName { get; set; }
+    public required string CategoryName { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [MaxLength(200)]
