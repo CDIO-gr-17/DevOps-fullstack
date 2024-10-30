@@ -5,13 +5,11 @@ import { Auction, createAuction } from "@/services/auctionService";
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [startPrice, setStartPrice] = useState("");
-  const [minPrice, setMinPrice] = useState("");
+  const [minPrice, setStartPrice] = useState("");
+  const [currentPrice, setMinPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [itemCategory, setItemCategory] = useState("");
-  const [itemCondition, setItemCondition] = useState("");
-  const [tag, setTag] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [minStartDate, setMinStartDate] = useState("");
@@ -83,16 +81,14 @@ function NewAuctionPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const auction: Auction = {
-      title: itemName,
+      itemName: itemName,
       description,
-      startingPrice: parseFloat(startPrice),
+      currentPrice: parseFloat(currentPrice),
       minPrice: parseFloat(minPrice),
       itemCategory,
-      itemCondition,
-      tag,
-      image: images.toString(), // Skal med sikkerhed ændres så håndteringen af billeder er korrekt
       startDate: new Date(startDate),
       endDate: new Date(endDate),
+      image: images.toString(), // Skal med sikkerhed ændres så håndteringen af billeder er korrekt
     };
     try {
       const createdAuction = await createAuction(auction);
@@ -172,46 +168,6 @@ function NewAuctionPage() {
             </div>
 
             <div className="flex mb-4">
-              {/* Item tag */}
-              <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="itemTag"
-                >
-                  Tag
-                </label>
-                <input
-                  type="text"
-                  id="itemTag"
-                  value={tag}
-                  onChange={(e) => setTag(e.target.value)}
-                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter item tag..."
-                  required
-                />
-              </div>
-
-              {/* Item condition */}
-              <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="itemCondition"
-                >
-                  Item Condition
-                </label>
-                <input
-                  type="text"
-                  id="itemCondition"
-                  value={itemCondition}
-                  onChange={(e) => setItemCondition(e.target.value)}
-                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter item condition..."
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="flex mb-4">
               {/* Start date */}
               <div className="flex-1 px-2">
                 <label
@@ -251,18 +207,18 @@ function NewAuctionPage() {
               </div>
             </div>
             <div className="flex mb-4">
-              {/* Starting Price */}
+              {/* Current Price */}
               <div className="flex-1 px-2 ">
                 <label
                   className="flex text-gray-700 font-light mb-2"
-                  htmlFor="start-price"
+                  htmlFor="current-price"
                 >
-                  Starting Price
+                  Current Price
                 </label>
                 <input
                   type="number"
-                  id="start-price"
-                  value={startPrice}
+                  id="current-price"
+                  value={currentPrice}
                   onChange={(e) => setStartPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the starting price..."
