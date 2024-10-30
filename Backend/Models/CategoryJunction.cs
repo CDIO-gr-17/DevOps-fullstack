@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 public class CategoryJunction
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
     [Required]
     [ForeignKey("ItemId")]
     public int ItemId { get; set; }
