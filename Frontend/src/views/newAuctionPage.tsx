@@ -199,7 +199,7 @@ function NewAuctionPage() {
                 <input
                   type="number"
                   id="curr-price"
-                  value={minPrice}
+                  value={currPrice}
                   onChange={(e) => setCurrPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the current sell price..."
