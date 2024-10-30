@@ -4,8 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import "./lion-painting.css";
-
 import Carousel from "@/lib/carousel";
 import { useState } from "react";
 import { FaShieldAlt } from "react-icons/fa";
@@ -44,72 +42,60 @@ function LionPainting() {
   };
 
   const Divider = () => {
-    return <hr style={{ borderTop: "1px solid lightgrey" }}></hr>;
+    return <hr className="border-t border-gray-300"></hr>;
   };
 
   return (
-    <div className="product-page">
-      <div className="product-container">
-        <div className="product-description-photo">
-          <div className="product-photo-container">
-            {/*<img src="lion-painting.png" />*/}
-            <div className="relative">
-              <div className="max-w-lg">
-                <Carousel slides={slides} />
-              </div>
-            </div>
-          </div>
-          <div className="product-description-container">
-            <h2 className="product-description-title">Description</h2>
-            <p className="product-description">
-              This beautiful watercolor painting of a lion is a great addition
-              to any room. The painting is framed in a wooden frame and is
-              signed by the artist. The painting is in great condition and is
-              ready to be hung on the wall. The painting is 200x120 cm.
-            </p>
-            <Divider />
-            <div className="small-info-container">
-              <p className="product-item-no">Item no. 587,231</p>
-              <p className="product-views">Views 26</p>
-              <p className="product-published">Published 14 Sep 20.42</p>
+    <div className="flex justify-center items-center">
+      <div className="w-4/5 flex justify-between">
+        <div className="flex flex-col w-2/5 justify-start max-w-1/2">
+          <div className="relative">
+            <div className="max-w-lg">
+              <Carousel slides={slides} />
             </div>
           </div>
         </div>
 
-        <div className="product-info">
-          <div className="end-date-share-favorite">
-            <p className="end-date">Sun 22 Sep 2024 12:54</p>
-            <div className="share-fav-container">
-              <button className="share-button">
+        <div className="grid w-1/2 ml-8">
+          <div className="flex justify-between mb-2">
+            <p className="text-sm text-gray-500">Sun 22 Sep 2024 12:54</p>
+            <div className="flex items-center">
+              <button className="mr-4 text-2xl">
                 <GoShare />
               </button>
-              <button className="favorite-button" onClick={toggleFavorite}>
-                {!isFavorite && <MdFavoriteBorder />}
-                {isFavorite && <MdFavorite />}
+              <button className="text-2xl" onClick={toggleFavorite}>
+                {!isFavorite ? <MdFavoriteBorder /> : <MdFavorite />}
               </button>
             </div>
           </div>
-          <h1 className="product-title">Lion Magnifiqué</h1>
-          <p className="product-subtitle">Water color painting in wood frame</p>
-          <div className="product-price-status-bids-timer-tag-container">
-            <div className="price-status-bids">
-              <p className="price-status">Price |</p>
-              <button className="price-bids" onClick={toggleOverlay}>
+          <h1 className="text-2xl font-bold mb-2">Lion Magnifiqué</h1>
+          <p className="text-gray-500 mb-2">
+            Water color painting in wood frame
+          </p>
+
+          <div className="flex justify-between mb-2">
+            <div className="flex items-center">
+              <p className="text-gray-500">Price |</p>
+              <button className="ml-2 underline" onClick={toggleOverlay}>
                 3 bids
               </button>
             </div>
-            <p className="end-timer-tag"> Ends in</p>
+            <p className="text-gray-500">Ends in</p>
           </div>
-          <div className="price-end-timer-container">
-            <p className="product-price">$750</p>
-            <p className="end-timer">3 days 22 hours</p>
+
+          <div className="flex justify-between mb-2">
+            <p className="text-xl font-bold">$750</p>
+            <p className="text-gray-500">3 days 22 hours</p>
           </div>
-          <p className="buyer-protection">
+          <p className="flex items-center text-gray-500 mb-4">
             $764 including buyer protection
-            <FaShieldAlt className="shield-logo" />
+            <FaShieldAlt className="ml-2" />
           </p>
-          <button className="bid-button">Place a bid</button>
-          <Accordion type="single" collapsible className="Accordion">
+          <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 active:bg-blue-700">
+            Place a bid
+          </button>
+
+          <Accordion type="single" collapsible className="mt-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>Shipping</AccordionTrigger>
               <AccordionContent>
@@ -128,25 +114,36 @@ function LionPainting() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-          <div className="seller-info-container">
-            <div className="seller-name-pic">
-              <p className="seller-name">Marius Picasso</p>
-              <img src="Marius.jpg" className="seller-profile-pic" />
+
+          <div className="grid mt-4">
+            <div className="flex items-center mb-2">
+              <p className="font-bold underline mr-4">Marius Picasso</p>
+              <img
+                src="Marius.jpg"
+                className="w-12 h-12 rounded-full border-black border"
+              />
             </div>
-            <p className="seller-address">Rødovre, Denmark</p>
-            <div className="seller-verifications">
-              <p className="seller-verifications-logo"></p>
+            <p className="text-gray-500 mb-2">Rødovre, Denmark</p>
+
+            <div className="flex items-center mb-2">
               <VscVerified />
-              <p className="seller-verifications-text">Verified</p>
+              <p className="ml-2">Verified</p>
             </div>
-            <div className="seller-reviews">
+            <div className="flex items-center mb-2">
               <MdOutlineStarOutline />
-              <p className="seller-reviews-text">44 reviews</p>
+              <p className="ml-2">44 reviews</p>
             </div>
-            <div className="seller-profile-button-container">
-              <button className="seller-contact-button">Contact</button>
-              <button className="seller-reviews-button">Reviews</button>
-              <button className="seller-follow-button">Follow</button>
+
+            <div className="flex justify-between mt-4">
+              <button className="w-1/3 py-2 border border-gray-400 hover:bg-gray-400 hover:text-white">
+                Contact
+              </button>
+              <button className="w-1/3 py-2 border border-gray-400 hover:bg-gray-400 hover:text-white">
+                Reviews
+              </button>
+              <button className="w-1/3 py-2 border border-gray-400 hover:bg-gray-400 hover:text-white">
+                Follow
+              </button>
             </div>
           </div>
         </div>
@@ -154,17 +151,16 @@ function LionPainting() {
 
       {/* Conditional rendering of the overlay */}
       {isOverlayOpen && (
-        <div className="overlay">
-          <div className="overlay-content text-foreground bg-background">
-            <div className="close-icon" onClick={toggleOverlay}>
-              <button>
-                <IoMdClose />
-              </button>
-            </div>
-
-            <h2>Bids</h2>
-
-            <ul>
+        <div className="fixed top-32 left-2/3 right-0 bottom-0 border border-gray-300 bg-white rounded-lg shadow-lg w-60 max-h-60 overflow-y-auto z-10">
+          <div className="text-center p-4">
+            <button
+              className="absolute top-4 right-4 text-xl text-black"
+              onClick={toggleOverlay}
+            >
+              <IoMdClose />
+            </button>
+            <h2 className="mb-2 text-black">Bids</h2>
+            <ul className="text-black">
               {bids.map((bid, index) => (
                 <li key={index}>
                   <strong>{bid.time}</strong>: {bid.amount}
@@ -177,4 +173,5 @@ function LionPainting() {
     </div>
   );
 }
+
 export default LionPainting;

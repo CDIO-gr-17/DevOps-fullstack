@@ -8,6 +8,7 @@ export default {
   theme: {
   	extend: {
   		borderRadius: {
+			DEFAULT: '0.375rem',
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
