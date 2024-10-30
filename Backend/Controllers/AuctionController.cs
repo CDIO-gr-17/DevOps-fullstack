@@ -15,7 +15,7 @@ public class AuctionsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateAuction([FromBody] AuctionWare auctionware)
     {
-        _context.Auctions.Add(auctionware);
+        _context.AuctionWare.Add(auctionware);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetAuction), new { id = auctionware.ItemId }, auctionware);
     }
@@ -23,7 +23,7 @@ public class AuctionsController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAuction(int id)
     {
-        var auction = await _context.Auctions.FindAsync(id);
+        var auction = await _context.AuctionWare.FindAsync(id);
         if (auction == null)
         {
             return NotFound();
@@ -35,7 +35,7 @@ public class AuctionsController : ControllerBase
     public async Task<IActionResult> GetAuctions()
     {
         var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
-        var auctions = await _context.Auctions
+        var auctions = await _context.AuctionWare
                                      .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
                                      .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
                                      .ToListAsync();
