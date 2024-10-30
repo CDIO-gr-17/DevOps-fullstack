@@ -2,16 +2,12 @@
 import axios from "axios";
 
 export interface Auction {
-  title: string;
+  itemName: string;
   description: string;
-  startingPrice: number;
   minPrice: number;
+  currentPrice: number;
   startDate: Date;
   endDate: Date;
-  itemCategory: string;
-  itemCondition: string;
-  tag: string;
-  image: string;
 }
 
 export interface CreatedAuction extends Auction {
