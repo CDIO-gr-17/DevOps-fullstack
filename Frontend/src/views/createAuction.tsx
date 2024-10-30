@@ -4,7 +4,7 @@ import { Auction, createAuction } from "@/services/auctionService";
 import React, { useState } from "react";
 
 const CreateAuctionForm: React.FC = () => {
-  const [title, setTitle] = useState("");
+  const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
   const [startingPrice, setStartingPrice] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -13,14 +13,10 @@ const CreateAuctionForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const auction: Auction = {
-      title,
+      itemName,
       description,
-      startingPrice: parseFloat(startingPrice),
+      currentPrice: parseFloat(startingPrice),
       minPrice: 0,
-      itemCategory: "testCategory",
-      itemCondition: "testCondition",
-      tag: "testTag",
-      image: "testImage",
       startDate: new Date(startDate),
       endDate: new Date(endDate),
     };
@@ -45,8 +41,8 @@ const CreateAuctionForm: React.FC = () => {
         <input
           type="text"
           id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           placeholder="Title"
           required
