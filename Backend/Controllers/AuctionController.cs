@@ -13,11 +13,11 @@ public class AuctionsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAuction([FromBody] Auction auction)
+    public async Task<IActionResult> CreateAuction([FromBody] AuctionWare auctionware)
     {
-        _context.Auctions.Add(auction);
+        _context.Auctions.Add(auctionware);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetAuction), new { id = auction.Id }, auction);
+        return CreatedAtAction(nameof(GetAuction), new { id = auctionware.ItemId }, auctionware);
     }
 
     [HttpGet("{id}")]
@@ -36,8 +36,8 @@ public class AuctionsController : ControllerBase
     {
         var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
         var auctions = await _context.Auctions
-                                     .Where(a => a.EndDate > currentDateTime) // Filter out old auctions
-                                     .OrderBy(a => a.EndDate) // Order by EndDate in ascending order
+                                     .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
+                                     .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
                                      .ToListAsync();
         return Ok(auctions);
     }
