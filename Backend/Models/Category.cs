@@ -14,5 +14,5 @@ public class Category
 
     [Required]
     [MaxLength(200)]
-    public string Describtion { get; set; }
+    public string Description { get; set; }
 }

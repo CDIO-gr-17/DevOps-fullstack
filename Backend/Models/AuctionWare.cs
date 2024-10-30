@@ -21,7 +21,7 @@ public class AuctionWare
 
     [Required]
     [MaxLength(200)]
-    public string Describtion { get; set; }
+    public string Description { get; set; }
 
     [Required]
     [MaxLength(100)]
