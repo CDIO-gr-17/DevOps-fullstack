@@ -49,6 +49,7 @@ function ProfileOverview() {
         </CardContent>
         <CardFooter></CardFooter>
       </Card>
+
       <hr className="rounded"></hr>
       <Card>
         <CardHeader>
