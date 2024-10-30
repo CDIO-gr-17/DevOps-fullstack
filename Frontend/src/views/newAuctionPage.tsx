@@ -5,8 +5,8 @@ import { Auction, createAuction } from "@/services/auctionService";
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [minPrice, setStartPrice] = useState("");
-  const [currentPrice, setMinPrice] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [currPrice, setCurrPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [images, setImages] = useState<File[]>([]);
@@ -82,7 +82,7 @@ function NewAuctionPage() {
     const auction: Auction = {
       itemName: itemName,
       description,
-      currentPrice: parseFloat(currentPrice),
+      currentPrice: parseFloat(currPrice),
       minPrice: parseFloat(minPrice),
       startDate: new Date(startDate),
       endDate: new Date(endDate),
@@ -170,39 +170,39 @@ function NewAuctionPage() {
               </div>
             </div>
             <div className="flex mb-4">
+              {/* Minimum Price */}
+              <div className="flex-1 px-2 ">
+                <label
+                  className="flex text-gray-700 font-light mb-2"
+                  htmlFor="minimum-price"
+                >
+                  Minimum Price
+                </label>
+                <input
+                  type="number"
+                  id="minimum-price"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Enter the minimum price..."
+                  required
+                />
+              </div>
               {/* Current Price */}
               <div className="flex-1 px-2 ">
                 <label
                   className="flex text-gray-700 font-light mb-2"
-                  htmlFor="current-price"
+                  htmlFor="curr-price"
                 >
                   Current Price
                 </label>
                 <input
                   type="number"
-                  id="current-price"
-                  value={currentPrice}
-                  onChange={(e) => setStartPrice(e.target.value)}
-                  className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter the starting price..."
-                  required
-                />
-              </div>
-              {/* Minimum Price */}
-              <div className="flex-1 px-2 ">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="min-price"
-                >
-                  Minimum Sell Price
-                </label>
-                <input
-                  type="number"
-                  id="min-price"
+                  id="curr-price"
                   value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
+                  onChange={(e) => setCurrPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter the minimum sell price..."
+                  placeholder="Enter the current sell price..."
                   required
                 />
               </div>
