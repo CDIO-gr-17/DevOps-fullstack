@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,11 +16,11 @@ public class AuctionWare
 
     [Required]
     [MaxLength(50)]
-    public string ItemName { get; set; }
+    public required string ItemName { get; set; }
 
     [Required]
     [MaxLength(200)]
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
     [Required]
     [MaxLength(100)]

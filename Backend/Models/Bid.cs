@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,7 +9,7 @@ public class Bid
 
     [Required]
     [ForeignKey("ItemId")]
-    public string ItemId { get; set; }
+    public required string ItemId { get; set; }
 
     [Required]
     [ForeignKey("CustomerId")]
