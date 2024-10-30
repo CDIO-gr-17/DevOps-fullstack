@@ -19,7 +19,7 @@ jobs:
       - name: build the frontend docker image
         id: build-frontend-docker-image
         run: |
-          ls -la 
+          ls -la
           docker build Frontend -f Frontend/Dockerfile -t holmst33n/kunsthavn:frontend-latest
       - name: push the frontend docker image
         id: push-frontend-docker-image
