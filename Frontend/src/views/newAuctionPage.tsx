@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
+import { Auction, createAuction } from "@/services/auctionService";
 
 function NewAuctionPage() {
   const [itemName, setItemName] = useState("");
@@ -16,7 +17,7 @@ function NewAuctionPage() {
   const [minStartDate, setMinStartDate] = useState("");
   const [minEndDate, setMinEndDate] = useState("");
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the file input
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -72,7 +73,8 @@ function NewAuctionPage() {
     setImagePreviews((prevPreviews) =>
       prevPreviews.filter((_, i) => i !== index)
     );
-    // Reset the file input field after removing an image
+
+    // Clear the file input reference to allow re-upload
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -316,6 +318,7 @@ function NewAuctionPage() {
                 multiple
                 required
                 accept="image/*"
+                key={images.length}
               />
               {/* Image previews */}
               <div className="mt-4 grid grid-cols-3 gap-4">
