@@ -1,4 +1,8 @@
-pupblic class Bid
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class Bid
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

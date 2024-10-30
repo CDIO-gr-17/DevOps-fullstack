@@ -9,7 +9,7 @@ public enum AuctionStatus
     Sold
 }
 
-pupblic class AuctionWare
+public class AuctionWare
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
