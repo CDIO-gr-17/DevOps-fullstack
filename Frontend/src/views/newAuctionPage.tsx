@@ -80,21 +80,28 @@ function NewAuctionPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Form håndterning yada yada her
-    console.log({
-      itemName,
+    const auction: Auction = {
+      title: itemName,
       description,
-      startPrice,
-      minPrice,
-      startDate,
-      endDate,
+      startingPrice: parseFloat(startPrice),
+      minPrice: parseFloat(minPrice),
       itemCategory,
       itemCondition,
       tag,
-      images,
-    });
+      image: images.toString(),
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+    };
+    try {
+      const createdAuction = await createAuction(auction);
+      console.log("Created Auction:", createdAuction);
+      // Handle the created auction as needed, e.g., navigate to the auction details page
+    } catch (error) {
+      console.error("Error creating auction:", error);
+    }
   };
 
   return (

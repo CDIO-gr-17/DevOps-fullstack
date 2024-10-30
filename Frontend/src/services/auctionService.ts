@@ -5,8 +5,13 @@ export interface Auction {
   title: string;
   description: string;
   startingPrice: number;
+  minPrice: number;
   startDate: Date;
   endDate: Date;
+  itemCategory: string;
+  itemCondition: string;
+  tag: string;
+  image: string;
 }
 
 export interface CreatedAuction extends Auction {

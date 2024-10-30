@@ -16,6 +16,11 @@ const CreateAuctionForm: React.FC = () => {
       title,
       description,
       startingPrice: parseFloat(startingPrice),
+      minPrice: 0,
+      itemCategory: "testCategory",
+      itemCondition: "testCondition",
+      tag: "testTag",
+      image: "testImage",
       startDate: new Date(startDate),
       endDate: new Date(endDate),
     };
