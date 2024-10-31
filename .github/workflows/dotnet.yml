@@ -96,8 +96,8 @@ jobs:
       - name: Build and Tag Docker Images
         run: |
           docker-compose -f docker-compose.yml build
-          docker tag backend:latest ${{ secrets.HUB_USER }}/backend:latest
-          docker tag frontend:latest ${{ secrets.HUB_USER }}/frontend:latest
+          docker tag devops-fullstack_backend:latest ${{ secrets.HUB_USER }}/backend:latest
+          docker tag devops-fullstack_frontend:latest ${{ secrets.HUB_USER }}/frontend:latest
 
       - name: Push Docker Images
         run: |
