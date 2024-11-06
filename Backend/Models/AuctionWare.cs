@@ -39,13 +39,11 @@ public class AuctionWare
     [ForeignKey("CustomerId")]
     public int SellerId { get; set; }
 
-    [Required]
     [ForeignKey("CustomerId")]
-    public int HighestBidderId { get; set; }
+    public int? HighestBidderId { get; set; }
 
-    [Required]
     [ForeignKey("CustomerId")]
-    public int BuyerId { get; set; }
+    public int? BuyerId { get; set; }
 
     [Required]
     public AuctionStatus AuctionStatus { get; set; }

@@ -33,7 +33,7 @@ function ProfileOverview() {
   const [phone, setPhone] = useState("");
   const [accountType, setAccountType] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async () => {
     const customer: Customer = {
       FirstName: name,
       LastName: lastName,
