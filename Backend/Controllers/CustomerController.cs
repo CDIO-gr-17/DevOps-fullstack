@@ -34,9 +34,9 @@ public class CustomersController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetCustomers()
     {
-        var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
+        var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when customers register
         var customers = await _context.Customer
-                                     .OrderBy(a => a.RegistrationDate) // Order by EndDate in ascending order
+                                     .OrderBy(a => a.RegistrationDate) // Order by RegistrationDate in ascending order
                                      .ToListAsync();
         return Ok(customers);
     }
