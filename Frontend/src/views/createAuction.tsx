@@ -1,23 +1,33 @@
 // src/components/CreateAuctionForm.tsx
 
-import { Auction, createAuction } from "@/services/auctionService";
+import { AuctionWare, createAuction } from "@/services/auctionService";
 import React, { useState } from "react";
 
 const CreateAuctionForm: React.FC = () => {
-  const [title, setTitle] = useState("");
+  const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [startingPrice, setStartingPrice] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [minimumPrice, setMinimumPrice] = useState("");
+  const [currentPrice, setCurrentPrice] = useState("");
+  const [auctionStart, setAuctionStart] = useState("");
+  const [auctionEnd, setAuctionEnd] = useState("");
+  const [sellerId, setSellerId] = useState("");
+  const [highestBidderId, setHighestBidderId] = useState("");
+  const [buyerId, setBuyerId] = useState("");
+  const [auctionStatus, setAuctionStatus] = useState("Open");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const auction: Auction = {
-      title,
-      description,
-      startingPrice: parseFloat(startingPrice),
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
+    const auction: AuctionWare = {
+      ItemName: itemName,
+      Description: description,
+      MinimumPrice: parseFloat(minimumPrice),
+      CurrentPrice: parseFloat(currentPrice),
+      AuctionStart: new Date(auctionStart),
+      AuctionEnd: new Date(auctionEnd),
+      SellerId: parseInt(sellerId),
+      HighestBidderId: parseInt(highestBidderId),
+      BuyerId: parseInt(buyerId),
+      AuctionStatus: auctionStatus as "Open" | "Closed" | "Sold",
     };
     try {
       const createdAuction = await createAuction(auction);
@@ -32,18 +42,18 @@ const CreateAuctionForm: React.FC = () => {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label
-          htmlFor="title"
+          htmlFor="itemName"
           className="block text-sm font-medium text-gray-700"
         >
-          Title
+          Item Name
         </label>
         <input
           type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          id="itemName"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          placeholder="Title"
+          placeholder="Item Name"
           required
         />
       </div>
@@ -65,52 +75,139 @@ const CreateAuctionForm: React.FC = () => {
       </div>
       <div>
         <label
-          htmlFor="startingPrice"
+          htmlFor="minimumPrice"
           className="block text-sm font-medium text-gray-700"
         >
-          Starting Price
+          Minimum Price
         </label>
         <input
           type="number"
-          id="startingPrice"
-          value={startingPrice}
-          onChange={(e) => setStartingPrice(e.target.value)}
+          id="minimumPrice"
+          value={minimumPrice}
+          onChange={(e) => setMinimumPrice(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          placeholder="Starting Price"
+          placeholder="Minimum Price"
           required
         />
       </div>
       <div>
         <label
-          htmlFor="startDate"
+          htmlFor="currentPrice"
           className="block text-sm font-medium text-gray-700"
         >
-          Start Date
+          Current Price
+        </label>
+        <input
+          type="number"
+          id="currentPrice"
+          value={currentPrice}
+          onChange={(e) => setCurrentPrice(e.target.value)}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          placeholder="Current Price"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="auctionStart"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Auction Start
         </label>
         <input
           type="datetime-local"
-          id="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
+          id="auctionStart"
+          value={auctionStart}
+          onChange={(e) => setAuctionStart(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           required
         />
       </div>
       <div>
         <label
-          htmlFor="endDate"
+          htmlFor="auctionEnd"
           className="block text-sm font-medium text-gray-700"
         >
-          End Date
+          Auction End
         </label>
         <input
           type="datetime-local"
-          id="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+          id="auctionEnd"
+          value={auctionEnd}
+          onChange={(e) => setAuctionEnd(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           required
         />
+      </div>
+      <div>
+        <label
+          htmlFor="sellerId"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Seller ID
+        </label>
+        <input
+          type="number"
+          id="sellerId"
+          value={sellerId}
+          onChange={(e) => setSellerId(e.target.value)}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          placeholder="Seller ID"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="highestBidderId"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Highest Bidder ID
+        </label>
+        <input
+          type="number"
+          id="highestBidderId"
+          value={highestBidderId}
+          onChange={(e) => setHighestBidderId(e.target.value)}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          placeholder="Highest Bidder ID"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="buyerId"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Buyer ID
+        </label>
+        <input
+          type="number"
+          id="buyerId"
+          value={buyerId}
+          onChange={(e) => setBuyerId(e.target.value)}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          placeholder="Buyer ID"
+          required
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="auctionStatus"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Auction Status
+        </label>
+        <select
+          id="auctionStatus"
+          value={auctionStatus}
+          onChange={(e) => setAuctionStatus(e.target.value)}
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          required
+        >
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="Sold">Sold</option>
+        </select>
       </div>
       <button
         type="submit"
