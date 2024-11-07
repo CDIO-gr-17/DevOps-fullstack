@@ -13,7 +13,7 @@ export interface CreatedAuction extends Auction {
   id: number;
 }
 
-const API_URL = process.env.REACT_APP_API_URL ? "http://test" : "http://test";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api/";
 
 export const createAuction = async (auction: Auction) => {
   const response = await axios.post(API_URL, auction);
