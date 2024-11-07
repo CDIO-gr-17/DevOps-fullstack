@@ -23,7 +23,6 @@ public class AuctionWare
     public required string Description { get; set; }
 
     [Required]
-    [MaxLength(100)]
     public int MinimumPrice { get; set; }
 
     [Required]
