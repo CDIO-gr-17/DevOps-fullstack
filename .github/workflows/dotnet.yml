@@ -116,6 +116,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{secrets.SERVER_USER}}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd /home/azureuser/DevOps-fullstack
-          chmod +x deploy.sh
-          ./deploy.sh
+          docker-compose -f docker-compose.prod.yml pull
+          docker-compose -f docker-compose.prod.yml up -d
           EOF
+      # chmod +x deploy.sh
+      # ./deploy.sh
