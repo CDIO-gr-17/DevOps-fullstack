@@ -22,7 +22,6 @@ services:
       dockerfile: Dockerfile
       args:
         - REACT_APP_API_URL=http://51.120.6.166:8080/api/
-
     ports:
       - "80:80"
     networks:
