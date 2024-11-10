@@ -7,11 +7,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import navItems from "./navItems";
 import AuthenticationButton from "@/auth0Components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const { user, isAuthenticated } = useAuth0();
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -84,13 +86,15 @@ const NavigationMenu = () => {
         </div>
         <div className="ml-auto flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src="/profile-silluette.jpg" alt="@user" />
+            <AvatarImage
+              src={isAuthenticated ? user?.picture : "/profile-silluette.jpg"}
+            />
             <AvatarFallback>U</AvatarFallback>
             <Link to="/profile" className="absolute inset-0">
               <span className="sr-only">Go to profile</span>
             </Link>
           </Avatar>
-          <AuthenticationButton/>
+          <AuthenticationButton />
         </div>
         <div className="md:hidden ml-4">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -126,7 +130,7 @@ const NavigationMenu = () => {
                     )}
                   </React.Fragment>
                 ))}
-                <AuthenticationButton/>
+                <AuthenticationButton />
               </nav>
             </SheetContent>
           </Sheet>

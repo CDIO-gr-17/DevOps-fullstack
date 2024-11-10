@@ -1,3 +1,4 @@
+// profile_overview.tsx
 import {
   Carousel,
   CarouselContent,
@@ -5,7 +6,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
 import {
   Card,
   CardContent,
@@ -14,187 +14,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
-
 import art1 from "@/assets/art_placeholder1.webp";
 import art2 from "@/assets/art_placeholder2.jpg";
 import art3 from "@/assets/art_placeholder3.png";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Customer, createCustomer } from "@/services/customerService";
-import Profile from "@/auth0Profile";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function ProfileOverview() {
+  const { user, isAuthenticated } = useAuth0();
   return (
     <>
-      <Profile />
-      <div>
-        <form
-          onSubmit={handleSubmit}
-          className="border rounded-3xl w-3/4 m-40 p-8"
-        >
-          <h1 className="text-2xl font-bold mb-6 text-center text-black">
-            Create new Auction
-          </h1>
-
-          <div className="flex justify-between">
-            <div className="flex-1 mr-4">
-              <div className="flex mb-4">
-                {/* User name */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="Name"
-                  >
-                    user Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full border border-gray-400 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter name..."
-                    required
-                    autoFocus
-                  />
-                </div>
-
-                {/* Last name */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="lastName"
-                  >
-                    last name
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter Last name..."
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="flex mb-4">
-                {/* email*/}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="email"
-                  >
-                    Tag
-                  </label>
-                  <input
-                    type="text"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter email..."
-                    required
-                  />
-                </div>
-
-                {/* password  */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="password"
-                  >
-                    password
-                  </label>
-                  <input
-                    type="text"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter password..."
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="flex mb-4">
-                {/* address */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="address"
-                  >
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-
-                {/* Phone */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="phone"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    id="endDate"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="flex mb-4">
-                {/* Account type */}
-                <div className="flex-1 px-2">
-                  <label
-                    className="flex text-gray-700 font-light mb-2"
-                    htmlFor="AccountType"
-                  >
-                    Account type
-                  </label>
-                  <textarea
-                    id="AccountType"
-                    value={accountType}
-                    onChange={(e) => setAccountType(e.target.value)}
-                    className="min-h-[2.625rem] w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter Account type..."
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Submit button */}
-            <div className="flex justify-center mt-6">
-              <button
-                type="submit"
-                className="w-1/4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                Create Auction
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
       <Card>
         <CardHeader>
-          <CardTitle>John Doe</CardTitle>
-          <CardDescription>johndoe@mail.com</CardDescription>
+          <CardTitle>{isAuthenticated ? user?.name : "Guest"}</CardTitle>
+          <CardDescription>
+            {isAuthenticated ? user?.email : "Email not available"}
+          </CardDescription>
           <CardDescription>+45 12345678</CardDescription>
         </CardHeader>
         <CardContent>
@@ -204,9 +40,11 @@ function ProfileOverview() {
           <Button className="m-2" type="submit">
             My items
           </Button>
-          <Button className="m-2" type="submit">
-            Profile settings
-          </Button>
+          <Link to="/sign-up">
+            <Button className="m-2" type="submit">
+              Profile settings
+            </Button>
+          </Link>
           <Link to="/new-auction">
             <Button className="m-2" type="submit">
               New auction

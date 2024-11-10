@@ -2,7 +2,7 @@ import CreateCustomerForm from "../createCustomer";
 const SignUpPage = () => {
   return (
     <div>
-      <h1>Sign Up</h1>
+      <h1>Profile settings</h1>
       <CreateCustomerForm />
     </div>
   );

@@ -33,3 +33,5 @@ export const createCustomer = async (customer: Customer) => {
     const response = await axios.get(url);
     return response.data;
   };
+
+

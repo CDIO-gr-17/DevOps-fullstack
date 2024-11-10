@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Customer, createCustomer } from "@/services/customerService";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CreateCustomerForm: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,6 +10,13 @@ const CreateCustomerForm: React.FC = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [accountType, setAccountType] = useState("Customer");
+  const { user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      setEmail(user.email);
+    }
+  }, [isAuthenticated, user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,6 +32,7 @@ const CreateCustomerForm: React.FC = () => {
     try {
       const createdCostumer = await createCustomer(costumer);
       console.log("Created Costumer:", createdCostumer);
+
       // Handle the created costumer as needed, e.g., navigate to the costumer details page
     } catch (error) {
       console.error("Error creating costumer:", error);
@@ -188,7 +197,7 @@ const CreateCustomerForm: React.FC = () => {
             type="submit"
             className=" h-1/4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Create Auction
+            Update profile
           </button>
         </div>
       </div>
