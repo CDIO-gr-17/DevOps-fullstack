@@ -23,6 +23,7 @@ import art3 from "@/assets/art_placeholder3.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Customer, createCustomer } from "@/services/customerService";
+import Profile from "@/auth0Profile";
 
 function ProfileOverview() {
   const [name, setName] = useState("");
@@ -53,7 +54,9 @@ function ProfileOverview() {
     }
   };
   return (
+    
     <>
+    <Profile />
       <div>
         <form
           onSubmit={handleSubmit}
