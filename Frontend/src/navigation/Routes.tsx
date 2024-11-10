@@ -5,7 +5,6 @@ import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
 import LionPainting from "@/views/items/lion-painting";
-import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import NewAuctionPage from "@/views/newAuctionPage";
@@ -34,11 +33,6 @@ export const routes: RouteObject[] = [
       {
         path: "/1",
         element: <LionPainting />,
-      },
-
-      {
-        path: "/login",
-        element: <LoginPage />,
       },
       {
         path: "/paymentpage",
