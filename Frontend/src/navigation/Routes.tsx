@@ -9,6 +9,7 @@ import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import NewAuctionPage from "@/views/newAuctionPage";
+import SignUpPage from "@/views/login/signUp";
 
 export const routes: RouteObject[] = [
   {
@@ -48,6 +49,11 @@ export const routes: RouteObject[] = [
       {
         path: "/new-auction",
         element: <NewAuctionPage />,
+      },
+
+      {
+        path: "/Sign-Up",
+        element: <SignUpPage />,
       },
     ],
   },

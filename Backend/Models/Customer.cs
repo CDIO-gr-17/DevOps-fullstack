@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,27 +16,27 @@ public class Customer
 
     [Required]
     [MaxLength(50)]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [MaxLength(50)]
-    public string LastName { get; set; }
+    public required string LastName { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [EmailAddress]
     [MaxLength(100)]
-    public string Email { get; set; }
+    public required string Email { get; set; }
 
     [Required]
     [MaxLength(100)]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     [MaxLength(200)]
-    public string Address { get; set; }
+    public required string Address { get; set; }
 
     [Phone]
     [MaxLength(15)]
-    public string PhoneNumber { get; set; }
+    public required string PhoneNumber { get; set; }
 
     [Required]
     public AccountType AccountType { get; set; }

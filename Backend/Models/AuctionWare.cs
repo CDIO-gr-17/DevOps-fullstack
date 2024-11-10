@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,22 +8,21 @@ public enum AuctionStatus
     Sold
 }
 
-pupblic class AuctionWare
+public class AuctionWare
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ItemId { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [MaxLength(50)]
-    public string ItemName { get; set; }
+    public required string ItemName { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [MaxLength(200)]
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
     [Required]
-    [MaxLength(100)]
     public int MinimumPrice { get; set; }
 
     [Required]
@@ -40,13 +38,11 @@ pupblic class AuctionWare
     [ForeignKey("CustomerId")]
     public int SellerId { get; set; }
 
-    [Required]
     [ForeignKey("CustomerId")]
-    public int HighestBidderId { get; set; }
+    public int? HighestBidderId { get; set; }
 
-    [Required]
     [ForeignKey("CustomerId")]
-    public int BuyerId { get; set; }
+    public int? BuyerId { get; set; }
 
     [Required]
     public AuctionStatus AuctionStatus { get; set; }

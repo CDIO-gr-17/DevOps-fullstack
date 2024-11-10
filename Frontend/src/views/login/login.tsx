@@ -1,4 +1,5 @@
 import { FormEvent, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -94,12 +95,11 @@ const LoginPage = () => {
           </form>
           <p className="mt-6 text-center text-sm text-gray-600">
             Don’t have an account?{" "}
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
-            >
-              Sign up
-            </a>
+            <Link to="/sign-up">
+              <button className="font-medium text-indigo-600 hover:text-indigo-500">
+                Sign up
+              </button>
+            </Link>
           </p>
         </div>
       </div>

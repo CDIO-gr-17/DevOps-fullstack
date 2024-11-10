@@ -1,12 +1,15 @@
-pupblic class Bid
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class Bid
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BidId { get; set; }
 
-    [Required]
+    [Required] // Ensures non-null value in the database
     [ForeignKey("ItemId")]
-    public string ItemId { get; set; }
+    public required string ItemId { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [ForeignKey("CustomerId")]

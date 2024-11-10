@@ -1,22 +1,26 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
-export interface Auction {
-  itemName: string;
-  description: string;
-  minPrice: number;
-  currentPrice: number;
-  startDate: Date;
-  endDate: Date;
+export interface AuctionWare {
+  ItemName: string;
+  Description: string;
+  MinimumPrice: number;
+  CurrentPrice: number;
+  AuctionStart: Date;
+  AuctionEnd: Date;
+  SellerId: number;
+  HighestBidderId: number;
+  BuyerId: number;
+  AuctionStatus: string;
 }
 
-export interface CreatedAuction extends Auction {
+export interface CreatedAuction extends AuctionWare {
   id: number;
 }
 
 const API_URL = "http://localhost:8080/api/auctions";
 
-export const createAuction = async (auction: Auction) => {
+export const createAuction = async (auction: AuctionWare) => {
   const response = await axios.post(API_URL, auction);
   return response.data;
 };
