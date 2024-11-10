@@ -1,22 +1,17 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { Menu } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import navItems from "./navItems";
+import AuthenticationButton from "@/auth0Components";
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    setIsOpen(false);
-    navigate("/login");
-  };
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -95,13 +90,7 @@ const NavigationMenu = () => {
               <span className="sr-only">Go to profile</span>
             </Link>
           </Avatar>
-          <Button
-            variant="ghost"
-            className="hidden md:inline-flex"
-            onClick={handleLoginClick}
-          >
-            Log in
-          </Button>
+          <AuthenticationButton/>
         </div>
         <div className="md:hidden ml-4">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -137,9 +126,7 @@ const NavigationMenu = () => {
                     )}
                   </React.Fragment>
                 ))}
-                <Button variant="ghost" onClick={handleLoginClick}>
-                  Log in
-                </Button>
+                <AuthenticationButton/>
               </nav>
             </SheetContent>
           </Sheet>
