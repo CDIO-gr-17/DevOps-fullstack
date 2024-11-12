@@ -14,7 +14,7 @@ export interface Createdcustomer extends Customer {
   id: number;
 }
 
-const API_URL = "http://51.120.6.166:8080/api/customers";
+const API_URL = "http://51.120.6.166/api/customers";
 
 export const createCustomer = async (customer: Customer) => {
   try {
