@@ -1,13 +1,11 @@
-#Taken straight from chat
+version: '3.8'
 
 services:
   backend:
-    build:
-      context: ./Backend
-      dockerfile: Dockerfile
+    image: holmst33n/backend:latest  # Use Docker Hub image
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - CONNECTION_STRING=Host=postgres;Database=mydb;Username=myuser;Password=mypassword
+      - ASPNETCORE_ENVIRONMENT=Production
+      - CONNECTION_STRING=Host=postgres;Database=mydb;Username=myuser;Password=mypassword  # Ideally replace with secrets
     ports:
       - "8080:8080"
     depends_on:
@@ -17,17 +15,11 @@ services:
       - app-network
 
   frontend:
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile
-      args:
-        - REACT_APP_API_URL=http://51.120.6.166:8080/api/
+    image: holmst33n/frontend:latest  # Use Docker Hub image
     environment:
       - REACT_APP_API_URL=http://51.120.6.166:8080/api/
     ports:
       - "80:80"
-    depends_on:
-      - backend
     networks:
       - app-network
 
@@ -36,7 +28,7 @@ services:
     environment:
       POSTGRES_DB: mydb
       POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      POSTGRES_PASSWORD: mypassword  # Replace with secrets in production
     ports:
       - "5432:5432"
     healthcheck:

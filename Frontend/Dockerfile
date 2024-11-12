@@ -1,5 +1,7 @@
+
 # Use the official Node.js image
 FROM node:22 AS build
+
 
 # Set working directory
 WORKDIR /app
@@ -10,6 +12,9 @@ RUN npm install
 
 # Copy project files
 COPY . .
+
+ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
 # Build the project
 RUN npm run build
