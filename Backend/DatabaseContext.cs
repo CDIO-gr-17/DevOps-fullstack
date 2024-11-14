@@ -10,6 +10,7 @@ public class DatabaseContext : DbContext
     public DbSet<CategoryJunction> CategoryJunction { get; set; }
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Transaction> Transaction { get; set; }
+    public DbSet<Image> Image { get; set; }
 
     // Define your DbSets here
     // public DbSet<MyEntity> MyEntities { get; set; }
