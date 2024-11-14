@@ -18,7 +18,7 @@ export interface CreatedAuction extends AuctionWare {
   id: number;
 }
 
-const API_URL = "http://51.120.6.166:8080/api/auctions";
+const API_URL = "http://localhost:8080/api/auctionwares";
 
 export const createAuction = async (auction: AuctionWare) => {
   const response = await axios.post(API_URL, auction);
