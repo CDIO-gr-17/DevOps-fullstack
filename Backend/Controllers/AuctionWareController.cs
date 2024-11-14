@@ -36,8 +36,8 @@ public class AuctionWaresController : ControllerBase
     {
         var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
         var auctions = await _context.AuctionWare
-                                     .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
-                                     .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
+                                     //  .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
+                                     //  .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
                                      .ToListAsync();
         return Ok(auctions);
     }
