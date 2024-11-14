@@ -53,7 +53,7 @@ else
 // app.UseHttpsRedirection();
 
 // Use CORS policy
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
