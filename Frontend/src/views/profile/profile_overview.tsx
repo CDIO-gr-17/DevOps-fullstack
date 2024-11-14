@@ -232,7 +232,7 @@ function ProfileOverview() {
           <Button className="m-2" type="submit">
             Profile settings
           </Button>
-          <Link to="/new-auction">
+          <Link to="/createAuction">
             <Button className="m-2" type="submit">
               New auction
             </Button>

@@ -14,12 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const fetchAuctions = async () => {
-  const response = await fetch("http://localhost:8080/api/auctionwares");
-  const data = await response.json();
-  return data;
-};
+import { getAuctions } from "@/services/auctionService";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -28,8 +23,8 @@ const HomePage = () => {
 
   useEffect(() => {
     const loadAuctions = async () => {
-      const auctionData = await fetchAuctions();
-      setAuctions(auctionData);
+      const auctionData = await getAuctions();
+      setAuctions(auctionData as any[]);
     };
 
     loadAuctions();

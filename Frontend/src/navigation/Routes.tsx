@@ -8,7 +8,8 @@ import LionPainting from "@/views/items/lion-painting";
 import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
-import NewAuctionPage from "@/views/newAuctionPage";
+import NewAuctionPage from "@/views/createAuction";
+import CreateAuction from "@/views/createAuction";
 
 export const routes: RouteObject[] = [
   {
@@ -46,8 +47,8 @@ export const routes: RouteObject[] = [
       },
       { path: "/winners", element: <WinnerPage /> },
       {
-        path: "/new-auction",
-        element: <NewAuctionPage />,
+        path: "/createAuction",
+        element: <CreateAuction />,
       },
     ],
   },

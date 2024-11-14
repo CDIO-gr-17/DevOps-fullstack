@@ -25,7 +25,7 @@ export const createAuction = async (auction: AuctionWare) => {
   return response.data;
 };
 
-export const getAuctions = async (id: number) => {
+export const getAuctions = async (id?: number) => {
   const url = id ? `${API_URL}/${id}` : API_URL;
   const response = await axios.get(url);
   return response.data;
