@@ -1,14 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { AuctionWare, createAuction } from "@/services/auctionService";
 import { FaTrashAlt } from "react-icons/fa";
-import { Auction, createAuction } from "@/services/auctionService";
+import React, { useState, useEffect, useRef } from "react";
 
-function NewAuctionPage() {
+const CreateNewAuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState("");
   const [description, setDescription] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [currPrice, setCurrPrice] = useState("");
+  const [minimumPrice, setMinimumPrice] = useState("");
+  const [currentPrice, setCurrentPrice] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [sellerId] = useState("");
+  const [highestBidderId] = useState("");
+  const [buyerId] = useState("");
+  const [auctionStatus] = useState("Open");
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [minStartDate, setMinStartDate] = useState("");
@@ -79,13 +83,17 @@ function NewAuctionPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const auction: Auction = {
-      itemName: itemName,
-      description,
-      currentPrice: parseFloat(currPrice),
-      minPrice: parseFloat(minPrice),
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
+    const auction: AuctionWare = {
+      ItemName: itemName,
+      Description: description,
+      MinimumPrice: parseFloat(minimumPrice),
+      CurrentPrice: parseFloat(currentPrice),
+      AuctionStart: new Date(startDate),
+      AuctionEnd: new Date(endDate),
+      SellerId: sellerId ? parseInt(sellerId) : 0,
+      HighestBidderId: highestBidderId ? parseInt(highestBidderId) : 0,
+      BuyerId: buyerId ? parseInt(buyerId) : 0,
+      AuctionStatus: auctionStatus ? auctionStatus : "Open",
     };
     try {
       const createdAuction = await createAuction(auction);
@@ -181,8 +189,8 @@ function NewAuctionPage() {
                 <input
                   type="number"
                   id="minimum-price"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
+                  value={minimumPrice}
+                  onChange={(e) => setMinimumPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the minimum price..."
                   required
@@ -199,8 +207,8 @@ function NewAuctionPage() {
                 <input
                   type="number"
                   id="curr-price"
-                  value={currPrice}
-                  onChange={(e) => setCurrPrice(e.target.value)}
+                  value={currentPrice}
+                  onChange={(e) => setCurrentPrice(e.target.value)}
                   className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="Enter the current sell price..."
                   required
@@ -282,6 +290,6 @@ function NewAuctionPage() {
       </form>
     </div>
   );
-}
+};
 
-export default NewAuctionPage;
+export default CreateNewAuctionForm;

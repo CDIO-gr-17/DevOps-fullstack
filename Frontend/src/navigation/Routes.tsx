@@ -7,7 +7,7 @@ import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page
 import LionPainting from "@/views/items/lion-painting";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
-import NewAuctionPage from "@/views/newAuctionPage";
+import NewAuctionPage from "@/views/newAuction/newAuctionPage";
 import SignUpPage from "@/views/login/signUp";
 
 export const routes: RouteObject[] = [

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Customer, createCustomer } from "@/services/customerService";
 import { useAuth0 } from "@auth0/auth0-react";
+import { FaPencilAlt } from "react-icons/fa";
 
 const CreateCustomerForm: React.FC = () => {
   const [firstName, setFirstName] = useState("");
@@ -41,12 +42,24 @@ const CreateCustomerForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="border rounded-3xl w-3/4 m-40 p-8">
-      <h1 className="text-2xl font-bold mb-6 text-center text-black">
-        Create new Auction
-      </h1>
-
       <div className="flex justify-between">
         <div className="flex-1 mr-4">
+          <div className="flex mb-4">
+            <div className="flex px-2 relative group overflow-hidden">
+              {/* User picture */}
+              <img
+                src={user?.picture}
+                className="w-24 h-24 rounded-full object-cover transition-opacity duration-200 group-hover:opacity-70 cursor-pointer"
+              />
+
+              {/* Pencil icon on hover */}
+              <FaPencilAlt
+                className="absolute inset-0 m-auto text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 cursor-pointer"
+                size={24}
+              />
+            </div>
+          </div>
+
           <div className="flex mb-4">
             {/* User name */}
             <div className="flex-1 px-2">
@@ -189,16 +202,15 @@ const CreateCustomerForm: React.FC = () => {
               </select>
             </div>
           </div>
-        </div>
-
-        {/* Submit button */}
-        <div className="flex justify-center items-center">
-          <button
-            type="submit"
-            className=" h-1/4 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Update profile
-          </button>
+          {/* Submit button */}
+          <div className="flex justify-center items-center">
+            <button
+              type="submit"
+              className=" h-1/10 bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              Save changes
+            </button>
+          </div>
         </div>
       </div>
     </form>
