@@ -2,16 +2,17 @@
 import axios from "axios";
 
 export interface AuctionWare {
-  ItemName: string;
-  Description: string;
-  MinimumPrice: number;
-  CurrentPrice: number;
-  AuctionStart: Date;
-  AuctionEnd: Date;
-  SellerId: number;
-  HighestBidderId: number;
-  BuyerId: number;
-  AuctionStatus: string;
+  itemId?: number;
+  itemName: string;
+  description: string;
+  minimumPrice: number;
+  currentPrice: number;
+  auctionStart: Date;
+  auctionEnd: Date;
+  sellerId: number;
+  highestBidderId: number;
+  buyerId: number;
+  auctionStatus: string;
 }
 
 export interface CreatedAuction extends AuctionWare {

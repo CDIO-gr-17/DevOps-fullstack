@@ -6,7 +6,7 @@ export const Layout = () => {
   return (
     <>
       <NavigationMenu />
-      <main>
+      <main className="w-screen">
         <Outlet /> {/* Renders the child route's component */}
       </main>
       <Footer />
