@@ -49,12 +49,19 @@ export const getAuctions = async (
       },
     });
 
+    // Log the entire response object for debugging
+    console.log("Full API response:", response);
+
+    // Log the response data for debugging
+    console.log("API response data:", response.data);
+
     // Ensure the response data has the expected structure
     if (
       !response.data ||
       !Array.isArray(response.data.auctions) ||
       typeof response.data.totalItems !== "number"
     ) {
+      console.error("Invalid response structure:", response.data);
       throw new Error("Invalid response structure");
     }
 
