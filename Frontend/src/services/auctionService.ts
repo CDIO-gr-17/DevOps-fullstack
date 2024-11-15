@@ -38,8 +38,8 @@ interface GetAuctionsResponse {
 }
 
 export const getAuctions = async (
-  search: string,
-  page: number,
+  search: string = "",
+  page: number = 1,
   pageSize: number = 20
 ): Promise<GetAuctionsResponse> => {
   try {
@@ -50,13 +50,6 @@ export const getAuctions = async (
         pageSize,
       },
     });
-
-    // Log the entire response object for debugging
-    console.log("Full API response:", response);
-
-    // Log the response data for debugging
-    console.log("API response data:", response.data);
-
     // Ensure the response data has the expected structure
     if (!Array.isArray(response.data)) {
       throw new Error("Invalid response structure");
