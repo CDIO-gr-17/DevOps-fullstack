@@ -31,15 +31,43 @@ public class AuctionWaresController : ControllerBase
         return Ok(auction);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAuctionWares()
-    {
-        var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
-        var auctions = await _context.AuctionWare
-                                     .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
-                                     .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
-                                     .ToListAsync();
-        return Ok(auctions);
+    export const getAuctions = async (
+  search: string,
+  page: number,
+  pageSize: number = 20
+): Promise<GetAuctionsResponse> => {
+  try {
+    const response = await axios.get<{ auctions: AuctionWare[], totalItems: number }>(API_URL, {
+      params: {
+        search,
+        page,
+        pageSize,
+      },
+    });
+
+    // Log the entire response object for debugging
+    console.log("Full API response:", response);
+
+    // Log the response data for debugging
+    console.log("API response data:", response.data);
+
+    // Ensure the response data has the expected structure
+    if (
+      !response.data ||
+      !Array.isArray(response.data.auctions) ||
+      typeof response.data.totalItems !== "number"
+    ) {
+      throw new Error("Invalid response structure");
     }
+
+    return {
+      items: response.data.auctions,
+      totalItems: response.data.totalItems,
+    };
+  } catch (error) {
+    console.error("Error fetching auctions:", error);
+    throw error;
+  }
+};
 
 }

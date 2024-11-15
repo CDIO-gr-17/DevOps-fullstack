@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getAuctions } from "@/services/auctionService";
+import { getAuction } from "@/services/auctionService";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -23,7 +23,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const loadAuctions = async () => {
-      const auctionData = await getAuctions();
+      const auctionData = await getAuction();
       setAuctions(auctionData as any[]);
     };
 

@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import Carousel from "@/lib/carousel";
 import LoadingElement from "@/lib/loadingElement";
-import { AuctionWare, getAuctions } from "@/services/auctionService";
+import { AuctionWare, getAuction } from "@/services/auctionService";
 import { useEffect, useState } from "react";
 import { FaShieldAlt } from "react-icons/fa";
 import { GoShare } from "react-icons/go";
@@ -32,7 +32,7 @@ function SingleWare() {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const itemData = await getAuctions(Number(id));
+        const itemData = await getAuction(Number(id));
         setItem(itemData as AuctionWare);
       } catch (err) {
         setError("Failed to fetch item");

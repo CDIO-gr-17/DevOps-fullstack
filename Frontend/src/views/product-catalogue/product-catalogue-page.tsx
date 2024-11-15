@@ -1,36 +1,64 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-} from "@/components/ui/accordion";
-import LoadingElement from "@/lib/loadingElement";
-import { AuctionWare, getAuctions } from "@/services/auctionService";
-import ProductCard from "@/views/product-catalogue/product-card"; // Adjust the import path as necessary
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ProductCard from "@/views/product-catalogue/product-card"; // Adjust the import path as necessary
+import { AuctionWare, getAuctions } from "@/services/auctionService";
+import LoadingElement from "@/lib/loadingElement";
 
 const ProductCataloguePage: React.FC = () => {
   const [products, setProducts] = useState<AuctionWare[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const [searchInput, setSearchInput] = useState<string>("");
+
+  const fetchProducts = async (search: string, page: number) => {
+    setLoading(true); // Ensure loading state is set to true when fetching starts
+    console.log("Fetching products...");
+    try {
+      const response = await getAuctions(search, page);
+      console.log("Products fetched:", response.items);
+      setProducts(response.items);
+      setTotalItems(response.totalItems);
+    } catch (err) {
+      console.error("Failed to fetch products:", err);
+      setError("Failed to fetch products");
+    } finally {
+      setLoading(false); // Ensure loading state is set to false when fetching ends
+      console.log("Loading state set to false");
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const auctionsData = await getAuctions();
-        setProducts(auctionsData as AuctionWare[]);
-      } catch (err) {
-        setError("Failed to fetch products");
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchProducts(search, page);
+  }, [search, page]);
 
-    fetchProducts();
-  }, []);
+  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearch(searchInput);
+      setPage(1); // Reset to first page on new search
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page * 20 < totalItems) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
 
   if (loading) {
-    return <LoadingElement />;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingElement />
+      </div>
+    );
   }
 
   if (error) {
@@ -40,41 +68,43 @@ const ProductCataloguePage: React.FC = () => {
   return (
     <div className="relative z-10 p-8">
       <h1 className="text-4xl font-bold mb-8">Product Catalogue</h1>
-      <Accordion type="multiple">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {products.map((product) => (
-            <AccordionItem
-              key={product.itemId}
-              value={`item-${product.itemId}`}
-              className="border-none"
-            >
-              <Link to={`/products/${product.itemId}`}>
-                <ProductCard
-                  imageSrc={product.itemName} // Adjust this if you have an image URL
-                  productName={product.itemName}
-                  description={product.description}
-                  listing={product.currentPrice}
-                  category={"Category"} // Adjust this if you have a category
-                />
-              </Link>
-              <AccordionContent>
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300">
-                    <p className="text-white text-center p-4">
-                      {product.description}
-                    </p>
-                  </div>
-                  <img
-                    src={product.itemName} // Adjust this if you have an image URL
-                    alt={"Image of " + product.itemName}
-                    className="w-full h-auto mb-4 rounded transition-transform duration-300 scale-95 blur-sm"
-                  />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </div>
-      </Accordion>
+      <input
+        type="text"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+        onKeyDown={handleSearchSubmit}
+        placeholder="Search for products..."
+        className="mb-4 p-2 border border-gray-300 rounded"
+      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {products.map((product) => (
+          <Link key={product.itemId} to={`/products/${product.itemId}`}>
+            <ProductCard
+              imageSrc={product.itemName} // Adjust this to the actual image URL property
+              productName={product.itemName}
+              description={product.description}
+              listing={product.currentPrice}
+              category={"Category"} // Adjust this if you have a category
+            />
+          </Link>
+        ))}
+      </div>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={page === 1}
+          className="px-4 py-2 bg-gray-300 rounded"
+        >
+          Previous
+        </button>
+        <button
+          onClick={handleNextPage}
+          disabled={page * 20 >= totalItems}
+          className="px-4 py-2 bg-gray-300 rounded"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
