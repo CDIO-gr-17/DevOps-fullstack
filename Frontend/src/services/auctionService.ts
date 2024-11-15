@@ -14,9 +14,9 @@ export interface AuctionWare {
   buyerId: number;
   auctionStatus: string;
 }
-
-export interface CreatedAuction extends AuctionWare {
-  id: number;
+interface GetAuctionsResponse {
+  items: AuctionWare[];
+  totalItems: number;
 }
 
 const API_URL = "http://51.120.6.166/api/auctionwares";
@@ -32,32 +32,35 @@ export const getAuction = async (id: number) => {
   return response.data;
 };
 
-interface GetAuctionsResponse {
-  items: AuctionWare[];
-  totalItems: number;
-}
-
 export const getAuctions = async (
   search: string = "",
   page: number = 1,
   pageSize: number = 20
 ): Promise<GetAuctionsResponse> => {
   try {
-    const response = await axios.get<AuctionWare[]>(API_URL, {
+    const response = await axios.get<{
+      totalItems: number;
+      auctions: AuctionWare[];
+    }>(API_URL, {
       params: {
         search,
         page,
         pageSize,
       },
     });
+
     // Ensure the response data has the expected structure
-    if (!Array.isArray(response.data)) {
+    if (
+      !response.data ||
+      !Array.isArray(response.data.auctions) ||
+      typeof response.data.totalItems !== "number"
+    ) {
       throw new Error("Invalid response structure");
     }
 
     return {
-      items: response.data,
-      totalItems: response.data.length, // Adjust this if the backend provides totalItems
+      items: response.data.auctions,
+      totalItems: response.data.totalItems,
     };
   } catch (error) {
     console.error("Error fetching auctions:", error);
