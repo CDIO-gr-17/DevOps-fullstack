@@ -1,13 +1,13 @@
 import axios from "axios";
 
 export interface Customer {
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Password: string;
-  Address: string;
-  PhoneNumber: string;
-  AccountType: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  address: string;
+  phoneNumber: string;
+  accountType: string;
 }
 
 export interface Createdcustomer extends Customer {

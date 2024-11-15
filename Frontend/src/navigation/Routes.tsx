@@ -7,8 +7,8 @@ import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page
 import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
-import NewAuctionPage from "@/views/newAuctionPage";
 import SingleWare from "@/views/singleWare/singleWare";
+import CreateAuction from "@/views/createAuction";
 
 export const routes: RouteObject[] = [
   {
