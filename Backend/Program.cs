@@ -34,7 +34,16 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-    dbContext.Database.Migrate();
+    try
+    {
+        // Drop the database schema
+        // dbContext.Database.EnsureDeleted();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
 
 // Configure the HTTP request pipeline.
