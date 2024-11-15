@@ -5,7 +5,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Carousel from "@/lib/carousel";
-import { useState } from "react";
+import LoadingElement from "@/lib/loadingElement";
+import { AuctionWare, getAuction } from "@/services/auctionService";
+import { useEffect, useState } from "react";
 import { FaShieldAlt } from "react-icons/fa";
 import { GoShare } from "react-icons/go";
 import { IoMdClose } from "react-icons/io";
@@ -15,22 +17,44 @@ import {
   MdOutlineStarOutline,
 } from "react-icons/md";
 import { VscVerified } from "react-icons/vsc";
+import { useParams } from "react-router-dom";
 
 const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
-function LionPainting() {
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+function SingleWare() {
+  const { id } = useParams<{ id: string }>();
+  const [item, setItem] = useState<AuctionWare | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const itemData = await getAuction(Number(id));
+        setItem(itemData as AuctionWare);
+      } catch (err) {
+        setError("Failed to fetch item");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItem();
+  }, [id]);
+
+  if (loading || !item) {
+    return <LoadingElement />;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   const bids = [
     { time: "16 Sep 2024 15:04", amount: "$250" },
     { time: "18 Sep 2024 17:43", amount: "$253" },
-    { time: "19 Sep 2024 08:19", amount: "$254" },
-    { time: "20 Sep 2024 12:54", amount: "$254" },
-    { time: "21 Sep 2024 09:32", amount: "$254" },
-    { time: "21 Sep 2024 12:54", amount: "$254" },
-    { time: "21 Sep 2024 15:04", amount: "$254" },
-    { time: "21 Sep 2024 17:43", amount: "$750" },
   ];
 
   const toggleOverlay = () => {
@@ -64,7 +88,7 @@ function LionPainting() {
               </button>
             </div>
           </div>
-          <h1 className="text-2xl font-bold mb-2">Lion Magnifiqué</h1>
+          <h1 className="text-2xl font-bold mb-2">{item.itemName}</h1>
           <p className="text-gray-500 mb-2">
             Water color painting in wood frame
           </p>
@@ -76,7 +100,9 @@ function LionPainting() {
                 3 bids
               </button>
             </div>
-            <p className="text-gray-500">Ends in</p>
+            <p className="text-gray-500">
+              Ends at {item.auctionEnd.toLocaleString()}
+            </p>
           </div>
 
           <div className="flex justify-between mb-2">
@@ -170,4 +196,4 @@ function LionPainting() {
   );
 }
 
-export default LionPainting;
+export default SingleWare;

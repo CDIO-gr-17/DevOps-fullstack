@@ -35,13 +35,13 @@ function ProfileOverview() {
 
   const handleSubmit = async () => {
     const customer: Customer = {
-      FirstName: name,
-      LastName: lastName,
-      Email: email,
-      Password: password,
-      Address: address,
-      PhoneNumber: phone,
-      AccountType: accountType,
+      firstName: name,
+      lastName: lastName,
+      email: email,
+      password: password,
+      address: address,
+      phoneNumber: phone,
+      accountType: accountType,
     };
 
     try {
@@ -232,7 +232,7 @@ function ProfileOverview() {
           <Button className="m-2" type="submit">
             Profile settings
           </Button>
-          <Link to="/new-auction">
+          <Link to="/createAuction">
             <Button className="m-2" type="submit">
               New auction
             </Button>
