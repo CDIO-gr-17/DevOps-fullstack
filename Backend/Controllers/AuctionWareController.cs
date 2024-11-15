@@ -31,43 +31,28 @@ public class AuctionWaresController : ControllerBase
         return Ok(auction);
     }
 
-    export const getAuctions = async (
-  search: string,
-  page: number,
-  pageSize: number = 20
-): Promise<GetAuctionsResponse> => {
-  try {
-    const response = await axios.get<{ auctions: AuctionWare[], totalItems: number }>(API_URL, {
-      params: {
-        search,
-        page,
-        pageSize,
-      },
-    });
+   [HttpGet]
+    public async Task<IActionResult> GetAuctionWares(string search = "", int page = 1, int pageSize = 20)
+    {
+        var currentDateTime = DateTime.UtcNow;
+        var query = _context.AuctionWare
+                            .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
+                            .AsQueryable();
 
-    // Log the entire response object for debugging
-    console.log("Full API response:", response);
+        if (!string.IsNullOrEmpty(search))
+        {
+            var lowerCaseSearch = search.ToLower();
+            query = query.Where(a => a.ItemName.ToLower().Contains(lowerCaseSearch));
+        }
 
-    // Log the response data for debugging
-    console.log("API response data:", response.data);
+        var totalItems = await query.CountAsync();
+        var auctions = await query
+            .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
 
-    // Ensure the response data has the expected structure
-    if (
-      !response.data ||
-      !Array.isArray(response.data.auctions) ||
-      typeof response.data.totalItems !== "number"
-    ) {
-      throw new Error("Invalid response structure");
+        return Ok(new { totalItems, auctions });
     }
-
-    return {
-      items: response.data.auctions,
-      totalItems: response.data.totalItems,
-    };
-  } catch (error) {
-    console.error("Error fetching auctions:", error);
-    throw error;
-  }
-};
 
 }
