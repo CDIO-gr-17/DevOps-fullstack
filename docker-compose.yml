@@ -13,6 +13,7 @@ services:
         condition: service_healthy
     networks:
       - app-network
+    command: sh -c "printenv && dotnet Backend.dll"
 
   frontend:
     build:
