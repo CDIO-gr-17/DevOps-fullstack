@@ -9,7 +9,6 @@ export interface Customer {
   phoneNumber: string;
   accountType: string;
 }
-
 export interface Createdcustomer extends Customer {
   id: number;
 }
