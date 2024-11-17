@@ -1,6 +1,8 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
+const API_URL = import.meta.env.API_URL + "/api/auctionwares";
+
 export interface AuctionWare {
   itemId?: number;
   itemName: string;
@@ -18,8 +20,6 @@ interface GetAuctionsResponse {
   items: AuctionWare[];
   totalItems: number;
 }
-
-const API_URL = "http://51.120.6.166/api/auctionwares";
 
 export const createAuction = async (auction: AuctionWare) => {
   const response = await axios.post(API_URL, auction);

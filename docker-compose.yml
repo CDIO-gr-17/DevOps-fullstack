@@ -13,12 +13,13 @@ services:
         condition: service_healthy
     networks:
       - app-network
-    command: sh -c "printenv && dotnet Backend.dll"
 
   frontend:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
+    environment:
+      - API_URL=${API_URL}
     ports:
       - "80:80"
     depends_on:
