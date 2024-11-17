@@ -1,11 +1,11 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
-    image: holmst33n/backend:latest  # Use Docker Hub image
+    image: holmst33n/backend:latest # Use Docker Hub image
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - CONNECTION_STRING=Host=postgres;Database=mydb;Username=myuser;Password=mypassword  # Ideally replace with secrets
+      - CONNECTION_STRING=${CONNECTION_STRING} # Use environment variable for connection string
     ports:
       - "8080:8080"
     depends_on:
@@ -15,9 +15,7 @@ services:
       - app-network
 
   frontend:
-    image: holmst33n/frontend:latest  # Use Docker Hub image
-    environment:
-      - REACT_APP_API_URL=http://51.120.6.166:8080/api/
+    image: holmst33n/frontend:latest # Use Docker Hub image
     ports:
       - "80:80"
     networks:
@@ -26,13 +24,13 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword  # Replace with secrets in production
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # Use environment variable for password
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d mydb -U myuser"]
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
