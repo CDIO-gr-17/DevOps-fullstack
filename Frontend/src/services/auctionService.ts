@@ -1,7 +1,10 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
-const API_URL = import.meta.env.API_URL + "/api/auctionwares";
+const API_URL_BASE = import.meta.env.VITE_API_URL;
+
+export const API_URL = API_URL_BASE + "auctionwares";
+console.log("API_URL:", API_URL);
 
 export interface AuctionWare {
   itemId?: number;
@@ -37,6 +40,7 @@ export const getAuctions = async (
   page: number = 1,
   pageSize: number = 20
 ): Promise<GetAuctionsResponse> => {
+  console.log("API:" + API_URL);
   try {
     const response = await axios.get<{
       totalItems: number;

@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   define: {
-    "process.env": process.env,
+    "import.meta.env.VITE_API_URL": JSON.stringify(process.env.VITE_API_URL),
   },
   test: {
     environment: "jsdom",
@@ -23,7 +23,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Ensure that any missing files result in index.html being served
         manualChunks() {
           return "index.html";
         },
