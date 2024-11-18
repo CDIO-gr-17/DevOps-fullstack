@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const API_URL = "http://51.120.6.166/api/customers";
 export interface Customer {
   firstName: string;
   lastName: string;
@@ -13,7 +14,6 @@ export interface Createdcustomer extends Customer {
   id: number;
 }
 
-const API_URL = "http://51.120.6.166/api/customers";
 
 export const createCustomer = async (customer: Customer) => {
   try {

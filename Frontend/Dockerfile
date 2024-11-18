@@ -19,9 +19,6 @@ ARG VITE_API_URL
 # Build the project
 RUN VITE_API_URL=$VITE_API_URL npm run build
 
-# Build the project
-RUN npm run build
-
 # Serve the app
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html

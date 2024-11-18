@@ -28,11 +28,11 @@ run: docker push ${{secrets.HUB_USER}}/kunsthavn:backend-latest
 If i want to avoid injecting the file in docker-compsoe: - name: Set up environment variables
 run: |
 if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-cp .env.production .env
+cp .env.prod .env
 else
-cp .env.development .env
+cp .env.dev .env
 fi
 
 When running two differnet files export file before docker-composing:
-export $(grep -v '^#' .env.development | xargs)
-docker-compose --env-file .env.development up --build
+export $(grep -v '^#' .env.dev | xargs)
+docker-compose --env-file .env.dev up --build

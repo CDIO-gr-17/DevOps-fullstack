@@ -35,5 +35,5 @@ Thumbs.db
 dist/
 Frontend/tsconfig.app.tsbuildinfo
 Frontend/tsconfig.node.tsbuildinfo
-.env.production
-.env.development
+.env.prod
+.env.dev

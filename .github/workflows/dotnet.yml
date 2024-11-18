@@ -108,5 +108,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{secrets.SERVER_USER}}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd /home/azureuser/DevOps-fullstack
-          docker-compose --env-file .env.production -f docker-compose.prod.yml up -d
+          export $(grep -v '^#' .env.prod | xargs)
+          docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
