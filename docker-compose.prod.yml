@@ -2,12 +2,10 @@ version: "3.8"
 
 services:
   backend:
-    image: holmst33n/backend:latest # Use Docker Hub image
+    image: holmst33n/backend:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - CONNECTION_STRING=${CONNECTION_STRING} # Use environment variable for connection string
-    ports:
-      - "8080:8080"
+      - CONNECTION_STRING=${CONNECTION_STRING}
     depends_on:
       postgres:
         condition: service_healthy
@@ -15,7 +13,7 @@ services:
       - app-network
 
   frontend:
-    image: holmst33n/frontend:latest # Use Docker Hub image
+    image: holmst33n/frontend:latest
     environment:
       - API_URL=${API_URL}
     ports:
@@ -28,9 +26,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD} # Use environment variable for password
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
       interval: 10s
