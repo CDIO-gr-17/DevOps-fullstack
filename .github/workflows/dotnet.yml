@@ -24,6 +24,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
+      - name: Create .env file
+        run: |
+          echo VITE_API_URL=${{ secrets.VITE_API_URL }} >> .env
+          echo CONNECTION_STRING=${{ secrets.CONNECTION_STRING }} >> .env
+          echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+
+      - name: Start services
+        run: |
+          export $(grep -v '^#' .env | xargs)
+          docker-compose --env-file .env -f docker-compose.yml up --build -d
+
       - name: Cache Docker layers
         uses: actions/cache@v4
         with:
@@ -31,9 +44,6 @@ jobs:
           key: ${{ runner.os }}-docker-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-docker-
-
-      - name: Start services
-        run: docker-compose up -d
 
       - name: Cache .NET packages
         uses: actions/cache@v4
@@ -87,11 +97,16 @@ jobs:
 
       - name: Build and Tag Docker Images
         run: |
-          docker-compose -f docker-compose.yml build
-          docker images
+          echo VITE_API_URL=${{ secrets.VITE_API_URL }} >> .env
+          echo CONNECTION_STRING=${{ secrets.CONNECTION_STRING }} >> .env
+          echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+
+          export $(grep -v '^#' .env | xargs)
+          docker-compose --env-file .env -f docker-compose.yml up --build -d
           docker tag devops-fullstack_backend:latest ${{ secrets.HUB_USER }}/backend:latest
           docker tag devops-fullstack_frontend:latest ${{ secrets.HUB_USER }}/frontend:latest
-          docker images
 
       - name: Push Docker Images
         run: |
