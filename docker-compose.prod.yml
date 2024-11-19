@@ -16,6 +16,8 @@ services:
     container_name: frontend
     environment:
       - API_URL=${API_URL}
+    depends_on:
+      - backend
     ports:
       - "80:80"
     networks:
@@ -66,17 +68,18 @@ services:
     networks:
       - app-network
 
-  cadvisor:
-    image: google/cadvisor:latest
-    container_name: cadvisor
-    ports:
-      - "8080:8080"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /sys:/sys
-      - /var/lib/docker/:/var/lib/docker
-    networks:
-      - app-network
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor
+  #   container_name: cadvisor
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /sys:/sys
+  #     - /var/lib/docker/:/var/lib/docker
+  #   privileged: true
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:
