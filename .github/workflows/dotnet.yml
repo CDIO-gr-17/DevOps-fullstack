@@ -126,3 +126,25 @@ jobs:
           export $(grep -v '^#' .env.prod | xargs)
           docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
+
+  create-issue-on-failure:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: failure()
+    steps:
+      - name: Create issue
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const labels = context.job === 'build-and-test' ? ['backend'] : ['frontend'];
+            const issueTitle = `Workflow failed: ${context.workflow}`;
+            const issueBody = `The workflow **${context.workflow}** failed for job **${context.job}**. Please check the logs for more details.`;
+            const { data: issue } = await github.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: issueTitle,
+              body: issueBody,
+              labels: labels,
+            });
+            console.log(`Created issue ${issue.number}: ${issue.title}`);
