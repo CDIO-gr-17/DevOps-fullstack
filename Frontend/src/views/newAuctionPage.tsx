@@ -1,4 +1,5 @@
-import { AuctionWare, createAuction } from "@/services/auctionService";
+import { NewAuctionWare, createAuction } from "@/services/auctionService";
+import { uploadImage } from "@/services/imageService";
 import { FaTrashAlt } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -83,7 +84,7 @@ const CreateNewAuctionForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const auction: AuctionWare = {
+    const auction: NewAuctionWare = {
       ItemName: itemName,
       Description: description,
       MinimumPrice: parseFloat(minimumPrice),
@@ -98,6 +99,12 @@ const CreateNewAuctionForm: React.FC = () => {
     try {
       const createdAuction = await createAuction(auction);
       console.log("Created Auction:", createdAuction);
+
+      // Upload each file individually
+      for (const file of images) {
+        await uploadImage(file, createdAuction);
+      }
+
       // Handle the created auction as needed, e.g., navigate to the auction details page
     } catch (error) {
       console.error("Error creating auction:", error);
