@@ -4,7 +4,6 @@ import axios from "axios";
 const API_URL_BASE = import.meta.env.VITE_API_URL;
 
 export const API_URL = API_URL_BASE + "auctionwares";
-console.log("API_URL:", API_URL);
 
 export interface AuctionWare {
   itemId?: number;
@@ -40,7 +39,6 @@ export const getAuctions = async (
   page: number = 1,
   pageSize: number = 20
 ): Promise<GetAuctionsResponse> => {
-  console.log("API:" + API_URL);
   try {
     const response = await axios.get<{
       totalItems: number;
@@ -52,12 +50,6 @@ export const getAuctions = async (
         pageSize,
       },
     });
-
-    // Log the entire response object for debugging
-    console.log("Full API response:", response);
-
-    // Log the response data for debugging
-    console.log("API response data:", response.data);
 
     // Ensure the response data has the expected structure
     if (

@@ -37,3 +37,4 @@ Frontend/tsconfig.app.tsbuildinfo
 Frontend/tsconfig.node.tsbuildinfo
 .env.prod
 .env.dev
+project.sln

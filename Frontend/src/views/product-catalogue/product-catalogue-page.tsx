@@ -15,10 +15,8 @@ const ProductCataloguePage: React.FC = () => {
 
   const fetchProducts = async (search: string, page: number) => {
     setLoading(true); // Ensure loading state is set to true when fetching starts
-    console.log("Fetching products...");
     try {
       const response = await getAuctions(search, page);
-      console.log("Products fetched:", response.items);
       setProducts(response.items);
       setTotalItems(response.totalItems);
     } catch (err) {
@@ -26,7 +24,6 @@ const ProductCataloguePage: React.FC = () => {
       setError("Failed to fetch products");
     } finally {
       setLoading(false); // Ensure loading state is set to false when fetching ends
-      console.log("Loading state set to false");
     }
   };
 
