@@ -26,7 +26,7 @@ const HomePage = () => {
     const loadAuctions = async () => {
       const auctionData = await getAuctions();
       const auctionsWithImages = await Promise.all(
-        auctionData.map(async (auction: AuctionWare) => {
+        auctionData.items.map(async (auction: AuctionWare) => {
           try {
             const imageBlob = await getAuctionWareImage(auction.itemId);
             const imageUrl = URL.createObjectURL(imageBlob);
