@@ -24,10 +24,10 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 // Configure CORS to allow requests from your frontend
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
+    options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
-            builder.AllowAnyOrigin()
+            builder.WithOrigins("http://51.120.6.166")
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
@@ -38,7 +38,16 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-    dbContext.Database.Migrate();
+    try
+    {
+        // Drop the database schema
+        // dbContext.Database.EnsureDeleted();
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
 
 // Configure the HTTP request pipeline.
@@ -57,7 +66,7 @@ else
 // app.UseHttpsRedirection();
 
 // Use CORS policy
-app.UseCors("AllowAllOrigins");
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 

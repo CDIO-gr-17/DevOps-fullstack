@@ -1,20 +1,19 @@
 import axios from "axios";
 
+const API_URL = "http://51.120.6.166/api/customers";
 export interface Customer {
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Password: string;
-  Address: string;
-  PhoneNumber: string;
-  AccountType: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  address: string;
+  phoneNumber: string;
+  accountType: string;
 }
-
 export interface Createdcustomer extends Customer {
   id: number;
 }
 
-const API_URL = "http://51.120.6.166/api/customers";
 
 export const createCustomer = async (customer: Customer) => {
   try {
@@ -27,7 +26,7 @@ export const createCustomer = async (customer: Customer) => {
   }
 };
 
-export const getCustomers = async (id: number) => {
+export const getCustomers = async (id?: number) => {
   const url = id ? `${API_URL}/${id}` : API_URL;
   const response = await axios.get(url);
   return response.data;

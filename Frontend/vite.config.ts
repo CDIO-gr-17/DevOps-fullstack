@@ -10,6 +10,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    "import.meta.env.VITE_API_URL": JSON.stringify(process.env.VITE_API_URL),
+  },
   test: {
     environment: "jsdom",
     setupFiles: ["vitest.setup.ts"],
@@ -20,7 +23,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Ensure that any missing files result in index.html being served
         manualChunks() {
           return "index.html";
         },

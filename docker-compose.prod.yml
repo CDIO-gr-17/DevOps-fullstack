@@ -1,13 +1,10 @@
-version: '3.8'
-
 services:
   backend:
-    image: holmst33n/backend:latest  # Use Docker Hub image
+    image: holmst33n/backend:latest
+    container_name: backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - CONNECTION_STRING=Host=postgres;Database=mydb;Username=myuser;Password=mypassword  # Ideally replace with secrets
-    ports:
-      - "8080:8080"
+      - CONNECTION_STRING=${CONNECTION_STRING}
     depends_on:
       postgres:
         condition: service_healthy
@@ -15,9 +12,12 @@ services:
       - app-network
 
   frontend:
-    image: holmst33n/frontend:latest  # Use Docker Hub image
+    image: holmst33n/frontend:latest
+    container_name: frontend
     environment:
-      - REACT_APP_API_URL=http://51.120.6.166:8080/api/
+      - API_URL=${API_URL}
+    depends_on:
+      - backend
     ports:
       - "80:80"
     networks:
@@ -25,14 +25,13 @@ services:
 
   postgres:
     image: postgres:16
+    container_name: postgres
     environment:
-      POSTGRES_DB: mydb
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword  # Replace with secrets in production
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d mydb -U myuser"]
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -40,6 +39,47 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - app-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - /home/azureuser/DevOps-fullstack/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    networks:
+      - app-network
+
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor
+  #   container_name: cadvisor
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /sys:/sys
+  #     - /var/lib/docker/:/var/lib/docker
+  #   privileged: true
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:

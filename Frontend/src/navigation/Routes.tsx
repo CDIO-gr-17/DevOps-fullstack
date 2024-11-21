@@ -4,10 +4,10 @@ import Home from "../views/home/home";
 import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
-import LionPainting from "@/views/items/lion-painting";
 import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
+import SingleWare from "@/views/singleWare/singleWare";
 import CreateAuction from "@/views/createAuction";
 
 export const routes: RouteObject[] = [
@@ -32,8 +32,8 @@ export const routes: RouteObject[] = [
         element: <Profile />,
       },
       {
-        path: "/1",
-        element: <LionPainting />,
+        path: "/products/:id",
+        element: <SingleWare />,
       },
 
       {

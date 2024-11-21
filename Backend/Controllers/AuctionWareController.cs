@@ -31,15 +31,28 @@ public class AuctionWaresController : ControllerBase
         return Ok(auction);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAuctionWares()
+   [HttpGet]
+    public async Task<IActionResult> GetAuctionWares(string search = "", int page = 1, int pageSize = 20)
     {
-        var currentDateTime = DateTime.UtcNow;              //aware of timezones and conversion when people submit auctions
-        var auctions = await _context.AuctionWare
-                                     .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
-                                     .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
-                                     .ToListAsync();
-        return Ok(auctions);
+        var currentDateTime = DateTime.UtcNow;
+        var query = _context.AuctionWare
+                            .Where(a => a.AuctionEnd > currentDateTime) // Filter out old auctions
+                            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            var lowerCaseSearch = search.ToLower();
+            query = query.Where(a => a.ItemName.ToLower().Contains(lowerCaseSearch));
+        }
+
+        var totalItems = await query.CountAsync();
+        var auctions = await query
+            .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return Ok(new { totalItems, auctions });
     }
 
 }

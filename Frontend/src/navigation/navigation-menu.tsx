@@ -46,7 +46,7 @@ const NavigationMenu = () => {
 
   return (
     <nav
-      className={`sticky top-0 w-screen z-50 transition-transform duration-300 ${
+      className={`fixed top-0 left-0 w-screen z-50 transition-transform duration-300 ${
         isVisible ? "transform translate-y-0" : "transform -translate-y-full"
       }`}
     >
