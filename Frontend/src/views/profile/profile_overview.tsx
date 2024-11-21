@@ -19,19 +19,14 @@ import art1 from "@/assets/art_placeholder1.webp";
 import art2 from "@/assets/art_placeholder2.jpg";
 import art3 from "@/assets/art_placeholder3.png";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "@/auth0Profile";
 
 function ProfileOverview() {
-  const { user, isAuthenticated } = useAuth0();
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>{isAuthenticated ? user?.name : "Guest"}</CardTitle>
-          <CardDescription>
-            {isAuthenticated ? user?.email : "Email not available"}
-          </CardDescription>
-          <CardDescription>+45 12345678</CardDescription>
+          <Profile />
         </CardHeader>
         <CardContent>
           <Button className="m-2" type="submit">

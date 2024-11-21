@@ -9,6 +9,7 @@ import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import NewAuctionPage from "@/views/newAuction/newAuctionPage";
 import SignUpPage from "@/views/login/signUp";
+import ProtectedRoute from "./protectedRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -29,7 +30,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/1",
