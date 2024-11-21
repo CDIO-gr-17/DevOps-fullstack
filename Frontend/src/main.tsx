@@ -21,12 +21,15 @@ const authConfig = {
   domain: "dev-ilmn83jst05snfbb.us.auth0.com",
   clientId: "330cs4wFl6J9CqBLi1eaklhmPKf3ShH4",
   authorizationParams: {
-    redirect_uri: window.location.origin
-  }
+    redirect_uri: window.location.origin,
+    audience: "https://dev-ilmn83jst05snfbb.us.auth0.com/api/v2/",
+    scope:
+      "openid profile email read:current_user update:current_user_metadata",
+  },
 };
 
 createRoot(document.getElementById("root")!).render(
   <Auth0Provider {...authConfig}>
     <Main />
   </Auth0Provider>
-)
+);
