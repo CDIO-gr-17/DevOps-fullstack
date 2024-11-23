@@ -1,3 +1,7 @@
+namespace Backend.Controllers;
+
+using Backend.Models; // Assuming AuctionWare is in the Models namespace
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,7 +35,7 @@ public class AuctionWaresController : ControllerBase
         return Ok(auction);
     }
 
-   [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> GetAuctionWares(string search = "", int page = 1, int pageSize = 20)
     {
         var currentDateTime = DateTime.UtcNow;

@@ -97,6 +97,7 @@ const CreateNewAuctionForm: React.FC = () => {
     };
     try {
       const createdAuction = await createAuction(auction);
+      console.log("Created auction:", createdAuction);
       // Handle the created auction as needed, e.g., navigate to the auction details page
     } catch (error) {
       console.error("Error creating auction:", error);
