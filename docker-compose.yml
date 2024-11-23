@@ -46,6 +46,17 @@ services:
     networks:
       - app-network
 
+  test-runner:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.test # A separate Dockerfile for tests
+    depends_on:
+      - backend
+      - database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Testing
+    command: dotnet test --logger:trx
+
 networks:
   app-network:
     driver: bridge
