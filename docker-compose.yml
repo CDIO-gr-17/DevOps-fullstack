@@ -48,7 +48,7 @@ services:
 
   test-runner:
     build:
-      context: ./backend
+      context: ./Backend
       dockerfile: Dockerfile.test # A separate Dockerfile for tests
     depends_on:
       - backend
