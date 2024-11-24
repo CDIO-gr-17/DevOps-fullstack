@@ -1,6 +1,7 @@
 import { NewAuctionWare, createAuction } from "@/services/auctionService";
 import { FaTrashAlt } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CreateNewAuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState("");
@@ -296,6 +297,3 @@ const CreateNewAuctionForm: React.FC = () => {
 };
 
 export default CreateNewAuctionForm;
-function useAuth0(): { getAccessTokenSilently: any } {
-  throw new Error("Function not implemented.");
-}
