@@ -21,7 +21,7 @@ namespace Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AuctionWare", b =>
+            modelBuilder.Entity("Backend.Models.AuctionWare", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BidId"));
 
-                    b.Property<int>("BidAmmount")
+                    b.Property<int>("BidAmount")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("BidTime")
@@ -85,9 +85,8 @@ namespace Backend.Migrations
                     b.Property<int>("BidderId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ItemId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer");
 
                     b.HasKey("BidId");
 
@@ -183,6 +182,31 @@ namespace Backend.Migrations
                     b.HasKey("CustomerId");
 
                     b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ImageId"));
+
+                    b.Property<int>("AuctionWareId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.HasKey("ImageId");
+
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Transaction", b =>

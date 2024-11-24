@@ -102,7 +102,7 @@ public class AuctionWaresControllerTests
         Assert.Equal("New Item", auctionWare.ItemName);
         Assert.Equal(300, auctionWare.MinimumPrice);
     }
-    [Fact(Skip = "Not implemented yet")]
+    [Fact]
     public async Task CreateAuctionWare_WithNegativePrice_ReturnsBadRequest()
     {
         // Arrange

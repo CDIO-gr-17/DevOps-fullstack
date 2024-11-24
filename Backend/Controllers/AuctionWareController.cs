@@ -20,20 +20,23 @@ public class AuctionWaresController : ControllerBase
         _context = context;
     }
 
-    /// <summary>
-    /// Creates a new auction ware.
-    /// </summary>
-    /// <param name="auctionware">The auction ware to create.</param>
-    /// <returns>The created auction ware.</returns>
-    [HttpPost("private-scoped")]
-    [Authorize("write:auctionwares")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateAuctionWare([FromBody] AuctionWare auctionware)
+    [HttpPost]
+    public async Task<IActionResult> CreateAuctionWare([FromBody] AuctionWare auctionWare)
     {
-        _context.AuctionWare.Add(auctionware);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        if (auctionWare.CurrentPrice < 1)
+        {
+            return BadRequest("CurrentPrice must be a positive integer.");
+        }
+
+        _context.AuctionWare.Add(auctionWare);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetAuctionWare), new { id = auctionware.ItemId }, auctionware);
+
+        return CreatedAtAction(nameof(GetAuctionWare), new { id = auctionWare.ItemId }, auctionWare);
     }
 
     [HttpGet("{id}")]
