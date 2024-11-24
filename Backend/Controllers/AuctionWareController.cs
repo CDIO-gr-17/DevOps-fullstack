@@ -2,7 +2,7 @@ namespace Backend.Controllers;
 
 using System.ComponentModel;
 using Backend.Models; // Assuming AuctionWare is in the Models namespace
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +25,8 @@ public class AuctionWaresController : ControllerBase
     /// </summary>
     /// <param name="auctionware">The auction ware to create.</param>
     /// <returns>The created auction ware.</returns>
-    [HttpPost]
+    [HttpPost("private-scoped")]
+    [Authorize("write:auctionwares")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAuctionWare([FromBody] AuctionWare auctionware)
