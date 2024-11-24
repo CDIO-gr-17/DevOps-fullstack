@@ -1,12 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Features;
 using System.Text.Json.Serialization;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
@@ -27,13 +33,31 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         builder =>
         {
-            builder.WithOrigins("http://51.120.6.166")
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+            builder.WithOrigins("http://51.120.6.166", "http://localhost")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
         });
 });
 
 var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    c.RoutePrefix = string.Empty; // Serve the Swagger UI at the app's root
+});
+
+
+// app.UseHttpsRedirection();
+
+// Use CORS policy
+app.UseCors("AllowSpecificOrigin");
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -50,53 +74,5 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
-// app.UseHttpsRedirection();
-
-// Use CORS policy
-app.UseCors("AllowSpecificOrigin");
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

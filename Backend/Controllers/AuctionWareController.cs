@@ -1,8 +1,16 @@
+namespace Backend.Controllers;
+
+using System.ComponentModel;
+using Backend.Models; // Assuming AuctionWare is in the Models namespace
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
+/// <summary>
+/// Controller for managing auction wares.
+/// </summary>
 public class AuctionWaresController : ControllerBase
 {
     private readonly DatabaseContext _context;
@@ -12,7 +20,14 @@ public class AuctionWaresController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// Creates a new auction ware.
+    /// </summary>
+    /// <param name="auctionware">The auction ware to create.</param>
+    /// <returns>The created auction ware.</returns>
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAuctionWare([FromBody] AuctionWare auctionware)
     {
         _context.AuctionWare.Add(auctionware);
@@ -31,7 +46,7 @@ public class AuctionWaresController : ControllerBase
         return Ok(auction);
     }
 
-   [HttpGet]
+    [HttpGet]
     public async Task<IActionResult> GetAuctionWares(string search = "", int page = 1, int pageSize = 20)
     {
         var currentDateTime = DateTime.UtcNow;
