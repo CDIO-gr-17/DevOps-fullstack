@@ -52,8 +52,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("read:messages", policy => policy.Requirements.Add(new
-    HasScopeRequirement("read:messages", domain)));
+    options.AddPolicy("write:auctionwares", policy =>
+        policy.Requirements.Add(new HasScopeRequirement("write:auctionwares", domain)));
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
