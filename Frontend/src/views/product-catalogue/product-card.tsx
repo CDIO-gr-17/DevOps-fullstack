@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Check, ShoppingCart } from "lucide-react";
 import { useEffect, useState } from "react";
+import Countdown from "@/components/countdown";
 
 interface ProductCardProps {
   imageSrc?: string;
@@ -8,6 +9,7 @@ interface ProductCardProps {
   description?: string;
   listing?: number;
   category?: string;
+  endDate?: Date;
 }
 
 export default function ProductCard({
@@ -16,6 +18,7 @@ export default function ProductCard({
   //description = "Sleek design for everyday elegance",
   listing = 129.99,
   category = "Accessories",
+  endDate = new Date("2022-12-31T23:59:59.999Z"),
 }: ProductCardProps) {
   const [isAdded, setIsAdded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -58,6 +61,9 @@ export default function ProductCard({
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold  animate-fadeIn animation-delay-400">
               ${listing.toFixed(2)}
+              <span>
+                  <Countdown endDate={endDate} />
+              </span>
             </span>
             <button
               onClick={handleAddToCart}
