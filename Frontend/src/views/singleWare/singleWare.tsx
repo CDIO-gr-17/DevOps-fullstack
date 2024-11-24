@@ -8,9 +8,7 @@ import Carousel from "@/lib/carousel";
 import LoadingElement from "@/lib/loadingElement";
 import { AuctionWare, getAuction } from "@/services/auctionService";
 import { useEffect, useState } from "react";
-import { FaShieldAlt } from "react-icons/fa";
 import { GoShare } from "react-icons/go";
-import { IoMdClose } from "react-icons/io";
 import {
   MdFavorite,
   MdFavoriteBorder,
@@ -18,6 +16,8 @@ import {
 } from "react-icons/md";
 import { VscVerified } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
+import { BiddingDrawer } from "./Biddingdrawer";
+import { Bid, getBids } from "@/services/bidService";
 
 const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
@@ -27,9 +27,11 @@ function SingleWare() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [bids, setBids] = useState<Bid[]>([]);
 
   useEffect(() => {
+    console.log("useEffect called with id:", id); // Log statement to verify useEffect call
+
     const fetchItem = async () => {
       try {
         const itemData = await getAuction(Number(id));
@@ -41,8 +43,25 @@ function SingleWare() {
       }
     };
 
+    const fetchBids = async () => {
+      console.log("fetching bids"); // Log statement to verify function call
+      try {
+        const bidsData = await getBids(Number(id));
+        console.log("bids", bidsData); // Log statement to verify data
+        setBids(bidsData);
+      } catch (err) {
+        console.error("Failed to fetch bids", err); // Log any errors
+        setBids([]); // Set bids to an empty array if there is an error
+      }
+    };
+
     fetchItem();
+    fetchBids();
   }, [id]);
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
 
   if (loading || !item) {
     return <LoadingElement />;
@@ -51,19 +70,6 @@ function SingleWare() {
   if (error) {
     return <div>{error}</div>;
   }
-
-  const bids = [
-    { time: "16 Sep 2024 15:04", amount: "$250" },
-    { time: "18 Sep 2024 17:43", amount: "$253" },
-  ];
-
-  const toggleOverlay = () => {
-    setIsOverlayOpen(!isOverlayOpen);
-  };
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
 
   return (
     <div className="flex justify-center items-center">
@@ -95,10 +101,7 @@ function SingleWare() {
 
           <div className="flex justify-between mb-2">
             <div className="flex items-center">
-              <p className="text-gray-500">Price |</p>
-              <button className="ml-2 underline" onClick={toggleOverlay}>
-                3 bids
-              </button>
+              <p className="text-gray-500">Price: </p>
             </div>
             <p className="text-gray-500">
               Ends at {item.auctionEnd.toLocaleString()}
@@ -106,17 +109,27 @@ function SingleWare() {
           </div>
 
           <div className="flex justify-between mb-2">
-            <p className="text-xl font-bold">$750</p>
-            <p className="text-gray-500">3 days 22 hours</p>
+            <p className="text-xl font-bold">{item.currentPrice}</p>
+            <p className="text-gray-500">Philips countdown here</p>
           </div>
-          <p className="flex items-center text-gray-500 mb-4">
-            $764 including buyer protection
-            <FaShieldAlt className="ml-2" />
-          </p>
-          <button className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500 active:bg-blue-700">
-            Place a bid
-          </button>
-
+          <h2 className="text-lg font-bold mb-2">Previous Bids</h2>
+          <div className="rounded-lg p-4 max-h-40 overflow-y-auto">
+            {bids.length > 0 ? (
+              <ul>
+                {bids.map((bid, index) => (
+                  <li key={index} className="mb-1">
+                    <strong>
+                      {new Date(bid.bidTime || "").toLocaleString()}
+                    </strong>
+                    : {bid.bidAmount}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No bids yet.</p>
+            )}
+          </div>
+          <BiddingDrawer itemId={item.itemId} />
           <Accordion type="single" collapsible className="mt-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>Shipping</AccordionTrigger>
@@ -170,28 +183,6 @@ function SingleWare() {
           </div>
         </div>
       </div>
-
-      {/* Conditional rendering of the overlay */}
-      {isOverlayOpen && (
-        <div className="fixed top-32 left-2/3 right-0 bottom-0 border border-gray-300 bg-white rounded-lg shadow-lg w-60 max-h-60 overflow-y-auto z-10">
-          <div className="text-center p-4">
-            <button
-              className="absolute top-4 right-4 text-xl text-black"
-              onClick={toggleOverlay}
-            >
-              <IoMdClose />
-            </button>
-            <h2 className="mb-2 text-black">Bids</h2>
-            <ul className="text-black">
-              {bids.map((bid, index) => (
-                <li key={index}>
-                  <strong>{bid.time}</strong>: {bid.amount}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

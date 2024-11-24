@@ -9,14 +9,14 @@ public class Bid
 
     [Required] // Ensures non-null value in the database
     [ForeignKey("ItemId")]
-    public required string ItemId { get; set; } // Ensures value is set during object initialization
+    public required int ItemId { get; set; } // Ensures value is set during object initialization
 
     [Required]
     [ForeignKey("CustomerId")]
     public int BidderId { get; set; }
 
     [Required]
-    public int BidAmmount { get; set; }
+    public int BidAmount { get; set; }
 
     [Required]
     public DateTime BidTime { get; set; }
