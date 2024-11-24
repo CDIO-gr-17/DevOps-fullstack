@@ -46,3 +46,8 @@ export const getAuctionWareImage = async (itemId: number): Promise<Blob> => {
     throw error;
   }
 };
+
+// Function to get a product image
+export const getProductImage = (imageSrc: number): string => {
+  return `${API_URL}/${imageSrc}`;
+};
