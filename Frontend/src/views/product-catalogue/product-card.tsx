@@ -55,17 +55,13 @@ export default function ProductCard({
             }
             </div>
           <div className="flex justify-end">
-            {new Date() > startDate && (
-              <Countdown
-                endDate={endDate}
-              />
-            )}
-            {new Date() < startDate && (
-              <span className="text-sm font-semibold text-primary">
-                {Math.ceil((startDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
+            <span>
+                {new Date() > startDate ? (
+                  <Countdown endDate={endDate} countType="stop" />
+                ) : (
+                  <Countdown endDate={startDate} countType="start" />
+                )}
               </span>
-            )
-            }
             </div>
             </div>
           </div>

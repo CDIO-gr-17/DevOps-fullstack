@@ -2,9 +2,10 @@ import {useState, useEffect} from 'react';
 
 interface CountdownProps {
     endDate: Date;
+    countType: string;
 }
 
-function Countdown({ endDate }: CountdownProps) {
+function Countdown({ endDate, countType }: CountdownProps) {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endDate));
 
     useEffect(() => {
@@ -18,29 +19,20 @@ function Countdown({ endDate }: CountdownProps) {
     return (
         <div>
             {timeLeft.days > 0 && (
-                <>
-                    {timeLeft.days}d {timeLeft.hours}h
-                </>
+            <span>{timeLeft.days}d {timeLeft.hours}h</span>
             )}
             {timeLeft.days <= 0 && timeLeft.hours > 0 && (
-                <>
-                    {timeLeft.hours}h {timeLeft.minutes}m
-                </>
+            <span>{timeLeft.hours}h {timeLeft.minutes}m</span>
             )}
             {timeLeft.days <= 0 && timeLeft.hours <= 0 && timeLeft.minutes > 0 && (
-                <>
-                    {timeLeft.minutes}m {timeLeft.seconds}s
-                </>
+            <span>{timeLeft.minutes}m {timeLeft.seconds}s</span>
             )}
             {timeLeft.days <= 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0 && timeLeft.seconds > 0 && (
-                <>
-                    {timeLeft.seconds}s
-                </>
+            <span>{timeLeft.seconds}s</span>
             )}
             {timeLeft.days <= 0 && timeLeft.hours <= 0 && timeLeft.minutes <= 0 && timeLeft.seconds <= 0 && (
-                <span>Auction ended</span>
+            <span>{countType === "stop" ? "Auction ended" : "Auction live!"}</span>
             )}
-            
         </div>
     );
 }
