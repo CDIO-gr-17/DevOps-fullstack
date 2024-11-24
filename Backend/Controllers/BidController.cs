@@ -15,13 +15,20 @@ public class BidController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateBid([FromBody] Bid bid)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        bid.BidTime = DateTime.UtcNow;
+
         _context.Bid.Add(bid);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetBid), new { id = bid.BidId }, bid);
+
+        return CreatedAtAction(nameof(GetBids), new { id = bid.BidId }, bid);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetBid(int id)
+    public async Task<IActionResult> GetBids(int id)
     {
         var bid = await _context.Bid.FindAsync(id);
         if (bid == null)
@@ -29,6 +36,17 @@ public class BidController : ControllerBase
             return NotFound();
         }
         return Ok(bid);
+    }
+
+    [HttpGet("item/{itemId}")]
+    public async Task<IActionResult> GetBidsByItemId(int itemId)
+    {
+        var bids = await _context.Bid.Where(b => b.ItemId == itemId).ToListAsync();
+        if (bids == null || !bids.Any())
+        {
+            return NotFound();
+        }
+        return Ok(bids);
     }
 
     [HttpGet]
