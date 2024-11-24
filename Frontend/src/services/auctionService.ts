@@ -1,9 +1,9 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
-const API_URL_BASE = import.meta.env.VITE_API_URL;
+export const API_URL_BASE = import.meta.env.VITE_API_URL;
 
-export const API_URL = API_URL_BASE + "auctionwares";
+const API_URL = API_URL_BASE + "auctionwares";
 
 export interface NewAuctionWare {
   itemName: string;
