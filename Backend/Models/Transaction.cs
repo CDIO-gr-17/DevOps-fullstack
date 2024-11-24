@@ -20,6 +20,8 @@ public class Transaction
     public int BuyerId { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "FinalPrice must be a positive integer.")]
+
     public int FinalPrice { get; set; }
 
     [Required]

@@ -25,9 +25,11 @@ public class AuctionWare
     public required string Description { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "MinimumPrice must be a positive integer.")]
     public int MinimumPrice { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "CurrentPrice must be a positive integer.")]
     public int CurrentPrice { get; set; }
 
     [Required]
