@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.Features;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,13 @@ builder.Services.AddCors(options =>
                     .AllowAnyHeader();
         });
 });
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = "https://YOUR_DOMAIN/";
+        options.Audience = "https://my-backend-api.example.com";
+    });
 
 var app = builder.Build();
 
