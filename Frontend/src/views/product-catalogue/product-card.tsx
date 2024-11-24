@@ -1,13 +1,10 @@
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import Countdown from "@/components/countdown";
 import { getProductImage } from "@/services/imageService";
 interface ProductCardProps {
   imageSrc?: number;
   productName?: string;
-  description?: string;
   listing?: number;
-  category?: number;
   startDate?: Date;
   endDate?: Date;
 }
@@ -15,9 +12,7 @@ interface ProductCardProps {
 export default function ProductCard({
   imageSrc = 0,
   productName = "Minimalist Watch",
-  description = "Sleek design for everyday elegance",
   listing = 129.99,
-  category = 1,
   startDate = new Date("2026-01-01T00:00:00.000Z"),
   endDate = new Date("2022-12-31T23:59:59.999Z"),
 }: ProductCardProps) {
@@ -34,19 +29,13 @@ export default function ProductCard({
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        <div className="relative aspect-[0] w-full">
+        <div className="relative w-full" style={{ height: "300px", width: "400px" }}>
           <img
             src={getProductImage(imageSrc) ? getProductImage(imageSrc) : "../../assets/profile_picture.png"}
             alt={productName}
             className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-105"
-            style = {{maxHeight: "300px", maxWidth: "400px"}}
           />
         </div>
-        {category && (
-          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-lg">
-            {category}
-          </Badge>
-        )}
         <div className="p-6">
             <h2 className="text-xl font-semibold mb-2 text-center">
             {productName}
