@@ -6,7 +6,6 @@ obj/
 *.suo
 *.vs
 *.vscode
-Migrations/
 
 
 
@@ -22,7 +21,7 @@ yarn-error.log
 
 # Environment variables
 .env
-.env.*.local
+.env.*
 
 # IDEs and editors
 .vscode/
@@ -36,3 +35,6 @@ Thumbs.db
 dist/
 Frontend/tsconfig.app.tsbuildinfo
 Frontend/tsconfig.node.tsbuildinfo
+.env.prod
+.env.dev
+project.sln

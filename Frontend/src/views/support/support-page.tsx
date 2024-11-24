@@ -29,7 +29,7 @@ export default function SupportPage() {
           <h1>Support Page</h1>
           <p>How can we help you?</p>
         </div>
-        <div className=" py-80 px-3 min-w-72 max-w-72">
+        <div className=" py-80 px-3 min-w-72 max-w-72" id="faq">
           <h1>FAQ</h1>
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">

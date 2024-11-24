@@ -9,28 +9,25 @@
 ## Start with
 
 `cd frontend` & `npm install`
+Remember to make sure the frontend will compile with npm run build before pushing to dev
 
 ## When developing for frontend
 
 I would recommend just using `npm run dev` for and live changes
 My understanding is that only when you need communications with backend etc. you need to use the following:
 
-## Running fullstack app using:
+## Running fullstack app in dev mode (new):
 
-`docker-compose up --build`
+`make dev`
 
-### Or to abort if one image fails:
+## Running fullstack app using(old):
 
-`docker-compose up --build --abort-on-container-exit`
+`docker-compose up --build -d`
 
-### Ad -d flag if want to run in background
-
-`docker-compose up --build --abort-on-container-exit -d`
-
-## Manually run tests for backend with
+## Manually run tests for backend with:
 
 `dotnet test`
 
-## Manually run tests for frontend with
+## Manually run tests for frontend with:
 
 `npm test` or `npm vitest`

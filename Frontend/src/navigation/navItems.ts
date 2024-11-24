@@ -12,7 +12,7 @@ const navItems = [
     name: "Support",
     href: "/support",
     subItems: [
-      { name: "FAQ", href: "/support" },
+      { name: "FAQ", href: "/support#faq" },
       { name: "Contact Us", href: "/support#contact" },
     ],  
   },

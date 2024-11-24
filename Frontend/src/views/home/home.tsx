@@ -1,54 +1,52 @@
 import useScrollEffect from "@/lib/useScrollEffect";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import CreateAuctionForm from "../createAuction";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { AuctionWare, getAuctions } from "@/services/auctionService";
+import { getAuctionWareImage } from "@/services/imageService";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
   const [opacity, setOpacity] = useState(0.7);
   useScrollEffect(bannerRef, setOpacity);
 
-  const artworks = [
-    {
-      name: "Lion Magnifiqué",
-      artist: "Marius Picasso",
-      imgSrc: "lion-painting.png",
-      link: "/1",
-    },
-    {
-      name: "Sunset Overdrive",
-      artist: "Artist B",
-      imgSrc: "lion-painting2.jpg",
-      link: "/1",
-    },
-    {
-      name: "Abstract Delight",
-      artist: "Artist C",
-      imgSrc: "artwork_3.jpg",
-      link: "/1",
-    },
-  ];
+  useEffect(() => {
+    const loadAuctions = async () => {
+      const auctionData = await getAuctions();
+      const auctionsWithImages = await Promise.all(
+        auctionData.items.map(async (auction: AuctionWare) => {
+          try {
+            const imageBlob = await getAuctionWareImage(auction.itemId);
+            const imageUrl = URL.createObjectURL(imageBlob);
+            return { ...auction, imageUrl };
+          } catch (error) {
+            console.error(
+              `Error fetching image for auction ${auction.itemId}:`,
+              error
+            );
+            return { ...auction, imageUrl: null };
+          }
+        })
+      );
+      setAuctions(auctionsWithImages);
+    };
 
-  const auctions = [
-    {
-      name: "Modern Masterpiece",
-      date: "Preview on 2024-09-27",
-      imgSrc: "artwork_4.jpg",
-      link: "/1",
-    },
-    {
-      name: "Renaissance Revival",
-      date: "Preview on 2024-09-28",
-      imgSrc: "artwork_5.jpg",
-      link: "/1",
-    },
-    {
-      name: "Classical Expression",
-      date: "Preview on 2024-09-29",
-      imgSrc: "artwork_6.jpg",
-      link: "/1",
-    },
-  ];
+    loadAuctions();
+  }, []);
+
+  const [auctions, setAuctions] = useState<any[]>([]);
 
   return (
     <>
@@ -60,75 +58,70 @@ const HomePage = () => {
         style={{ opacity }}
       />
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-white">
-        <div className="text-center py-20">
-          <h1 className="text-4xl font-bold">Welcome to Our Art Auction</h1>
-          <p className="mt-4 text-xl">
-            Discover and bid on exquisite artworks.
-          </p>
+        <div className="w-full py-20">
+          <Carousel className="max-h-96 overflow-hidden">
+            <CarouselContent className="flex">
+              {auctions.map((auction, index) => (
+                <CarouselItem key={index} className="flex-shrink-0 w-full">
+                  <div className="shadow-lg rounded-lg overflow-hidden">
+                    <img
+                      src={auction.imageUrl}
+                      alt={auction.title}
+                      className="w-full h-96 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-500"></div>
+                    <div className="p-4 relative z-10">
+                      <h3 className="font-bold truncate">{auction.title}</h3>
+                      <p className="text-sm truncate">{auction.previewDate}</p>
+                      <Link to={`/${auction.id}`}>
+                        <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
+                          View Details
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10" />
+            <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10" />
+          </Carousel>
         </div>
-        <div className="container mx-auto px-10 py-20">
-          <h2 className="text-3xl font-bold mb-6">Featured Artworks</h2>
-          <div
-            className="grid grid-cols-3 gap-6"
-            style={{ justifyContent: "space-evenly" }}
-          >
-            {artworks.map((art, index) => (
-              <div
-                key={index}
-                className="shadow-lg rounded-lg overflow-hidden"
-                style={{ height: "420px", width: "300px" }}
-              >
-                <img
-                  src={art.imgSrc}
-                  alt={art.name}
-                  className="h-3/4 w-full object-cover"
-                />
-                <div className="p-4 bg-gray-800 h-1/4">
-                  <h3 className="font-bold truncate">{art.name}</h3>
-                  <p className="text-sm truncate">{art.artist}</p>
-                  <Link to={art.link}>
-                    <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
-                      View Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div
+          className="w-full h-64 bg-cover bg-center flex flex-col items-center justify-center"
+          style={{ backgroundImage: "url('sell_with_us.jpg')" }}
+        >
+          <h2>
+            Do you have a piece of art that someone else should have the chance
+            of enjoying?
+          </h2>
+          <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
+            Sell with us
+          </button>
         </div>
-        <div className="container mx-auto px-10 py-20">
-          <h2 className="text-3xl font-bold mb-6">Upcoming Auctions</h2>
-          <div
-            className="grid grid-cols-3 gap-6"
-            style={{ justifyContent: "space-evenly" }}
-          >
-            {auctions.map((auction, index) => (
-              <div
-                key={index}
-                className="shadow-lg rounded-lg overflow-hidden"
-                style={{ height: "420px", width: "300px" }}
-              >
-                <img
-                  src={auction.imgSrc}
-                  alt={auction.name}
-                  className="h-3/4 w-full object-cover"
-                />
-                <div className="p-4 bg-gray-800 h-1/4">
-                  <h3 className="font-bold truncate">{auction.name}</h3>
-                  <p className="text-sm truncate">{auction.date}</p>
-                  <Link to={auction.link}>
-                    <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
-                      Auction Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="container mx-auto px-10 py-20">
-          <h2 className="text-3xl font-bold mb-6">Create a New Auction</h2>
-          <CreateAuctionForm />
+        <div className="p-4">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                How do you ensure the authenticity of items listed for auction?
+              </AccordionTrigger>
+              <AccordionContent>
+                We partner with certified appraisers and use a rigorous
+                verification process to ensure all listed items meet our quality
+                and authenticity standards.
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>
+                How can I trust the sellers on the platform?
+              </AccordionTrigger>
+              <AccordionContent>
+                Sellers go through an in-depth verification process that
+                includes identity checks and past transaction reviews to
+                maintain a safe and reputable marketplace.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </div>
     </>

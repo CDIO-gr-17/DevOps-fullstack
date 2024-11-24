@@ -1,32 +1,90 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
-export interface AuctionWare {
-  ItemName: string;
-  Description: string;
-  MinimumPrice: number;
-  CurrentPrice: number;
-  AuctionStart: Date;
-  AuctionEnd: Date;
-  SellerId: number;
-  HighestBidderId: number;
-  BuyerId: number;
-  AuctionStatus: string;
+export const API_URL_BASE = import.meta.env.VITE_API_URL;
+
+const API_URL = API_URL_BASE + "auctionwares";
+
+export interface NewAuctionWare {
+  itemName: string;
+  description: string;
+  minimumPrice: number;
+  currentPrice: number;
+  auctionStart: Date;
+  auctionEnd: Date;
+  sellerId: number;
+  highestBidderId: number;
+  buyerId: number;
+  auctionStatus: string;
 }
 
-export interface CreatedAuction extends AuctionWare {
+export interface AuctionWare {
+  itemId: number;
+  itemName: string;
+  description: string;
+  minimumPrice: number;
+  currentPrice: number;
+  auctionStart: Date;
+  auctionEnd: Date;
+  sellerId: number;
+  highestBidderId: number;
+  buyerId: number;
+  auctionStatus: string;
+}
+interface GetAuctionsResponse {
+  items: AuctionWare[];
+  totalItems: number;
+}
+
+export interface CreatedAuction extends NewAuctionWare {
   id: number;
 }
 
-const API_URL = "http://localhost:8080/api/auctions";
+export interface CreatedAuctionResponse {
+  itemId: number;
+}
 
-export const createAuction = async (auction: AuctionWare) => {
-  const response = await axios.post(API_URL, auction);
+export const createAuction = async (
+  auction: NewAuctionWare
+): Promise<CreatedAuctionResponse> => {
+  const response = await axios.post<CreatedAuctionResponse>(API_URL, auction);
   return response.data;
 };
 
-export const getAuctions = async (id: number) => {
+export const getAuction = async (id?: number): Promise<AuctionWare> => {
   const url = id ? `${API_URL}/${id}` : API_URL;
-  const response = await axios.get(url);
+  const response = await axios.get<AuctionWare>(url);
   return response.data;
+};
+
+export const getAuctions = async (
+  search: string = "",
+  page: number = 1,
+  pageSize: number = 20
+): Promise<GetAuctionsResponse> => {
+  try {
+    const response = await axios.get<AuctionWare[]>(API_URL, {
+      params: {
+        search,
+        page,
+        pageSize,
+      },
+    });
+
+    const totalItems = response.data.length;
+
+    // Ensure the response data has the expected structure
+    if (!response.data || !Array.isArray(response.data)) {
+      console.error("Invalid response structure:", response.data);
+      throw new Error("Invalid response structure");
+    }
+
+    return {
+      items: response.data,
+      totalItems: totalItems,
+    };
+  } catch (error) {
+    console.error("Error fetching auctions:", error);
+    throw error;
+  }
 };
