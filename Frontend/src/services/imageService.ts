@@ -2,7 +2,7 @@ import axios from "axios";
 import { CreatedAuctionResponse } from "./auctionService";
 import { API_URL_BASE } from "./auctionService";
 
-export const API_URL = API_URL_BASE + "image";
+const API_URL = API_URL_BASE + "image";
 
 export const uploadImage = async (
   file: File,
@@ -40,9 +40,15 @@ export const getAuctionWareImage = async (itemId: number): Promise<Blob> => {
     const response = await axios.get(`${API_URL}/auctionwareimage/${itemId}`, {
       responseType: "blob", // Important to specify the response type as 'blob'
     });
+
     return response.data as Blob;
   } catch (error) {
     console.error("Error fetching image:", error);
     throw error;
   }
+};
+
+// Function to get a product image
+export const getProductImage = (imageSrc: number): string => {
+  return `${API_URL}/auctionwareimage/${imageSrc}`;
 };

@@ -82,11 +82,11 @@ const ProductCataloguePage: React.FC = () => {
           products.map((product) => (
             <Link key={product.itemId} to={`/products/${product.itemId}`}>
               <ProductCard
-                imageSrc={product.itemName} // Adjust this to the actual image URL property
+                imageSrc={product.itemId}
                 productName={product.itemName}
-                description={product.description}
                 listing={product.currentPrice}
-                category={"Category"} // Adjust this if you have a category
+                startDate={new Date(product.auctionStart)}
+                endDate={new Date(product.auctionEnd)}
               />
             </Link>
           ))
