@@ -9,6 +9,7 @@ interface ProductCardProps {
   description?: string;
   listing?: number;
   category?: string;
+  startDate?: Date;
   endDate?: Date;
 }
 
@@ -18,6 +19,7 @@ export default function ProductCard({
   //description = "Sleek design for everyday elegance",
   listing = 129.99,
   category = "Accessories",
+  startDate = new Date("2026-01-01T00:00:00.000Z"),
   endDate = new Date("2022-12-31T23:59:59.999Z"),
 }: ProductCardProps) {
   const [isAdded, setIsAdded] = useState(false);
@@ -61,6 +63,9 @@ export default function ProductCard({
           <div className="flex items-center justify-between">
             <span className="text-2xl font-bold  animate-fadeIn animation-delay-400">
               ${listing.toFixed(2)}
+              <span>
+                startDate: {startDate.toDateString()}
+              </span>
               <span>
                   <Countdown endDate={endDate} />
               </span>
