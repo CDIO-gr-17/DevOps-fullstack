@@ -63,7 +63,7 @@ const ProductCataloguePage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-dvh">
+    <div>
       <h1 className="text-4xl font-bold mb-8">Product Catalogue</h1>
       <input
         type="text"
@@ -92,7 +92,7 @@ const ProductCataloguePage: React.FC = () => {
           ))
         )}
       </div>
-      <div className="flex justify-between mt-auto">
+      <div className="flex justify-between">
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}
