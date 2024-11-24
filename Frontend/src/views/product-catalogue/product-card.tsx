@@ -2,13 +2,12 @@ import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import Countdown from "@/components/countdown";
 import { getProductImage } from "@/services/imageService";
-
 interface ProductCardProps {
   imageSrc?: number;
   productName?: string;
   description?: string;
   listing?: number;
-  category?: string;
+  category?: number;
   startDate?: Date;
   endDate?: Date;
 }
@@ -18,7 +17,7 @@ export default function ProductCard({
   productName = "Minimalist Watch",
   description = "Sleek design for everyday elegance",
   listing = 129.99,
-  category = "Accessories",
+  category = 1,
   startDate = new Date("2026-01-01T00:00:00.000Z"),
   endDate = new Date("2022-12-31T23:59:59.999Z"),
 }: ProductCardProps) {
@@ -35,7 +34,7 @@ export default function ProductCard({
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        <div className="relative aspect-[0] w-full overflow-hidden group">
+        <div className="relative aspect-[0] w-full">
           <img
             src={getProductImage(imageSrc) ? getProductImage(imageSrc) : "../../assets/profile_picture.png"}
             alt={productName}
@@ -44,27 +43,42 @@ export default function ProductCard({
           />
         </div>
         {category && (
-          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground">
+          <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-lg">
             {category}
           </Badge>
         )}
         <div className="p-6">
-          <h2 className="text-xl font-semibold mb-2 text-left animate-fadeIn">
+            <h2 className="text-xl font-semibold mb-2 text-center">
             {productName}
-          </h2>
-          <p className=" mb-4 text-left animate-fadeIn animation-delay-200">
-            {description}
-          </p>
-          <div className="flex items-center justify-between">
-            <span className="text-2xl font-bold  animate-fadeIn animation-delay-400">
+            </h2>
+          <div className="flex end justify-between">
+          <span className="text-2xl font-bold">
               ${listing.toFixed(2)}
-              <span>
-                startDate: {startDate.toDateString()}
-              </span>
-              <span>
-                  <Countdown endDate={endDate} />
-              </span>
             </span>
+          <div className="flex flex-col justify-between">
+          <div className="flex end">
+            {new Date() > startDate && (
+              <span>Time left</span>
+            )}
+            {new Date() < startDate && (
+              <span>Bidding availible in</span>
+            )
+            }
+            </div>
+          <div className="flex justify-end">
+            {new Date() > startDate && (
+              <Countdown
+                endDate={endDate}
+              />
+            )}
+            {new Date() < startDate && (
+              <span className="text-sm font-semibold text-primary">
+                {Math.ceil((startDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
+              </span>
+            )
+            }
+            </div>
+            </div>
           </div>
         </div>
       </div>
