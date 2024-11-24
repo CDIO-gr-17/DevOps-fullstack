@@ -60,14 +60,13 @@ public class AuctionWaresController : ControllerBase
             query = query.Where(a => a.ItemName.ToLower().Contains(lowerCaseSearch));
         }
 
-        var totalItems = await query.CountAsync();
         var auctions = await query
             .OrderBy(a => a.AuctionEnd) // Order by EndDate in ascending order
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
 
-        return Ok(new { totalItems, auctions });
+        return Ok(auctions);
     }
 
 }
