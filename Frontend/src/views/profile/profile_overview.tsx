@@ -40,7 +40,7 @@ function ProfileOverview() {
               Profile settings
             </Button>
           </Link>
-          <Link to="/new-auction">
+          <Link to="/createAuction">
             <Button className="m-2" type="submit">
               New auction
             </Button>

@@ -22,13 +22,13 @@ const CreateCustomerForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const costumer: Customer = {
-      FirstName: firstName,
-      LastName: lastName,
-      Email: email,
-      Password: password,
-      Address: address,
-      PhoneNumber: phone,
-      AccountType: accountType,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      address: address,
+      phoneNumber: phone,
+      accountType: accountType,
     };
     try {
       const createdCostumer = await createCustomer(costumer);

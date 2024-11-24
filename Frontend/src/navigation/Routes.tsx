@@ -4,11 +4,10 @@ import Home from "../views/home/home";
 import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
-import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import SingleWare from "@/views/singleWare/singleWare";
-import CreateAuction from "@/views/newAuction/createAuction";
+import CreateAuction from "@/views/newAuction/newAuctionPage";
 import SignUpPage from "@/views/login/signUp";
 import ProtectedRoute from "./protectedRoute";
 

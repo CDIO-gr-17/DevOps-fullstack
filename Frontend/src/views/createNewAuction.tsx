@@ -1,4 +1,4 @@
-import { AuctionWare, createAuction } from "@/services/auctionService";
+import { NewAuctionWare, createAuction } from "@/services/auctionService";
 import { FaTrashAlt } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
 
@@ -83,17 +83,17 @@ const CreateNewAuctionForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const auction: AuctionWare = {
-      ItemName: itemName,
-      Description: description,
-      MinimumPrice: parseFloat(minimumPrice),
-      CurrentPrice: parseFloat(currentPrice),
-      AuctionStart: new Date(startDate),
-      AuctionEnd: new Date(endDate),
-      SellerId: sellerId ? parseInt(sellerId) : 0,
-      HighestBidderId: highestBidderId ? parseInt(highestBidderId) : 0,
-      BuyerId: buyerId ? parseInt(buyerId) : 0,
-      AuctionStatus: auctionStatus ? auctionStatus : "Open",
+    const auction: NewAuctionWare = {
+      itemName: itemName,
+      description: description,
+      minimumPrice: parseFloat(minimumPrice),
+      currentPrice: parseFloat(currentPrice),
+      auctionStart: new Date(startDate),
+      auctionEnd: new Date(endDate),
+      sellerId: sellerId ? parseInt(sellerId) : 0,
+      highestBidderId: highestBidderId ? parseInt(highestBidderId) : 0,
+      buyerId: buyerId ? parseInt(buyerId) : 0,
+      auctionStatus: auctionStatus ? auctionStatus : "Open",
     };
     try {
       const createdAuction = await createAuction(auction);
