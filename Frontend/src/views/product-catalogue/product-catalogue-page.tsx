@@ -82,7 +82,7 @@ const ProductCataloguePage: React.FC = () => {
           products.map((product) => (
             <Link key={product.itemId} to={`/products/${product.itemId}`}>
               <ProductCard
-                imageSrc={product.itemName} // Adjust this to the actual image URL property
+                imageSrc={product.itemId} // Adjust this to the actual image URL property
                 productName={product.itemName}
                 description={product.description}
                 listing={product.currentPrice}
