@@ -20,6 +20,8 @@ const CreateNewAuctionForm: React.FC = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  const { getAccessTokenSilently } = useAuth0();
+
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -96,7 +98,8 @@ const CreateNewAuctionForm: React.FC = () => {
       auctionStatus: auctionStatus ? auctionStatus : "Open",
     };
     try {
-      const createdAuction = await createAuction(auction);
+      const token = await getAccessTokenSilently();
+      const createdAuction = await createAuction(auction, token);
       console.log("Created Auction:", createdAuction);
       // Handle the created auction as needed, e.g., navigate to the auction details page
     } catch (error) {
@@ -293,3 +296,6 @@ const CreateNewAuctionForm: React.FC = () => {
 };
 
 export default CreateNewAuctionForm;
+function useAuth0(): { getAccessTokenSilently: any } {
+  throw new Error("Function not implemented.");
+}
