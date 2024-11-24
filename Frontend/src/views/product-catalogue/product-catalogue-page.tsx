@@ -86,7 +86,7 @@ const ProductCataloguePage: React.FC = () => {
                 productName={product.itemName}
                 description={product.description}
                 listing={product.currentPrice}
-                category={"Category"} // Adjust this if you have a categor
+                category={product.itemId} // Adjust this if you have a categor
                 startDate={new Date(product.auctionStart)} // Adjust this to the actual start time property
                 endDate={new Date(product.auctionEnd)} // Adjust this to the actual end time property
               />
