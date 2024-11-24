@@ -1,7 +1,9 @@
 import axios from "axios";
 import { CreatedAuctionResponse } from "./auctionService";
 
-const API_URL = "http://localhost:8080/api/image";
+const API_URL_BASE = import.meta.env.VITE_API_URL;
+
+export const API_URL = API_URL_BASE + "image";
 
 export const uploadImage = async (file: File, auctionWare: CreatedAuctionResponse ): Promise<void> => {
     const formData = new FormData();
