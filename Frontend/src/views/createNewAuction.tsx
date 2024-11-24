@@ -1,5 +1,6 @@
 import { NewAuctionWare, createAuction } from "@/services/auctionService";
 import { FaTrashAlt } from "react-icons/fa";
+import { uploadImage } from "@/services/imageService";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -102,6 +103,12 @@ const CreateNewAuctionForm: React.FC = () => {
       const token = await getAccessTokenSilently();
       const createdAuction = await createAuction(auction, token);
       console.log("Created Auction:", createdAuction);
+
+      // Upload each file individually
+      for (const file of images) {
+        await uploadImage(file, createdAuction);
+      }
+
       // Handle the created auction as needed, e.g., navigate to the auction details page
     } catch (error) {
       console.error("Error creating auction:", error);
