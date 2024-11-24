@@ -4,11 +4,12 @@ import Home from "../views/home/home";
 import Profile from "../views/profile/profile_overview";
 import { Layout } from "./Layout";
 import ProductCatalogPage from "@/views/product-catalogue/product-catalogue-page";
-import LoginPage from "@/views/login/login";
 import PaymentPage from "@/views/PaymentPage/PaymentPage";
 import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import SingleWare from "@/views/singleWare/singleWare";
-import CreateAuction from "@/views/createAuction";
+import CreateAuction from "@/views/newAuction/newAuctionPage";
+import SignUpPage from "@/views/login/signUp";
+// import ProtectedRoute from "./protectedRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -35,11 +36,6 @@ export const routes: RouteObject[] = [
         path: "/products/:id",
         element: <SingleWare />,
       },
-
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
       {
         path: "/paymentpage",
         element: <PaymentPage totalAmount={0} itemTitle={""} />,
@@ -48,6 +44,11 @@ export const routes: RouteObject[] = [
       {
         path: "/createAuction",
         element: <CreateAuction />,
+      },
+
+      {
+        path: "/Sign-Up",
+        element: <SignUpPage />,
       },
     ],
   },

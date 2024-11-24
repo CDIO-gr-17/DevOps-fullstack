@@ -1,7 +1,8 @@
 import { NewAuctionWare, createAuction } from "@/services/auctionService";
-import { uploadImage } from "@/services/imageService";
 import { FaTrashAlt } from "react-icons/fa";
+import { uploadImage } from "@/services/imageService";
 import React, { useState, useEffect, useRef } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CreateNewAuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState("");
@@ -20,6 +21,8 @@ const CreateNewAuctionForm: React.FC = () => {
   const [minEndDate, setMinEndDate] = useState("");
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const { getAccessTokenSilently } = useAuth0();
 
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
@@ -97,7 +100,8 @@ const CreateNewAuctionForm: React.FC = () => {
       auctionStatus: auctionStatus ? auctionStatus : "Open",
     };
     try {
-      const createdAuction = await createAuction(auction);
+      const token = await getAccessTokenSilently();
+      const createdAuction = await createAuction(auction, token);
       console.log("Created Auction:", createdAuction);
 
       // Upload each file individually

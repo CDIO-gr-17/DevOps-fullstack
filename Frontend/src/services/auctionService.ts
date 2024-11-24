@@ -45,9 +45,14 @@ export interface CreatedAuctionResponse {
 }
 
 export const createAuction = async (
-  auction: NewAuctionWare
+  auction: NewAuctionWare,
+  token: string
 ): Promise<CreatedAuctionResponse> => {
-  const response = await axios.post<CreatedAuctionResponse>(API_URL, auction);
+  const response = await axios.post<CreatedAuctionResponse>(`${API_URL}/private-scoped`, auction, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
   return response.data;
 };
 

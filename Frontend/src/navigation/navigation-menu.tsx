@@ -1,22 +1,19 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { Menu } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
 import navItems from "./navItems";
+import AuthenticationButton from "@/auth0Components";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavigationMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    setIsOpen(false);
-    navigate("/login");
-  };
+  const { user, isAuthenticated } = useAuth0();
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -52,6 +49,7 @@ const NavigationMenu = () => {
     >
       <div className="flex h-16 items-center px-4">
         <Link to="/" className="mr-6 flex items-center space-x-2">
+          <img src="/KunstHavnLogo.png" alt="KunstHavn" className="h-8 w-8" />
           <span className="text-2xl font-bold">KunstHavn</span>
         </Link>
         <div className="hidden md:flex space-x-4">
@@ -89,19 +87,15 @@ const NavigationMenu = () => {
         </div>
         <div className="ml-auto flex items-center space-x-4">
           <Avatar>
-            <AvatarImage src="/profile-silluette.jpg" alt="@user" />
+            <AvatarImage
+              src={isAuthenticated ? user?.picture : "/profile-silluette.jpg"}
+            />
             <AvatarFallback>U</AvatarFallback>
             <Link to="/profile" className="absolute inset-0">
               <span className="sr-only">Go to profile</span>
             </Link>
           </Avatar>
-          <Button
-            variant="ghost"
-            className="hidden md:inline-flex"
-            onClick={handleLoginClick}
-          >
-            Log in
-          </Button>
+          <AuthenticationButton />
         </div>
         <div className="md:hidden ml-4">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -137,9 +131,7 @@ const NavigationMenu = () => {
                     )}
                   </React.Fragment>
                 ))}
-                <Button variant="ghost" onClick={handleLoginClick}>
-                  Log in
-                </Button>
+                <AuthenticationButton />
               </nav>
             </SheetContent>
           </Sheet>
