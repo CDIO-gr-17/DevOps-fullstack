@@ -25,7 +25,7 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 // Configure CORS to allow requests from your frontend
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
+    options.AddPolicy("AllowSpecificOrigins",
         builder =>
         {
             builder.WithOrigins("http://51.120.6.166", "http://localhost")
@@ -48,7 +48,7 @@ app.UseSwaggerUI(c =>
 // app.UseHttpsRedirection();
 
 // Use CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowSpecificOrigins");
 
 app.UseAuthorization();
 
