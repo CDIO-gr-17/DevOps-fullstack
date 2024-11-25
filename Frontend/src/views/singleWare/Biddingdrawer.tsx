@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/drawer";
 import { createBid } from "@/services/bidService";
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface BiddingDrawerProps {
   itemId: number;
@@ -19,7 +20,9 @@ interface BiddingDrawerProps {
 export const BiddingDrawer: React.FC<BiddingDrawerProps> = ({ itemId }) => {
   const [bidAmount, setBidAmount] = useState<number>(0);
 
-  const handleSendBid = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const handleSendBid = async () => {
     const bid = {
       bidId: undefined,
       itemId: itemId,
@@ -28,7 +31,8 @@ export const BiddingDrawer: React.FC<BiddingDrawerProps> = ({ itemId }) => {
       bidTime: undefined,
     };
     console.log("Bid sent", { bid });
-    createBid(bid);
+    const token = await getAccessTokenSilently();
+    createBid(bid, token);
   };
 
   return (

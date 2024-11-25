@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,6 +14,8 @@ public class BidController : ControllerBase
     }
 
     [HttpPost]
+    [HttpPost("private-scoped")]
+    [Authorize("write:bids")]
     public async Task<IActionResult> CreateBid([FromBody] Bid bid)
     {
         if (!ModelState.IsValid)

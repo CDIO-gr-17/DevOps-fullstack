@@ -54,6 +54,8 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("write:auctionwares", policy =>
         policy.Requirements.Add(new HasScopeRequirement("write:auctionwares", domain)));
+    options.AddPolicy("write:bid", policy =>
+        policy.Requirements.Add(new HasScopeRequirement("write:bid", domain)));
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

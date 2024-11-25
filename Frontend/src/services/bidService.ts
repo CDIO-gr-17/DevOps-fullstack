@@ -29,9 +29,13 @@ export const getBids = async (itemId: number): Promise<Bid[]> => {
   }
 };
 
-export const createBid = async (bid: Bid): Promise<CreatedBidResponse> => {
+export const createBid = async (bid: Bid, token: string): Promise<CreatedBidResponse> => {
   try {
-    const response = await axios.post(API_URL, bid);
+    const response = await axios.post(`${API_URL}/private-scoped`, bid, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log("Bid created successfully");
     return response.data as CreatedBidResponse;
   } catch (error) {
