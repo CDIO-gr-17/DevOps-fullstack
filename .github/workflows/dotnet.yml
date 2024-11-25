@@ -123,6 +123,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{secrets.SERVER_USER}}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd /home/azureuser/DevOps-fullstack
+          docker pull --no-cache ${{ secrets.HUB_USER }}/backend:latest
+          docker pull --no-cache ${{ secrets.HUB_USER }}/frontend:latest
           export $(grep -v '^#' .env.prod | xargs)
           docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
