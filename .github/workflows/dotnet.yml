@@ -140,13 +140,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const labels = context.job === 'build-and-test' ? ['backend'] : ['frontend'];
-            const issueTitle = `Workflow failed: ${context.workflow}`;
-            const issueBody = `The workflow **${context.workflow}** failed for job **${context.job}**. Please check the logs for more details.`;
-            const { data: issue } = await github.issues.create({
+            github.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: issueTitle,
-              body: issueBody,
-              labels: labels,
+              title: `Build failed: ${context.workflow}`,
+              body: `The build for commit ${context.sha} failed. Please investigate the issue.`,
+              labels: labels
             });
-            console.log(`Created issue ${issue.number}: ${issue.title}`);
