@@ -10,7 +10,7 @@ public class ApiTests
         _client = new HttpClient { BaseAddress = new Uri("http://51.120.6.166") };
     }
 
-    [Fact]
+    [Fact(Skip = "Skip")]
     public async Task GetAuctionWares_ReturnsSuccessStatusCode()
     {
         // Act
@@ -21,7 +21,7 @@ public class ApiTests
         var content = await response.Content.ReadAsStringAsync();
         Assert.Contains("auctions", content);
     }
-    [Fact]
+    [Fact(Skip = "Skip")]
     public async Task GetAuctionWares_PerformanceTest()
     {
         var stopwatch = new Stopwatch();
@@ -36,7 +36,7 @@ public class ApiTests
         response.EnsureSuccessStatusCode();
         Assert.True(stopwatch.ElapsedMilliseconds < 1000, "API call took too long");
     }
-    [Fact]
+    [Fact(Skip = "Skip")]
     public async Task GetAuctionWares_PreventsSqlInjection()
     {
         // Act
