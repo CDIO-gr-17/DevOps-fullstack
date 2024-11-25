@@ -15,10 +15,8 @@ const ProductCataloguePage: React.FC = () => {
 
   const fetchProducts = async (search: string, page: number) => {
     setLoading(true); // Ensure loading state is set to true when fetching starts
-    console.log("Fetching products...");
     try {
       const response = await getAuctions(search, page);
-      console.log("Products fetched:", response.items);
       setProducts(response.items);
       setTotalItems(response.totalItems);
     } catch (err) {
@@ -26,7 +24,6 @@ const ProductCataloguePage: React.FC = () => {
       setError("Failed to fetch products");
     } finally {
       setLoading(false); // Ensure loading state is set to false when fetching ends
-      console.log("Loading state set to false");
     }
   };
 
@@ -66,7 +63,7 @@ const ProductCataloguePage: React.FC = () => {
   }
 
   return (
-    <div className="relative z-10 p-8">
+    <div>
       <h1 className="text-4xl font-bold mb-8">Product Catalogue</h1>
       <input
         type="text"
@@ -77,19 +74,25 @@ const ProductCataloguePage: React.FC = () => {
         className="mb-4 p-2 border border-gray-300 rounded"
       />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map((product) => (
-          <Link key={product.itemId} to={`/products/${product.itemId}`}>
-            <ProductCard
-              imageSrc={product.itemName} // Adjust this to the actual image URL property
-              productName={product.itemName}
-              description={product.description}
-              listing={product.currentPrice}
-              category={"Category"} // Adjust this if you have a category
-            />
-          </Link>
-        ))}
+        {products.length === 0 ? (
+          <div className="col-span-full text-center">
+            No products match your search.
+          </div>
+        ) : (
+          products.map((product) => (
+            <Link key={product.itemId} to={`/products/${product.itemId}`}>
+              <ProductCard
+                imageSrc={product.itemId}
+                productName={product.itemName}
+                listing={product.currentPrice}
+                startDate={new Date(product.auctionStart)}
+                endDate={new Date(product.auctionEnd)}
+              />
+            </Link>
+          ))
+        )}
       </div>
-      <div className="flex justify-between mt-4">
+      <div className="flex justify-between">
         <button
           onClick={handlePreviousPage}
           disabled={page === 1}

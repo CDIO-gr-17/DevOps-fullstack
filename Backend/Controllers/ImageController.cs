@@ -13,11 +13,30 @@ public class ImageController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateImage([FromBody] Image image)
+    public async Task<IActionResult> CreateImage([FromForm] IFormFile image, [FromForm] int itemId)
     {
-        _context.Image.Add(image);
+        if (image == null || image.Length == 0)
+        {
+            return BadRequest("No file uploaded.");
+        }
+
+        using var memoryStream = new MemoryStream();
+        await image.CopyToAsync(memoryStream);
+
+        var newImage = new Image
+        {
+            Data = memoryStream.ToArray(),
+            ContentType = image.ContentType,
+            AuctionWareId = itemId
+        };
+
+        _context.Image.Add(newImage);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetImage), new { id = image.ImageId }, image);
+
+        // Log the image data and content type
+        Console.WriteLine($"Uploaded Image: {newImage.ImageId}, ContentType: {newImage.ContentType}, Data Length: {newImage.Data.Length}");
+
+        return Ok(new { ImageId = newImage.ImageId });
     }
 
     [HttpGet("{id}")]
@@ -28,7 +47,26 @@ public class ImageController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(image);
+
+        // Log the image data and content type
+        Console.WriteLine($"Retrieved Image: {image.ImageId}, ContentType: {image.ContentType}, Data Length: {image.Data.Length}");
+
+        return File(image.Data, image.ContentType);
+    }
+
+    [HttpGet("auctionwareimage/{id}")]
+    public async Task<IActionResult> GetAuctionWareImage(int id)
+    {
+        var image = await _context.Image.FirstOrDefaultAsync(img => img.AuctionWareId == id);
+        if (image == null)
+        {
+            return NotFound();
+        }
+
+        // Log the image data and content type
+        Console.WriteLine($"Retrieved Image: {image.ImageId}, ContentType: {image.ContentType}, Data Length: {image.Data.Length}");
+
+        return File(image.Data, image.ContentType);
     }
 
     [HttpGet]

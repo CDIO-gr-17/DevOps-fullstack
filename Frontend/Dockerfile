@@ -13,11 +13,11 @@ RUN npm install
 # Copy project files
 COPY . .
 
-ARG REACT_APP_API_URL
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
+# Set build arguments
+ARG VITE_API_URL
 
 # Build the project
-RUN npm run build
+RUN VITE_API_URL=$VITE_API_URL npm run build
 
 # Serve the app
 FROM nginx:alpine

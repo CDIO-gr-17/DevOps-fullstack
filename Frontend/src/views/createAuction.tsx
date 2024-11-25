@@ -1,4 +1,4 @@
-import CreateNewAuctionForm from "./newAuctionPage";
+import CreateNewAuctionForm from "./createNewAuction";
 
 function CreateAuction() {
   return (

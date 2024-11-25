@@ -1,8 +1,25 @@
 // Frontend/src/services/auctionService.js
 import axios from "axios";
 
+export const API_URL_BASE = import.meta.env.VITE_API_URL;
+
+const API_URL = API_URL_BASE + "auctionwares";
+
+export interface NewAuctionWare {
+  itemName: string;
+  description: string;
+  minimumPrice: number;
+  currentPrice: number;
+  auctionStart: Date;
+  auctionEnd: Date;
+  sellerId: number;
+  highestBidderId: number;
+  buyerId: number;
+  auctionStatus: string;
+}
+
 export interface AuctionWare {
-  itemId?: number;
+  itemId: number;
   itemName: string;
   description: string;
   minimumPrice: number;
@@ -19,16 +36,33 @@ interface GetAuctionsResponse {
   totalItems: number;
 }
 
-const API_URL = "http://51.120.6.166/api/auctionwares";
+export interface CreatedAuction extends NewAuctionWare {
+  id: number;
+}
 
-export const createAuction = async (auction: AuctionWare) => {
-  const response = await axios.post(API_URL, auction);
+export interface CreatedAuctionResponse {
+  itemId: number;
+}
+
+export const createAuction = async (
+  auction: NewAuctionWare,
+  token: string
+): Promise<CreatedAuctionResponse> => {
+  const response = await axios.post<CreatedAuctionResponse>(
+    `${API_URL}/private-scoped`,
+    auction,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 };
 
-export const getAuction = async (id: number) => {
+export const getAuction = async (id?: number): Promise<AuctionWare> => {
   const url = id ? `${API_URL}/${id}` : API_URL;
-  const response = await axios.get(url);
+  const response = await axios.get<AuctionWare>(url);
   return response.data;
 };
 
@@ -38,10 +72,7 @@ export const getAuctions = async (
   pageSize: number = 20
 ): Promise<GetAuctionsResponse> => {
   try {
-    const response = await axios.get<{
-      totalItems: number;
-      auctions: AuctionWare[];
-    }>(API_URL, {
+    const response = await axios.get<AuctionWare[]>(API_URL, {
       params: {
         search,
         page,
@@ -49,25 +80,17 @@ export const getAuctions = async (
       },
     });
 
-    // Log the entire response object for debugging
-    console.log("Full API response:", response);
-
-    // Log the response data for debugging
-    console.log("API response data:", response.data);
+    const totalItems = response.data.length;
 
     // Ensure the response data has the expected structure
-    if (
-      !response.data ||
-      !Array.isArray(response.data.auctions) ||
-      typeof response.data.totalItems !== "number"
-    ) {
+    if (!response.data || !Array.isArray(response.data)) {
       console.error("Invalid response structure:", response.data);
       throw new Error("Invalid response structure");
     }
 
     return {
-      items: response.data.auctions,
-      totalItems: response.data.totalItems,
+      items: response.data,
+      totalItems: totalItems,
     };
   } catch (error) {
     console.error("Error fetching auctions:", error);

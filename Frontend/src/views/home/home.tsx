@@ -14,7 +14,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getAuctions } from "@/services/auctionService";
+import { AuctionWare, getAuctions } from "@/services/auctionService";
+import { getAuctionWareImage } from "@/services/imageService";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -24,7 +25,22 @@ const HomePage = () => {
   useEffect(() => {
     const loadAuctions = async () => {
       const auctionData = await getAuctions();
-      setAuctions(auctionData.items);
+      const auctionsWithImages = await Promise.all(
+        auctionData.items.map(async (auction: AuctionWare) => {
+          try {
+            const imageBlob = await getAuctionWareImage(auction.itemId);
+            const imageUrl = URL.createObjectURL(imageBlob);
+            return { ...auction, imageUrl };
+          } catch (error) {
+            console.error(
+              `Error fetching image for auction ${auction.itemId}:`,
+              error
+            );
+            return { ...auction, imageUrl: null };
+          }
+        })
+      );
+      setAuctions(auctionsWithImages);
     };
 
     loadAuctions();
@@ -49,7 +65,7 @@ const HomePage = () => {
                 <CarouselItem key={index} className="flex-shrink-0 w-full">
                   <div className="shadow-lg rounded-lg overflow-hidden">
                     <img
-                      src={auction.image}
+                      src={auction.imageUrl}
                       alt={auction.title}
                       className="w-full h-96 object-cover"
                     />
