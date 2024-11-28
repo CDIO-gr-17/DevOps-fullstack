@@ -104,7 +104,8 @@ function SingleWare() {
               <p className="text-gray-500">Price: </p>
             </div>
             <p className="text-gray-500">
-            Ends at {item.auctionEnd ? item.auctionEnd.toLocaleString() : "N/A"}
+              Ends at{" "}
+              {item.auctionEnd ? item.auctionEnd.toLocaleString() : "N/A"}
             </p>
           </div>
 
@@ -114,12 +115,14 @@ function SingleWare() {
           </div>
           <h2 className="text-lg font-bold mb-2">Previous Bids</h2>
           <div className="rounded-lg p-4 max-h-40 overflow-y-auto">
-            {bids.length > 0 ? (
+            {Array.isArray(bids) && bids.length > 0 ? (
               <ul>
                 {bids.map((bid, index) => (
                   <li key={index} className="mb-1">
                     <strong>
-                      {bid.bidTime ? new Date(bid.bidTime).toLocaleString() : "N/A"}
+                      {bid.bidTime
+                        ? new Date(bid.bidTime).toLocaleString()
+                        : "N/A"}
                     </strong>
                     : {bid.bidAmount}
                   </li>
