@@ -126,6 +126,7 @@ jobs:
           docker pull ${{ secrets.HUB_USER }}/backend:latest
           docker pull ${{ secrets.HUB_USER }}/frontend:latest
           export $(grep -v '^#' .env.prod | xargs)
+          export VITE_API_URL=https://jakobagergaard.me/api/
           docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
 
