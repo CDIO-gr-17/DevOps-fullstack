@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Carousel from "@/lib/carousel";
 import LoadingElement from "@/lib/loadingElement";
 import { AuctionWare, getAuction } from "@/services/auctionService";
 import { useEffect, useState } from "react";
@@ -18,8 +17,6 @@ import { VscVerified } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import { BiddingDrawer } from "./Biddingdrawer";
 import { Bid, getBids } from "@/services/bidService";
-
-const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
 function SingleWare() {
   const { id } = useParams<{ id: string }>();
@@ -77,7 +74,7 @@ function SingleWare() {
         <div className="flex flex-col w-2/5 justify-start max-w-1/2">
           <div className="relative">
             <div className="max-w-lg">
-              <Carousel slides={slides} />
+
             </div>
           </div>
         </div>
@@ -132,7 +129,7 @@ function SingleWare() {
               <p>No bids yet.</p>
             )}
           </div>
-          <BiddingDrawer itemId={item.itemId} />
+          <BiddingDrawer itemId={Number(id)} />
           <Accordion type="single" collapsible className="mt-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>Shipping</AccordionTrigger>
