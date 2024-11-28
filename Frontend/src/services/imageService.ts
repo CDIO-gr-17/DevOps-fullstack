@@ -2,7 +2,7 @@ import axios from "axios";
 import { CreatedAuctionResponse } from "./auctionService";
 import { API_URL_BASE } from "./auctionService";
 
-const API_URL = API_URL_BASE + "api/image";
+const API_URL = API_URL_BASE + "image";
 
 export const uploadImage = async (
   file: File,
