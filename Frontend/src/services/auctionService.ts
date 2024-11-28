@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const API_URL_BASE = import.meta.env.VITE_API_URL;
 
-const API_URL = API_URL_BASE + "auctionwares";
+const API_URL = API_URL_BASE + "api/auctionwares";
 
 export interface NewAuctionWare {
   itemName: string;
