@@ -129,19 +129,9 @@ jobs:
           docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
 
-  intentionally-fail:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Intentionally fail the build
-        run: exit 1
-
   create-issue-on-failure:
     runs-on: ubuntu-latest
-    needs: intentionally-fail
+    needs: [build-and-test, deploy]
     if: failure()
     steps:
       - uses: actions/checkout@v3
