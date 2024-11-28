@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API_URL =
-"https://jakobagergaard.me/products/api/bid";
+"https://jakobagergaard.me/api/bid";
 
 export interface Bid {
   bidId?: number;
