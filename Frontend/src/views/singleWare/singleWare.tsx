@@ -18,8 +18,9 @@ import { VscVerified } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import { BiddingDrawer } from "./Biddingdrawer";
 import { Bid, getBids } from "@/services/bidService";
+import Countdown from "@/components/countdown";
+import { getProductImage } from "@/services/imageService";
 
-const slides = ["lion-painting.png", "lion-painting2.jpg"];
 
 function SingleWare() {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +29,8 @@ function SingleWare() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [bids, setBids] = useState<Bid[]>([]);
-
+  const slides = [getProductImage(Number(id))];
+  
   useEffect(() => {
     console.log("useEffect called with id:", id); // Log statement to verify useEffect call
 
@@ -96,22 +98,25 @@ function SingleWare() {
           </div>
           <h1 className="text-2xl font-bold mb-2">{item.itemName}</h1>
           <p className="text-gray-500 mb-2">
-            Water color painting in wood frame
+            {item.description}
           </p>
 
           <div className="flex justify-between mb-2">
             <div className="flex items-center">
-              <p className="text-gray-500">Price: </p>
+              <p className="text-gray-500">Price </p>
             </div>
             <p className="text-gray-500">
-              Ends at {item.auctionEnd.toLocaleString()}
+               Ends {new Date(item.auctionEnd).toLocaleString()}
             </p>
           </div>
 
-          <div className="flex justify-between mb-2">
+            <div className="flex justify-between mb-2">
             <p className="text-xl font-bold">{item.currentPrice}</p>
-            <p className="text-gray-500">Philips countdown here</p>
-          </div>
+            <div className="flex items-center">
+              <p className="mr-2">Time left:</p>
+              <Countdown endDate={item.auctionEnd} countType="stop" />
+            </div>
+            </div>
           <h2 className="text-lg font-bold mb-2">Previous Bids</h2>
           <div className="rounded-lg p-4 max-h-40 overflow-y-auto">
             {bids.length > 0 ? (
@@ -154,8 +159,8 @@ function SingleWare() {
             <div className="flex items-center mb-2">
               <p className="font-bold underline mr-4">Marius Picasso</p>
               <img
-                src="Marius.jpg"
-                className="w-12 h-12 rounded-full border-black border"
+              src="/Marius.jpg"
+              className="w-12 h-12 rounded-full border-black border"
               />
             </div>
             <p className="text-gray-500 mb-2">Rødovre, Denmark</p>
