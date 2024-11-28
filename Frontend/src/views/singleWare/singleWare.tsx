@@ -104,7 +104,7 @@ function SingleWare() {
               <p className="text-gray-500">Price: </p>
             </div>
             <p className="text-gray-500">
-              Ends at {item.auctionEnd.toLocaleString()}
+            Ends at {item.auctionEnd ? item.auctionEnd.toLocaleString() : "N/A"}
             </p>
           </div>
 
@@ -119,7 +119,7 @@ function SingleWare() {
                 {bids.map((bid, index) => (
                   <li key={index} className="mb-1">
                     <strong>
-                      {new Date(bid.bidTime || "").toLocaleString()}
+                      {bid.bidTime ? new Date(bid.bidTime).toLocaleString() : "N/A"}
                     </strong>
                     : {bid.bidAmount}
                   </li>
