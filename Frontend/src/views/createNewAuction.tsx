@@ -116,12 +116,12 @@ const CreateNewAuctionForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full mx-auto bg-white justify-center flex">
+    <div className="w-full mx-auto justify-center flex text-card-foreground">
       <form
         onSubmit={handleSubmit}
         className="border rounded-3xl w-3/4 m-40 p-8 border-gray-400"
       >
-        <h1 className="text-2xl font-bold mb-6 text-center text-black">
+        <h1 className="text-2xl font-bold mb-6 text-center">
           Create new Auction
         </h1>
 
@@ -130,10 +130,7 @@ const CreateNewAuctionForm: React.FC = () => {
             <div className="flex mb-4">
               {/* Item name */}
               <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="itemName"
-                >
+                <label className="flex  font-light mb-2" htmlFor="itemName">
                   Item Name
                 </label>
                 <input
@@ -152,10 +149,7 @@ const CreateNewAuctionForm: React.FC = () => {
             <div className="flex mb-4">
               {/* Start date */}
               <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="startDate"
-                >
+                <label className="flex  font-light mb-2" htmlFor="startDate">
                   Start date
                 </label>
                 <input
@@ -171,10 +165,7 @@ const CreateNewAuctionForm: React.FC = () => {
 
               {/* End date */}
               <div className="flex-1 px-2">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="endDate"
-                >
+                <label className="flex  font-light mb-2" htmlFor="endDate">
                   End date
                 </label>
                 <input
@@ -192,7 +183,7 @@ const CreateNewAuctionForm: React.FC = () => {
               {/* Minimum Price */}
               <div className="flex-1 px-2 ">
                 <label
-                  className="flex text-gray-700 font-light mb-2"
+                  className="flex  font-light mb-2"
                   htmlFor="minimum-price"
                 >
                   Minimum Price
@@ -209,10 +200,7 @@ const CreateNewAuctionForm: React.FC = () => {
               </div>
               {/* Current Price */}
               <div className="flex-1 px-2 ">
-                <label
-                  className="flex text-gray-700 font-light mb-2"
-                  htmlFor="curr-price"
-                >
+                <label className="flex  font-light mb-2" htmlFor="curr-price">
                   Current Price
                 </label>
                 <input
@@ -228,10 +216,7 @@ const CreateNewAuctionForm: React.FC = () => {
             </div>
             {/* Description */}
             <div className="flex-1 px-2">
-              <label
-                className="flex text-gray-700 font-light mb-2"
-                htmlFor="description"
-              >
+              <label className="flex  font-light mb-2" htmlFor="description">
                 Description
               </label>
               <textarea
@@ -248,10 +233,7 @@ const CreateNewAuctionForm: React.FC = () => {
           {/* Image */}
           <div className="flex-1 ml-4">
             <div className="flex flex-col justify-top h-full">
-              <label
-                className="flex text-gray-700 font-light mb-2"
-                htmlFor="image"
-              >
+              <label className="flex  font-light mb-2" htmlFor="image">
                 Upload Images
               </label>
               <input
