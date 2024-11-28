@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_URL_BASE } from "./auctionService";
 
-const API_URL = API_URL_BASE + "customers";
+const API_URL = API_URL_BASE + "api/customers";
 export interface Customer {
   firstName: string;
   lastName: string;

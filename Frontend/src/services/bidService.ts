@@ -1,7 +1,7 @@
 import { API_URL_BASE } from "./auctionService";
 import axios from "axios";
 
-const API_URL = API_URL_BASE + "bid";
+const API_URL = API_URL_BASE + "api/bid";
 
 export interface Bid {
   bidId?: number;
