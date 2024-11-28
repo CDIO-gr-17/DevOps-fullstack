@@ -25,7 +25,7 @@ export const BiddingDrawer: React.FC<BiddingDrawerProps> = ({ itemId }) => {
       itemId: itemId,
       bidderId: 1,
       bidAmount: bidAmount,
-      bidTime: undefined,
+      bidTime: new Date().toISOString(),
     };
     console.log("Bid sent", { bid });
     createBid(bid);
