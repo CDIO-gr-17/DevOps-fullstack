@@ -3,7 +3,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { uploadImage } from "@/services/imageService";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import AlertDestructive from "@/components/alertcomponent";
+import AlertDestructive from "@/components/alertdestructivecomponent";
+import AlertConfirmation from "@/components/alertconfirmationcomponent";
 
 const CreateNewAuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState("");
@@ -19,6 +20,7 @@ const CreateNewAuctionForm: React.FC = () => {
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [errorState, setErrorState] = useState<string | null>(null);
+  const [successState, setSuccessState] = useState<string | null>(null);
   const [minStartDate, setMinStartDate] = useState("");
   const [minEndDate, setMinEndDate] = useState("");
 
@@ -105,7 +107,7 @@ const CreateNewAuctionForm: React.FC = () => {
       const token = await getAccessTokenSilently();
       const createdAuction = await createAuction(auction, token);
       console.log("Created Auction:", createdAuction);
-
+      setSuccessState("Auction created successfully!");
       // Upload each file individually
       for (const file of images) {
         await uploadImage(file, createdAuction);
@@ -290,6 +292,11 @@ const CreateNewAuctionForm: React.FC = () => {
             {errorState && (
             <div className="mt-4">
               {AlertDestructive(errorState)}
+            </div>
+            )}
+            {successState && (
+            <div className="mt-4">
+              {AlertConfirmation(successState)}
             </div>
             )}
       </form>
