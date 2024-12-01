@@ -9,7 +9,7 @@ import WinnerPage from "@/views/WinnerPage/WinnerPage";
 import SingleWare from "@/views/singleWare/singleWare";
 import CreateAuction from "@/views/newAuction/newAuctionPage";
 import SignUpPage from "@/views/login/signUp";
-// import ProtectedRoute from "./protectedRoute";
+import ProtectedRoute from "./protectedRoute";
 
 export const routes: RouteObject[] = [
   {
@@ -30,7 +30,11 @@ export const routes: RouteObject[] = [
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/products/:id",
