@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/accordion";
 import { AuctionWare, getAuctions } from "@/services/auctionService";
 import { getAuctionWareImage } from "@/services/imageService";
+import Countdown from "@/components/countdown";
 
 const HomePage = () => {
   const bannerRef = useRef<HTMLImageElement>(null);
@@ -50,6 +51,11 @@ const HomePage = () => {
 
   return (
     <>
+      <div>
+        <h1 className="text-center text-4xl font-bold">
+          Welcome to Art Auction
+        </h1>
+      </div>
       <img
         ref={bannerRef}
         src="home_banner.jpg"
@@ -62,22 +68,64 @@ const HomePage = () => {
           <Carousel className="max-h-96 overflow-hidden">
             <CarouselContent className="flex">
               {auctions.map((auction, index) => (
-                <CarouselItem key={index} className="flex-shrink-0 w-full">
-                  <div className="shadow-lg rounded-lg overflow-hidden">
-                    <img
-                      src={auction.imageUrl}
-                      alt={auction.title}
-                      className="w-full h-96 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-500"></div>
-                    <div className="p-4 relative z-10">
-                      <h3 className="font-bold truncate">{auction.title}</h3>
-                      <p className="text-sm truncate">{auction.previewDate}</p>
+                <CarouselItem
+                  key={index}
+                  className="flex-shrink-0 w-full bg-slate-800"
+                >
+                  <div className="shadow-lg rounded-lg overflow-hidden flex">
+                    {/* Venstre side */}
+                    <div className="w-full md:w-1/2 p-6 flex flex-col justify-between">
+                      <div className="flex w-full flex-col bg-slate-800 p-6">
+                        <div className="flex flex-col items-center justify-center pb-20">
+                          <div className="text-4xl text-gray-200">
+                            {auction.itemName}
+                          </div>
+                          <div className="text-xl text-gray-200">
+                            {auction.description}
+                          </div>
+                        </div>
+
+                        <div className="flex justify-between w-full mt-4">
+                          <div>
+                            <div className="text-gray-500">Expires in</div>
+                            <div className="text-gray-200 text-4xl">
+                              <span>
+                                {new Date() > auction.auctionStart ? (
+                                  <Countdown
+                                    endDate={auction.auctionEnd}
+                                    countType="stop"
+                                  />
+                                ) : (
+                                  <Countdown
+                                    endDate={auction.auctionStart}
+                                    countType="start"
+                                  />
+                                )}
+                              </span>
+                            </div>
+                          </div>    
+                          <div className="text-right">
+                            <div className="text-gray-500">Current price</div>
+                            <div className="text-gray-200 text-4xl">
+                              {auction.currentPrice}$
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <Link to={`/${auction.id}`}>
                         <button className="mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 text-xs rounded">
                           View Details
                         </button>
                       </Link>
+                    </div>
+                    {/* Højre side */}
+                    <div className="w-1/2">
+                      <img
+                        src={auction.imageUrl}
+                        alt={auction.title}
+                        className="w-full h-96 object-cover"
+                      />
                     </div>
                   </div>
                 </CarouselItem>
