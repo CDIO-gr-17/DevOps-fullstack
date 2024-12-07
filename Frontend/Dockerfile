@@ -13,8 +13,14 @@ RUN npm install
 # Copy project files
 COPY . .
 
+<<<<<<< HEAD
 # Set build arguments
 ARG VITE_API_URL
+=======
+# Set environment variables
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
+>>>>>>> singewarePics
 
 # Build the project
 RUN VITE_API_URL=$VITE_API_URL npm run build

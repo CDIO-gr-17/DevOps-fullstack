@@ -6,7 +6,11 @@ obj/
 *.suo
 *.vs
 *.vscode
+<<<<<<< HEAD
 
+=======
+*.pem
+>>>>>>> singewarePics
 
 
 # Node modules

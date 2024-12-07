@@ -3,11 +3,19 @@ import { Link } from "react-router-dom";
 import ProductCard from "@/views/product-catalogue/product-card"; // Adjust the import path as necessary
 import { AuctionWare, getAuctions } from "@/services/auctionService";
 import LoadingElement from "@/lib/loadingElement";
+<<<<<<< HEAD
+=======
+import AlertDestructive from "@/components/alertdestructivecomponent";
+>>>>>>> singewarePics
 
 const ProductCataloguePage: React.FC = () => {
   const [products, setProducts] = useState<AuctionWare[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+<<<<<<< HEAD
+=======
+  const [errorState, setErrorState] = useState<string | null>(null);
+>>>>>>> singewarePics
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [totalItems, setTotalItems] = useState<number>(0);
@@ -22,6 +30,14 @@ const ProductCataloguePage: React.FC = () => {
     } catch (err) {
       console.error("Failed to fetch products:", err);
       setError("Failed to fetch products");
+<<<<<<< HEAD
+=======
+      if (err instanceof Error) {
+        setErrorState(`Failed to fetch products: ${err.message}`);
+      } else {
+        setErrorState("Failed to fetch products: An unknown error occurred.");
+      }
+>>>>>>> singewarePics
     } finally {
       setLoading(false); // Ensure loading state is set to false when fetching ends
     }
@@ -59,7 +75,15 @@ const ProductCataloguePage: React.FC = () => {
   }
 
   if (error) {
+<<<<<<< HEAD
     return <div>{error}</div>;
+=======
+    return (
+      <div className="mt-4 max-w-md mx-auto">     
+        {AlertDestructive(errorState ?? "An unknown error occurred.")}
+      </div>
+    );
+>>>>>>> singewarePics
   }
 
   return (

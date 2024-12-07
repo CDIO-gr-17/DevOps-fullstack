@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import { API_URL_BASE } from "./auctionService";
 import axios from "axios";
 
 const API_URL = API_URL_BASE + "bid";
+=======
+//import { API_URL_BASE } from "./auctionService";
+import axios from "axios";
+
+const API_URL =
+"https://jakobagergaard.me/api/bid";
+>>>>>>> singewarePics
 
 export interface Bid {
   bidId?: number;

@@ -4,7 +4,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+<<<<<<< HEAD
 import Carousel from "@/lib/carousel";
+=======
+>>>>>>> singewarePics
 import LoadingElement from "@/lib/loadingElement";
 import { AuctionWare, getAuction } from "@/services/auctionService";
 import { useEffect, useState } from "react";
@@ -18,10 +21,15 @@ import { VscVerified } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import { BiddingDrawer } from "./Biddingdrawer";
 import { Bid, getBids } from "@/services/bidService";
+<<<<<<< HEAD
 import Countdown from "@/components/countdown";
 import { getProductImage } from "@/services/imageService";
 
 
+=======
+import { getProductImage } from "@/services/imageService";
+
+>>>>>>> singewarePics
 function SingleWare() {
   const { id } = useParams<{ id: string }>();
   const [item, setItem] = useState<AuctionWare | null>(null);
@@ -29,6 +37,7 @@ function SingleWare() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [bids, setBids] = useState<Bid[]>([]);
+<<<<<<< HEAD
   const slides = [getProductImage(Number(id))];
   
   useEffect(() => {
@@ -45,6 +54,24 @@ function SingleWare() {
       }
     };
 
+=======
+  const [pictures, setPictures] = useState<string>("");
+
+  useEffect(() => {
+    console.log("useEffect called with id:", id); // Log statement to verify useEffect call
+
+    const fetchItem = async () => {
+      try {
+        const itemData = await getAuction(Number(id));
+        setItem(itemData as AuctionWare);
+      } catch (err) {
+        setError("Failed to fetch item");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+>>>>>>> singewarePics
     const fetchBids = async () => {
       console.log("fetching bids"); // Log statement to verify function call
       try {
@@ -57,7 +84,23 @@ function SingleWare() {
       }
     };
 
+<<<<<<< HEAD
     fetchItem();
+=======
+    const fetchPictures = async () => {
+      console.log("fetching pictures"); // Log statement to verify function call
+      try {
+        const picturesData = await getProductImage(Number(id));
+        setPictures(picturesData);
+      } catch (err) {
+        console.error("Failed to fetch pictures", err); // Log any errors
+        setPictures(""); // Set pictures to an empty array if there is an error
+      }
+    };
+
+    fetchItem();
+    fetchPictures();
+>>>>>>> singewarePics
     fetchBids();
   }, [id]);
 
@@ -78,9 +121,12 @@ function SingleWare() {
       <div className="w-4/5 flex justify-between">
         <div className="flex flex-col w-2/5 justify-start max-w-1/2">
           <div className="relative">
-            <div className="max-w-lg">
-              <Carousel slides={slides} />
-            </div>
+            <div className="max-w-lg"></div>
+            <img
+              src={pictures ? pictures : "../../assets/profile_picture.png"}
+              alt="item"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
@@ -103,6 +149,7 @@ function SingleWare() {
 
           <div className="flex justify-between mb-2">
             <div className="flex items-center">
+<<<<<<< HEAD
               <p className="text-gray-500">Price </p>
             </div>
             <p className="text-gray-500">
@@ -135,6 +182,40 @@ function SingleWare() {
             )}
           </div>
           <BiddingDrawer itemId={item.itemId} />
+=======
+              <p className="text-gray-500">Price: </p>
+            </div>
+            <p className="text-gray-500">
+              Ends at{" "}
+              {item.auctionEnd ? item.auctionEnd.toLocaleString() : "N/A"}
+            </p>
+          </div>
+
+          <div className="flex justify-between mb-2">
+            <p className="text-xl font-bold">{item.currentPrice}</p>
+            <p className="text-gray-500">Philips countdown here</p>
+          </div>
+          <h2 className="text-lg font-bold mb-2">Previous Bids</h2>
+          <div className="rounded-lg p-4 max-h-40 overflow-y-auto">
+            {Array.isArray(bids) && bids.length > 0 ? (
+              <ul>
+                {bids.map((bid, index) => (
+                  <li key={index} className="mb-1">
+                    <strong>
+                      {bid.bidTime
+                        ? new Date(bid.bidTime).toLocaleString()
+                        : "N/A"}
+                    </strong>
+                    : {bid.bidAmount}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No bids yet.</p>
+            )}
+          </div>
+          <BiddingDrawer itemId={Number(id)} />
+>>>>>>> singewarePics
           <Accordion type="single" collapsible className="mt-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>Shipping</AccordionTrigger>

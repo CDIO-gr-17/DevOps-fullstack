@@ -123,12 +123,20 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{secrets.SERVER_USER}}@${{ secrets.SERVER_HOST }} << 'EOF'
           cd /home/azureuser/DevOps-fullstack
+<<<<<<< HEAD
           export $(grep -v '^#' .env.prod | xargs)
+=======
+          docker pull ${{ secrets.HUB_USER }}/backend:latest
+          docker pull ${{ secrets.HUB_USER }}/frontend:latest
+          export $(grep -v '^#' .env.prod | xargs)
+          export VITE_API_URL=https://jakobagergaard.me/api/
+>>>>>>> singewarePics
           docker-compose --env-file .env.prod -f docker-compose.prod.yml up -d
           EOF
 
   create-issue-on-failure:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     needs: build-and-test
     if: failure()
     steps:
@@ -148,3 +156,12 @@ jobs:
               labels: labels,
             });
             console.log(`Created issue ${issue.number}: ${issue.title}`);
+=======
+    needs: [build-and-test, deploy]
+    if: failure()
+    steps:
+      - uses: actions/checkout@v3
+      - uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+>>>>>>> singewarePics

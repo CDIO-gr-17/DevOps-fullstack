@@ -3,6 +3,11 @@ import { FaTrashAlt } from "react-icons/fa";
 import { uploadImage } from "@/services/imageService";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+<<<<<<< HEAD
+=======
+import AlertDestructive from "@/components/alertdestructivecomponent";
+import AlertConfirmation from "@/components/alertconfirmationcomponent";
+>>>>>>> singewarePics
 
 const CreateNewAuctionForm: React.FC = () => {
   const [itemName, setItemName] = useState("");
@@ -17,6 +22,11 @@ const CreateNewAuctionForm: React.FC = () => {
   const [auctionStatus] = useState("Open");
   const [images, setImages] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+<<<<<<< HEAD
+=======
+  const [errorState, setErrorState] = useState<string | null>(null);
+  const [successState, setSuccessState] = useState<string | null>(null);
+>>>>>>> singewarePics
   const [minStartDate, setMinStartDate] = useState("");
   const [minEndDate, setMinEndDate] = useState("");
 
@@ -103,7 +113,11 @@ const CreateNewAuctionForm: React.FC = () => {
       const token = await getAccessTokenSilently();
       const createdAuction = await createAuction(auction, token);
       console.log("Created Auction:", createdAuction);
+<<<<<<< HEAD
 
+=======
+      setSuccessState("Success");
+>>>>>>> singewarePics
       // Upload each file individually
       for (const file of images) {
         await uploadImage(file, createdAuction);
@@ -112,6 +126,14 @@ const CreateNewAuctionForm: React.FC = () => {
       // Handle the created auction as needed, e.g., navigate to the auction details page
     } catch (error) {
       console.error("Error creating auction:", error);
+<<<<<<< HEAD
+=======
+      if (error instanceof Error) {
+        setErrorState(`Error creating auction: ${error.message}`);
+      } else {
+        setErrorState("Error creating auction: An unknown error occurred.");
+      }
+>>>>>>> singewarePics
     }
   };
 
@@ -280,6 +302,15 @@ const CreateNewAuctionForm: React.FC = () => {
             Create Auction
           </button>
         </div>
+<<<<<<< HEAD
+=======
+        {errorState && (
+          <div className="mt-4">{AlertDestructive(errorState)}</div>
+        )}
+        {successState === "Success" && (
+          <div className="mt-4">{AlertConfirmation(successState)}</div>
+        )}
+>>>>>>> singewarePics
       </form>
     </div>
   );

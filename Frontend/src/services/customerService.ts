@@ -1,7 +1,11 @@
 import axios from "axios";
 import { API_URL_BASE } from "./auctionService";
 
+<<<<<<< HEAD
 const API_URL = API_URL_BASE + "customers";
+=======
+const API_URL = API_URL_BASE + "api/customers";
+>>>>>>> singewarePics
 export interface Customer {
   firstName: string;
   lastName: string;

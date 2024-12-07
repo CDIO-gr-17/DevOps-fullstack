@@ -3,7 +3,11 @@ import axios from "axios";
 
 export const API_URL_BASE = import.meta.env.VITE_API_URL;
 
+<<<<<<< HEAD
 const API_URL = API_URL_BASE + "auctionwares";
+=======
+const API_URL = API_URL_BASE + "api/auctionwares";
+>>>>>>> singewarePics
 
 export interface NewAuctionWare {
   itemName: string;
@@ -48,11 +52,23 @@ export const createAuction = async (
   auction: NewAuctionWare,
   token: string
 ): Promise<CreatedAuctionResponse> => {
+<<<<<<< HEAD
   const response = await axios.post<CreatedAuctionResponse>(`${API_URL}/private-scoped`, auction, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   });
+=======
+  const response = await axios.post<CreatedAuctionResponse>(
+    `${API_URL}/private-scoped`,
+    auction,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+>>>>>>> singewarePics
   return response.data;
 };
 

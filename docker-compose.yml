@@ -19,8 +19,11 @@ services:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
+<<<<<<< HEAD
       args:
         VITE_API_URL: ${VITE_API_URL}
+=======
+>>>>>>> singewarePics
     environment:
       - VITE_API_URL=${VITE_API_URL}
     ports:

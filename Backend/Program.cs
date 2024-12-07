@@ -33,7 +33,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigins",
         builder =>
         {
+<<<<<<< HEAD
             builder.WithOrigins("http://51.120.6.166", "http://localhost")
+=======
+            builder.WithOrigins("https://jakobagergaard.me", "http://localhost")
+>>>>>>> singewarePics
                     .AllowAnyMethod()
                     .AllowAnyHeader();
         });
