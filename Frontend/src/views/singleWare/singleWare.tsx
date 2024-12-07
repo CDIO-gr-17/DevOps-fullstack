@@ -111,7 +111,7 @@ function SingleWare() {
           </div>
           <h1 className="text-2xl font-bold mb-2">{item.itemName}</h1>
           <p className="text-gray-500 mb-2">
-            Water color painting in wood frame
+          {item.description}
           </p>
 
           <div className="flex justify-between mb-2">
