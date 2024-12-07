@@ -17,6 +17,7 @@ import { VscVerified } from "react-icons/vsc";
 import { useParams } from "react-router-dom";
 import { BiddingDrawer } from "./Biddingdrawer";
 import { Bid, getBids } from "@/services/bidService";
+import { getProductImage } from "@/services/imageService";
 
 function SingleWare() {
   const { id } = useParams<{ id: string }>();
@@ -25,6 +26,7 @@ function SingleWare() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [bids, setBids] = useState<Bid[]>([]);
+  const [pictures, setPictures] = useState<string>("");
 
   useEffect(() => {
     console.log("useEffect called with id:", id); // Log statement to verify useEffect call
@@ -52,7 +54,19 @@ function SingleWare() {
       }
     };
 
+    const fetchPictures = async () => {
+      console.log("fetching pictures"); // Log statement to verify function call
+      try {
+        const picturesData = await getProductImage(Number(id));
+        setPictures(picturesData);
+      } catch (err) {
+        console.error("Failed to fetch pictures", err); // Log any errors
+        setPictures(""); // Set pictures to an empty array if there is an error
+      }
+    };
+
     fetchItem();
+    fetchPictures();
     fetchBids();
   }, [id]);
 
@@ -73,9 +87,12 @@ function SingleWare() {
       <div className="w-4/5 flex justify-between">
         <div className="flex flex-col w-2/5 justify-start max-w-1/2">
           <div className="relative">
-            <div className="max-w-lg">
-
-            </div>
+            <div className="max-w-lg"></div>
+            <img
+              src={pictures ? pictures : "../../assets/profile_picture.png"}
+              alt="item"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 
