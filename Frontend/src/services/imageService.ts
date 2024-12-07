@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CreatedAuctionResponse } from "./auctionService";
 
-const API_URL = "http://jakobagergaard.me/api/image"
+const API_URL = "https://jakobagergaard.me/api/image"
 
 export const uploadImage = async (
   file: File,
